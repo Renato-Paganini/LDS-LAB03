@@ -53,5 +53,6 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 
 
 ## Diagrama de Implantação
+![alt text](/docs/lab03.drawio.png"Diagrama de Implantação")
 
 
