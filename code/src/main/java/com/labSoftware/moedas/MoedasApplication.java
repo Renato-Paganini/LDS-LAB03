@@ -1,13 +1,13 @@
-package com.lds.lds;
+package com.labSoftware.moedas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LdsApplication {
+public class MoedasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LdsApplication.class, args);
+		SpringApplication.run(MoedasApplication.class, args);
 	}
 
 }
