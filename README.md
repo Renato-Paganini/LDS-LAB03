@@ -42,6 +42,53 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 
 ##  Histórias do Usuário
 
+**Para Alunos:**
+
+1. **Cadastro no Sistema:**
+   - *Eu, como aluno,* gostaria de me cadastrar no sistema de mérito, fornecendo informações pessoais como nome, email, CPF, RG, Endereço, Instituição de Ensino e curso, para participar do programa de mérito.
+
+2. **Autenticação no Sistema:**
+   - *Eu, como aluno,* gostaria de me autenticar no sistema usando meu e-mail e senha, para acessar os recursos e funcionalidades do programa de mérito.
+
+3. **Recebimento de Notificações por E-mail:**
+   - *Eu, como aluno,* gostaria de receber notificações por e-mail sempre que receber moedas no sistema de mérito, para ficar informado sobre minhas transações.
+
+4. **Consulta de Extrato da Conta:**
+   - *Eu, como aluno,* gostaria de consultar o extrato da minha conta, incluindo o total de moedas que possuo e as transações que realizei, para acompanhar meu progresso no programa de mérito.
+
+5. **Troca de Moedas por Vantagens:**
+   - *Eu, como aluno,* gostaria de poder trocar minhas moedas por vantagens no sistema, para aproveitar os benefícios oferecidos pelo programa de mérito.
+
+**Para Instituições de Ensino:**
+
+1. **Cadastro no Sistema:**
+   - *Eu, como instituição de ensino,* gostaria de me cadastrar no sistema de mérito, fornecendo informações sobre a instituição, para participar do programa de mérito.
+
+2. **Cadastro de Professores:**
+   - *Eu, como instituição de ensino,* gostaria de cadastrar meus professores no sistema de mérito, para que eles possam distribuir moedas aos alunos.
+
+**Para Professores:**
+
+1. **Recebimento de Moedas por Semestre:**
+   - *Eu, como professor,* gostaria de receber moedas por semestre, para distribuir aos meus alunos como parte do programa de mérito.
+
+2. **Autenticação no Sistema:**
+   - *Eu, como professor,* gostaria de me autenticar no sistema usando minhas credenciais, para ter acesso às funcionalidades relacionadas ao programa de mérito.
+
+3. **Transferência de Saldo para Alunos:**
+   - *Eu, como professor,* gostaria de poder transferir saldo de moedas para meus alunos, incluindo uma justificativa através de mensagens abertas, como reconhecimento por seu desempenho.
+
+**Para Empresas Parceiras:**
+
+1. **Autenticação no Sistema:**
+   - *Eu, como empresa parceira,* gostaria de me autenticar no sistema usando minhas credenciais, para acessar os recursos e funcionalidades do programa de mérito.
+
+2. **Cadastro no Sistema:**
+   - *Eu, como empresa parceira,* gostaria de me cadastrar no sistema de mérito, fornecendo detalhes sobre a empresa, para participar do programa de mérito.
+
+3. **Cadastro de Vantagens:**
+   - *Eu, como empresa parceira,* gostaria de cadastrar vantagens no sistema, para que os alunos possam trocar suas moedas por produtos ou serviços oferecidos pela empresa.
+
 
 ## Diagrama de Casos de Uso
 
