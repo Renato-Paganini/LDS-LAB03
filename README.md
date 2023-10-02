@@ -94,12 +94,9 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 ![Diagrama de caso de uso](./Projeto/lab3-Caso%20de%20uso.jpg)
 
 ## Diagrama de Classes
+![Diagrama de classe](./Projeto/Diagrama classe.pdf)
 
-
-## Diagrama de Componentes
-
-
-## Diagrama de Implantação
-![Diagrama de Implantação](./Projeto/lab03.drawio.png)
+## Diagrama de Componentes e Implantação
+![Diagrama de Componente e Implantação](./Projeto/lab03.drawio.png)
 
 
