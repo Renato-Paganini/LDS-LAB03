@@ -23,7 +23,7 @@ A cada semestre, os professores recebe um total de mil moedas, que podem ser dis
 
 Para enviar moedas, o professor deve possuir saldo suficiente, indicando qual aluno deverá receber o montante, bem como o motivo pelo qual ele está sendo reconhecido (uma mensagem aberta, obrigatória).
 
-Ao receber uma moeda, o aluno deve ser notificado por email. 
+Ao receber uma moeda, o aluno deve ser notificado por email.
 
 Professores e alunos devem ser capazes de consultar o extrato de sua conta, visualizando o total de moedas que ainda possui, bem como as transações que realizou (para o professor, o envio de moedas; para o aluno, recebimento ou troca de moedas).
 
@@ -94,9 +94,7 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 ![Diagrama de caso de uso](./Projeto/lab3-Caso%20de%20uso.jpg)
 
 ## Diagrama de Classes
-![Diagrama de classe](./Projeto/Diagrama classe.pdf)
+![Diagrama de classe](./Projeto/dg-classe/Diagrama%20classe.drawio.png)
 
 ## Diagrama de Componentes e Implantação
 ![Diagrama de Componente e Implantação](./Projeto/lab03.drawio.png)
-
-
