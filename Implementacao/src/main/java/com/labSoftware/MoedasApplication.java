@@ -1,4 +1,4 @@
-package com.labSoftware.moedas;
+package com.labSoftware;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
