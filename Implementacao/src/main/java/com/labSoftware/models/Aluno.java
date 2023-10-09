@@ -2,6 +2,8 @@ package com.labSoftware.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +19,19 @@ import lombok.ToString;
 @ToString
 public class Aluno {
 
+    public interface CreateAluno {
+
+    }
+
+    public interface UpdateAluno {
+
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_aluno", unique = true)
+    private Long id;
+
     @Column(name = "CPF")
     private String cpf;
 
