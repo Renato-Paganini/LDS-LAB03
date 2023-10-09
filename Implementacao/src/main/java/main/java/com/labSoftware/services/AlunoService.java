@@ -2,8 +2,13 @@ package main.java.com.labSoftware.services;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.labSoftware.models.Aluno;
 import com.labSoftware.repositories.AlunoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class AlunoService {
@@ -33,10 +38,11 @@ public class AlunoService {
         aluno.setEndereco(obj.getEndereco());
         aluno.setInstituicao(obj.getInstituicao());
         aluno.setRg(obj.getRg());
+        return this.alunoRepository.salvar(aluno);
     }
 
     public void deleteAluno(String cpf) {
-        Aluno aluno = findbyIdAluno(obj.getCpf());
+        Aluno aluno = findbyIdAluno(cpf);
         try {
             this.alunoRepository.deletarAlunoPeloCpf(aluno.getCpf());
         } catch (Exception e) {

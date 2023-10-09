@@ -17,6 +17,14 @@ import lombok.ToString;
 @ToString
 public class Aluno {
 
+    public interface CreateAluno {
+
+    }
+
+    public interface UpdateAluno {
+
+    }
+
     @Id
     @Column(name = "CPF")
     private String cpf;

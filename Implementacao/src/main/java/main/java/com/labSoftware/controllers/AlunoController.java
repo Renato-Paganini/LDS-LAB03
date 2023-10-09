@@ -2,8 +2,24 @@ package main.java.com.labSoftware.controllers;
 
 import java.net.URI;
 
-import com.labSoftware.models.Aluno;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.labSoftware.models.Aluno;
+import com.labSoftware.models.Aluno.CreateAluno;
+import com.labSoftware.models.Aluno.UpdateAluno;
+
+import jakarta.validation.Valid;
 import main.java.com.labSoftware.services.AlunoService;
 
 @RestController
