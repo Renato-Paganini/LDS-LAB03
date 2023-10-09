@@ -1,4 +1,4 @@
-package main.java.com.labSoftware.controllers;
+package com.labSoftware.controllers;
 
 import java.net.URI;
 
@@ -18,9 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.labSoftware.models.Aluno;
 import com.labSoftware.models.Aluno.CreateAluno;
 import com.labSoftware.models.Aluno.UpdateAluno;
+import com.labSoftware.services.AlunoService;
 
 import jakarta.validation.Valid;
-import main.java.com.labSoftware.services.AlunoService;
 
 @RestController
 @RequestMapping("/aluno")

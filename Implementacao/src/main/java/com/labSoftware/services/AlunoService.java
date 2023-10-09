@@ -1,4 +1,4 @@
-package main.java.com.labSoftware.services;
+package com.labSoftware.services;
 
 import java.util.Optional;
 
