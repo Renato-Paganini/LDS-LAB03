@@ -41,8 +41,8 @@ public class AlunoService {
         return this.alunoRepository.salvar(aluno);
     }
 
-    public void deleteAluno(String cpf) {
-        Aluno aluno = findbyIdAluno(cpf);
+    public void deleteAluno(Long id) {
+        Aluno aluno = findbyIdAluno(id);
         try {
             this.alunoRepository.deletarAlunoPeloId(aluno);
         } catch (Exception e) {
