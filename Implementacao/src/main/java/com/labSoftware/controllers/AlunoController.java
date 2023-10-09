@@ -29,9 +29,9 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<Aluno> findbyIdAluno(@PathVariable String cpf) {
-        Aluno obj = this.alunoService.findbyIdAluno(cpf);
+    @GetMapping("/{id}")
+    public ResponseEntity<Aluno> findbyIdAluno(@PathVariable Long id) {
+        Aluno obj = this.alunoService.findbyIdAluno(id);
         return ResponseEntity.ok().body(obj);
     }
 
@@ -47,10 +47,10 @@ public class AlunoController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/{cpf}")
+    @PutMapping("/{id}")
     @Validated(UpdateAluno.class)
-    public ResponseEntity<Void> updateAluno(@Valid @RequestBody Aluno obj, @PathVariable String cpf) {
-        obj.setCpf(cpf);
+    public ResponseEntity<Void> updateAluno(@Valid @RequestBody Aluno obj, @PathVariable Long id) {
+        obj.setId(id);
         this.alunoService.updateAluno(obj);
         return ResponseEntity.noContent().build();
     }

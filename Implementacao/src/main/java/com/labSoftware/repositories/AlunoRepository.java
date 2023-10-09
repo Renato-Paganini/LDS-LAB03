@@ -1,10 +1,12 @@
 package com.labSoftware.repositories;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import com.labSoftware.models.Aluno;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.labSoftware.models.Aluno;
 
 @Repository
 public class AlunoRepository {
@@ -23,11 +25,11 @@ public class AlunoRepository {
         return alunoJpaRepository.findAll();
     }
 
-    public void deletarAlunoPeloCpf(String cpf) {
-        alunoJpaRepository.deleteById(cpf);
+    public void deletarAlunoPeloId(Aluno aluno) {
+        alunoJpaRepository.delete(aluno);
     }
 
-    public Optional<Aluno> buscarAlunoPeloCpf(String cpf) {
-        return alunoJpaRepository.findById(cpf);
+    public Optional<Aluno> buscarAlunoPeloCpf(Long id) {
+        return alunoJpaRepository.findById(id);
     }
 }

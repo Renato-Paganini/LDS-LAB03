@@ -16,23 +16,23 @@ public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepository;
 
-    public Aluno findbyIdAluno(String cpf) {
-        Optional<Aluno> aluno = this.alunoRepository.buscarAlunoPeloCpf(cpf);
+    public Aluno findbyIdAluno(Long id) {
+        Optional<Aluno> aluno = this.alunoRepository.buscarAlunoPeloCpf(id);
 
         return aluno.orElseThrow(
-                () -> new RuntimeException("Aluno não encontrado" + cpf + "Tipo: " + Aluno.class.getName()));
+                () -> new RuntimeException("Aluno não encontrado" + id + "Tipo: " + Aluno.class.getName()));
     }
 
     @Transactional
     public Aluno createAluno(Aluno obj) {
-        obj.setCpf(null);
+        obj.setId(null);
         obj = this.alunoRepository.salvar(obj);
         return obj;
     }
 
     @Transactional
     public Aluno updateAluno(Aluno obj) {
-        Aluno aluno = findbyIdAluno(obj.getCpf());
+        Aluno aluno = findbyIdAluno(obj.getId());
         aluno.setCpf(obj.getCpf());
         aluno.setCurso(obj.getCurso());
         aluno.setEndereco(obj.getEndereco());
@@ -44,7 +44,7 @@ public class AlunoService {
     public void deleteAluno(String cpf) {
         Aluno aluno = findbyIdAluno(cpf);
         try {
-            this.alunoRepository.deletarAlunoPeloCpf(aluno.getCpf());
+            this.alunoRepository.deletarAlunoPeloId(aluno);
         } catch (Exception e) {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!");
         }
