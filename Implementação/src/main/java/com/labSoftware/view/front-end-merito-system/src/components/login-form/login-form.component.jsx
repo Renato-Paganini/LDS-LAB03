@@ -52,9 +52,9 @@ const LoginForm = () => {
   // }, [form]);
 
   const linkStyle = {
-    color: "#7d5113"
+    color: "#7d5113",
   };
-
+S
   return (
     <Box>
       <Grid container component="main" sx={{ height: "100vh" }}>
