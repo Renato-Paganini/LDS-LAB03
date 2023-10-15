@@ -29,7 +29,11 @@ public class AlunoRepository {
         alunoJpaRepository.delete(aluno);
     }
 
-    public Optional<Aluno> buscarAlunoPeloCpf(Long id) {
+    public Aluno buscarAlunoPeloCpf(String cpf) {
+        return alunoJpaRepository.findByCpf(cpf);
+    }
+
+    public Optional<Aluno> buscarPeloId(Long id) {
         return alunoJpaRepository.findById(id);
     }
 }
