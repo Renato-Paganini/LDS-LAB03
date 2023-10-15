@@ -27,7 +27,7 @@ public class Vantagem {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cnjp_empresa")
+    @JoinColumn(name = "cnpj_empresa")
     private Empresa empresa;
 
     @Column

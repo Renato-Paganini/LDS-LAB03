@@ -36,7 +36,7 @@ public class Empresa {
     @Column(name = "id_empresa", unique = true)
     private Long id;
 
-    @Column(name = "CNPJ")
+    @Column(name = "cnpj_empresa")
     private String cnpj;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
