@@ -36,9 +36,9 @@ public class AlunoController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<Aluno> login(@RequestBody String cpf) {
-        Aluno obj = this.alunoService.login(cpf);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Aluno> login(@RequestBody Aluno obj) {
+        Aluno alunoAutenticado = this.alunoService.login(obj.getCpf());
+        return ResponseEntity.ok().body(alunoAutenticado);
     }
 
     @PostMapping

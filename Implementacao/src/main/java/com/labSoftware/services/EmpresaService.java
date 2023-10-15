@@ -25,6 +25,11 @@ public class EmpresaService {
                 () -> new RuntimeException("Empresa não encontrado" + id + "Tipo: " + Empresa.class.getName()));
     }
 
+    public Empresa findbyCnpjEmpresa(String cnpj) {
+        Empresa empresa = this.empresaRepository.findByCNPJ(cnpj);
+        return empresa;
+    }
+
     @Transactional
     public Empresa createEmpresa(Empresa obj) {
         obj.setId(null);

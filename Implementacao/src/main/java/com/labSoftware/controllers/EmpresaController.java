@@ -38,6 +38,15 @@ public class EmpresaController {
         }
     }
 
+    @GetMapping("/auth")
+    public ResponseEntity<Empresa> findbyCnpj(@RequestBody String cnpj) {
+        try {
+            return new ResponseEntity<Empresa>(this.empresaService.findbyCnpjEmpresa(cnpj), HttpStatus.OK);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     @PostMapping("/create")
     @Validated(CreateEmpresa.class)
     public ResponseEntity<Empresa> createEmpresa(@Valid @RequestBody Empresa obj) {
