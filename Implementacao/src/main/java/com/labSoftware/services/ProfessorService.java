@@ -31,7 +31,7 @@ public class ProfessorService {
         newProfessor.setCpf(p.getCpf());
         newProfessor.setNome(p.getNome());
         newProfessor.setDepartamento(p.getDepartamento());
-
+        newProfessor.setEmpresa(p.getEmpresa());
         return this.professorRepository.save(newProfessor);
     }
 
