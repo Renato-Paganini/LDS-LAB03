@@ -8,5 +8,4 @@ public class MoedasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MoedasApplication.class, args);
 	}
-
 }
