@@ -45,6 +45,6 @@ public class Professor {
     private String departamento;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cnpj_empresa")
+    @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 }
