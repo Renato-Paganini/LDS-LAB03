@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.labSoftware.models.Empresa;
 import com.labSoftware.repositories.EmpresaRepository;
+import com.labSoftware.repositories.ProfessorRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -14,6 +15,9 @@ import jakarta.transaction.Transactional;
 public class EmpresaService {
     @Autowired
     EmpresaRepository empresaRepository;
+
+    @Autowired
+    ProfessorRepository professorRepository;
 
     public Empresa findbyIdEmpresa(Long id) {
         Optional<Empresa> empresa = this.empresaRepository.findById(id);
