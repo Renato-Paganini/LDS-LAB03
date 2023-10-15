@@ -17,7 +17,7 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     public Aluno findbyIdAluno(Long id) {
-        Optional<Aluno> aluno = this.alunoRepository.buscarAlunoPeloCpf(id);
+        Optional<Aluno> aluno = this.alunoRepository.buscarPeloId(id);
 
         return aluno.orElseThrow(
                 () -> new RuntimeException("Aluno não encontrado" + id + "Tipo: " + Aluno.class.getName()));
@@ -48,5 +48,21 @@ public class AlunoService {
         } catch (Exception e) {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!");
         }
+    }
+
+    public Aluno receberMoedas(Long id, Integer moedas) {
+        Aluno aluno = alunoRepository.buscarPeloId(id).get();
+        aluno.setSaldo(aluno.getSaldo() + moedas);
+        return alunoRepository.salvar(aluno);
+    }
+
+    public Integer verificarSaldo(Long id) {
+        return alunoRepository.buscarPeloId(id).get().getSaldo();
+    }
+
+    public Aluno trocarVantagem(Long id, Integer moedas) {
+        Aluno aluno = alunoRepository.buscarPeloId(id).get();
+        aluno.setSaldo(aluno.getSaldo() - moedas);
+        return alunoRepository.salvar(aluno);
     }
 }
