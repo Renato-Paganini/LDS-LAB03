@@ -38,6 +38,12 @@ public class EmpresaController {
         }
     }
 
+    @GetMapping("/auth")
+    public ResponseEntity<Empresa> login(@RequestBody Empresa obj) {
+        Empresa alunoAutenticado = this.empresaService.findbyCnpjEmpresa(obj.getCnpj());
+        return ResponseEntity.ok().body(alunoAutenticado);
+    }
+
     @PostMapping("/create")
     @Validated(CreateEmpresa.class)
     public ResponseEntity<Empresa> createEmpresa(@Valid @RequestBody Empresa obj) {

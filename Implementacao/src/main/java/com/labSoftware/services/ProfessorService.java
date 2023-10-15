@@ -20,6 +20,11 @@ public class ProfessorService {
                 () -> new RuntimeException("Empresa não encontrado" + id + "Tipo: " + Professor.class.getName()));
     }
 
+    public Professor login(String cpf) {
+        Professor p = this.professorRepository.findByCpf(cpf);
+        return p;
+    }
+
     public Professor insertProfessor(Professor p) {
         p.setId(null);
         p = this.professorRepository.save(p);

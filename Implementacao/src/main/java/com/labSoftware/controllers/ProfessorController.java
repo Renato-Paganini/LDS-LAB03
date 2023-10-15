@@ -39,6 +39,12 @@ public class ProfessorController {
         }
     }
 
+    @GetMapping("/auth")
+    public ResponseEntity<Professor> login(@RequestBody Professor obj) {
+        Professor alunoAutenticado = this.professorService.login(obj.getCpf());
+        return ResponseEntity.ok().body(alunoAutenticado);
+    }
+
     @PostMapping("/create")
     @Validated(CreateProfessor.class)
     public ResponseEntity<Professor> createProfessor(@Valid @RequestBody Professor obj) {
