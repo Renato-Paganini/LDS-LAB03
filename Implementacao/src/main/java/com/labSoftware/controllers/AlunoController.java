@@ -35,6 +35,12 @@ public class AlunoController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping("/auth")
+    public ResponseEntity<Aluno> login(@RequestBody String cpf) {
+        Aluno obj = this.alunoService.login(cpf);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @PostMapping
     @Validated(CreateAluno.class)
     public ResponseEntity<Void> createAluno(@Valid @RequestBody Aluno obj) {

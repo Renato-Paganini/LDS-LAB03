@@ -23,6 +23,11 @@ public class AlunoService {
                 () -> new RuntimeException("Aluno não encontrado" + id + "Tipo: " + Aluno.class.getName()));
     }
 
+    public Aluno login(String cpf) {
+        Aluno aluno = this.alunoRepository.buscarAlunoPeloCpf(cpf);
+        return aluno;
+    }
+
     @Transactional
     public Aluno createAluno(Aluno obj) {
         obj.setId(null);
