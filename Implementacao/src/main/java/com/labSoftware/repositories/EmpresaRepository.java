@@ -10,6 +10,6 @@ import com.labSoftware.models.Empresa;
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
-    @Query("SELECT a FROM Empresa a WHERE a.cnpj = :cnpj")
+    @Query("SELECT e FROM Empresa e WHERE e.cnpj = :cnpj")
     Empresa findByCNPJ(@Param("cnpj") String cnpj);
 }

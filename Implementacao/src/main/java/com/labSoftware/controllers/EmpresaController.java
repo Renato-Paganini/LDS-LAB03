@@ -39,12 +39,9 @@ public class EmpresaController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<Empresa> findbyCnpj(@RequestBody String cnpj) {
-        try {
-            return new ResponseEntity<Empresa>(this.empresaService.findbyCnpjEmpresa(cnpj), HttpStatus.OK);
-        } catch (Exception e) {
-            return null;
-        }
+    public ResponseEntity<Empresa> login(@RequestBody Empresa obj) {
+        Empresa alunoAutenticado = this.empresaService.findbyCnpjEmpresa(obj.getCnpj());
+        return ResponseEntity.ok().body(alunoAutenticado);
     }
 
     @PostMapping("/create")
