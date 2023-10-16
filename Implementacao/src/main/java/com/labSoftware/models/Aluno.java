@@ -50,6 +50,9 @@ public class Aluno {
     @Column(name = "CPF")
     private String cpf;
 
+    @Column(name = "senha")
+    private String senha;
+
     @Column(name = "RG")
     private long rg;
 

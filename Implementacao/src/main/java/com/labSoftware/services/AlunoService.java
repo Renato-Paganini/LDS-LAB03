@@ -23,9 +23,14 @@ public class AlunoService {
                 () -> new RuntimeException("Aluno não encontrado" + id + "Tipo: " + Aluno.class.getName()));
     }
 
-    public Aluno login(String cpf) {
-        Aluno aluno = this.alunoRepository.buscarAlunoPeloCpf(cpf);
-        return aluno;
+    public Aluno login(Aluno obj) throws Exception {
+        Aluno a = this.alunoRepository.buscarAlunoPeloCpf(obj.getCpf());
+        if (obj.getSenha().equals(a.getSenha())) {
+            Aluno aluno = this.alunoRepository.buscarAlunoPeloCpf(obj.getCpf());
+            return aluno;
+        } else {
+            throw new Exception("Senha invalida");
+        }
     }
 
     @Transactional
@@ -61,7 +66,7 @@ public class AlunoService {
         return alunoRepository.salvar(aluno);
     }
 
-    public Integer verificarSaldo(Long id) {
+    public Double verificarSaldo(Long id) {
         return alunoRepository.buscarPeloId(id).get().getSaldo();
     }
 
