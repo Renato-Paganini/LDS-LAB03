@@ -20,9 +20,14 @@ public class ProfessorService {
                 () -> new RuntimeException("Empresa não encontrado" + id + "Tipo: " + Professor.class.getName()));
     }
 
-    public Professor login(String cpf) {
-        Professor p = this.professorRepository.findByCpf(cpf);
-        return p;
+    public Professor login(Professor obj) throws Exception {
+        Professor a = this.professorRepository.findByCpf(obj.getCpf());
+        if (obj.getSenha().equals(a.getSenha())) {
+            Professor p = this.professorRepository.findByCpf(obj.getCpf());
+            return p;
+        } else {
+            throw new Exception("Senha invalida");
+        }
     }
 
     public Professor insertProfessor(Professor p) {
@@ -36,7 +41,7 @@ public class ProfessorService {
         newProfessor.setCpf(p.getCpf());
         newProfessor.setNome(p.getNome());
         newProfessor.setDepartamento(p.getDepartamento());
-        newProfessor.setEmpresa(p.getEmpresa());
+        newProfessor.setInstituicao(p.getInstituicao());
         return this.professorRepository.save(newProfessor);
     }
 

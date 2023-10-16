@@ -40,8 +40,8 @@ public class ProfessorController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<Professor> login(@RequestBody Professor obj) {
-        Professor alunoAutenticado = this.professorService.login(obj.getCpf());
+    public ResponseEntity<Professor> login(@RequestBody Professor obj) throws Exception {
+        Professor alunoAutenticado = this.professorService.login(obj);
         return ResponseEntity.ok().body(alunoAutenticado);
     }
 

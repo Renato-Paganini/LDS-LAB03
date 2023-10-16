@@ -44,6 +44,9 @@ public class Professor {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "senha")
+    private String senha;
+
     @Column(name = "departamento")
     private String departamento;
 
@@ -51,6 +54,6 @@ public class Professor {
     private Double creditos;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_empresa")
-    private Empresa empresa;
+    @JoinColumn(name = "id_instituicao")
+    private Instituicao instituicao;
 }
