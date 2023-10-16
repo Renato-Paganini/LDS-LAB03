@@ -39,6 +39,15 @@ public class Empresa {
     @Column(name = "cnpj_empresa")
     private String cnpj;
 
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "senha")
+    private String senha;
+
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private List<Vantagem> listaProdutos;
 

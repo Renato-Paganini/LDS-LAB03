@@ -39,8 +39,8 @@ public class EmpresaController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<Empresa> login(@RequestBody Empresa obj) {
-        Empresa alunoAutenticado = this.empresaService.findbyCnpjEmpresa(obj.getCnpj());
+    public ResponseEntity<Empresa> login(@RequestBody Empresa obj) throws Exception {
+        Empresa alunoAutenticado = this.empresaService.login(obj);
         return ResponseEntity.ok().body(alunoAutenticado);
     }
 

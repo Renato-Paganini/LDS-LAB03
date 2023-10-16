@@ -30,6 +30,16 @@ public class EmpresaService {
         return empresa;
     }
 
+    public Empresa login(Empresa obj) throws Exception {
+        Empresa a = this.empresaRepository.findByCNPJ(obj.getCnpj());
+        if (obj.getSenha().equals(a.getSenha())) {
+            Empresa empresa = this.empresaRepository.findByCNPJ(obj.getCnpj());
+            return empresa;
+        } else {
+            throw new Exception("Senha invalida");
+        }
+    }
+
     @Transactional
     public Empresa createEmpresa(Empresa obj) {
         obj.setId(null);
@@ -41,6 +51,9 @@ public class EmpresaService {
     public Empresa updateEmpresa(Empresa obj) {
         Empresa e = findbyIdEmpresa(obj.getId());
         e.setCnpj(obj.getCnpj());
+        e.setEmail(obj.getEmail());
+        e.setNome(obj.getNome());
+        e.setSenha(obj.getSenha());
         e.setListaProdutos(obj.getListaProdutos());
         return this.empresaRepository.save(e);
     }
