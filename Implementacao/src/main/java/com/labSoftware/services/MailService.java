@@ -1,40 +1,41 @@
-package com.labSoftware.services;
+// package com.labSoftware.services;
 
-import com.labSoftware.config.Initialize;
-import jakarta.mail.Message;
-import jakarta.mail.Multipart;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeBodyPart;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
-import org.springframework.stereotype.Service;
+// import org.springframework.boot.rsocket.server.RSocketServer.Transport;
+// import org.springframework.stereotype.Service;
 
-@Service
-public class MailService {
+// import com.labSoftware.config.Initialize;
 
-    public void sendMessage(String destinatario, String mensagem){
+// import jakarta.mail.Multipart;
+// import jakarta.mail.internet.InternetAddress;
+// import jakarta.mail.internet.MimeBodyPart;
+// import jakarta.mail.internet.MimeMessage;
+// import jakarta.mail.internet.MimeMultipart;
 
-        try{
+// @Service
+// public class MailService {
 
-            Message message = new MimeMessage(Initialize.retornaSession());
-            message.setFrom(new InternetAddress("email"));
-            message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse(destinatario));
-            message.setSubject("Cupom");
+// public void sendMessage(String destinatario, String mensagem) {
 
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(mensagem, "text/html; charset=utf-8");
+// try {
 
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
+// Message message = new MimeMessage(Initialize.retornaSession());
+// message.setFrom(new InternetAddress("email"));
+// message.setRecipients(
+// Message.RecipientType.TO, InternetAddress.parse(destinatario));
+// message.setSubject("Cupom");
 
-            message.setContent(multipart);
+// MimeBodyPart mimeBodyPart = new MimeBodyPart();
+// mimeBodyPart.setContent(mensagem, "text/html; charset=utf-8");
 
-            Transport.send(message);
+// Multipart multipart = new MimeMultipart();
+// multipart.addBodyPart(mimeBodyPart);
 
-        }catch (Exception e){
-            System.out.println("ERRO AO ENVIAR EMAIL: " + e.getMessage());
-        }
-    }
-}
+// message.setContent(multipart);
+
+// Transport.send(message);
+
+// } catch (Exception e) {
+// System.out.println("ERRO AO ENVIAR EMAIL: " + e.getMessage());
+// }
+// }
+// }
