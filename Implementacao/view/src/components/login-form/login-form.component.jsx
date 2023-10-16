@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
@@ -15,7 +16,10 @@ import axios from "axios";
 const initialForm = {
   login: "",
   password: "",
+  type: "",
 };
+
+const loginTypes = ["Professor", "Aluno", "Empresa"];
 
 const LoginForm = () => {
   const [form, setForm] = useState(initialForm);
@@ -121,6 +125,23 @@ const LoginForm = () => {
                 autoComplete="current-password"
                 onChange={handleChangeForm}
               />
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="type"
+                label="Tipo de login"
+                select
+                defaultValue=""
+                helperText="Por favor, selecione seu tipo de login"
+              >
+                {loginTypes.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
 
               <Button
                 type="submit"

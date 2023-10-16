@@ -10,3 +10,17 @@ body, html, #root {
     box-sizing: border-box;
   }
   
+  .fadeInAnimation {
+    animation: fadeIn 1s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards; /* Mantém o estado final da animação */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
