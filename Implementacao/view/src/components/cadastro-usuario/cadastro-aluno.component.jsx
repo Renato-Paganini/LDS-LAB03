@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
+import axios from "axios";
 
 const initForm = {
   nome: "",
@@ -21,9 +22,8 @@ const CadastroAlunoComponent = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode enviar os dados do formulário para o backend ou fazer qualquer outra lógica de envio.
     console.log(formData);
   };
 
