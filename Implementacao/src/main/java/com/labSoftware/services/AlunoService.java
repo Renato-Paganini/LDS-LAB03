@@ -48,6 +48,9 @@ public class AlunoService {
         aluno.setEndereco(obj.getEndereco());
         aluno.setInstituicao(obj.getInstituicao());
         aluno.setRg(obj.getRg());
+        aluno.setSenha(obj.getSenha());
+        aluno.setEmail(obj.getEmail());
+        aluno.setNome(obj.getNome());
         return this.alunoRepository.salvar(aluno);
     }
 
