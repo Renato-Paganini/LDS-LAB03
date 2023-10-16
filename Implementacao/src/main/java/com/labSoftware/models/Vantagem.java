@@ -26,6 +26,7 @@ public class Vantagem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cnpj_empresa")
     private Empresa empresa;
@@ -37,6 +38,25 @@ public class Vantagem {
     private String descricao;
 
     @Column
-    private int custo;
+    private Double valor;
+
+    @Column
+    private String nome;
+
+    public Vantagem(Long id, String descricao, String foto, Double valor) {
+        this.id = id;
+        this.descricao = descricao;
+        this.foto = foto;
+        this.valor = valor;
+    }
+
+    public Vantagem(String descricao, Double valor, String foto, String nome, Empresa empresa) {
+        this.descricao = descricao;
+        this.valor = valor;
+        this.empresa = empresa;
+        this.foto = foto;
+        this.nome = nome;
+    }
+
 
 }

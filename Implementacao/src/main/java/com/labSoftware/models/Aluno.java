@@ -60,7 +60,7 @@ public class Aluno {
     private String curso;
 
     @Column
-    private int saldo;
+    private Double saldo;
 
     // Precisa adicionar uma instituição proxima sprint
     @Column
