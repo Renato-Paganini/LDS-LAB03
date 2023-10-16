@@ -153,12 +153,12 @@ const LoginForm = () => {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to={"recover"} style={linkStyle}>
+                  <Link to={"/recover"} style={linkStyle}>
                     Redefinir senha
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link to={"register"} style={linkStyle}>
+                  <Link to={"/register"} style={linkStyle}>
                     Não tem uma conta? Registrar!
                   </Link>
                 </Grid>
