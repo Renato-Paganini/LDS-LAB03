@@ -41,8 +41,8 @@ public class ProfessorController {
 
     @GetMapping("/auth")
     public ResponseEntity<Professor> login(@RequestBody Professor obj) throws Exception {
-        Professor alunoAutenticado = this.professorService.login(obj);
-        return ResponseEntity.ok().body(alunoAutenticado);
+        Professor professorAutenticado = this.professorService.login(obj);
+        return ResponseEntity.ok().body(professorAutenticado);
     }
 
     @PostMapping("/create")
