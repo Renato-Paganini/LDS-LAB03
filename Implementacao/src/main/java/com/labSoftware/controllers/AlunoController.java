@@ -57,7 +57,6 @@ public class AlunoController {
         // .buildAndExpand(obj.getCpf())
         // .toUri();
         // return ResponseEntity.created(uri).build();
-
         try {
             return new ResponseEntity<Object>(this.alunoService.createAluno(obj), HttpStatus.CREATED);
         } catch (Exception e) {

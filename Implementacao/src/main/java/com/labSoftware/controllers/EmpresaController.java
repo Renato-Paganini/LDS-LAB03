@@ -1,6 +1,5 @@
 package com.labSoftware.controllers;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.labSoftware.models.Empresa;
 import com.labSoftware.models.Empresa.CreateEmpresa;
@@ -53,14 +51,12 @@ public class EmpresaController {
 
     @PostMapping("/create")
     @Validated(CreateEmpresa.class)
-    public ResponseEntity<Empresa> createEmpresa(@Valid @RequestBody Empresa obj) {
-        this.empresaService.createEmpresa(obj);
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(obj.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<Object> createEmpresa(@Valid @RequestBody Empresa obj) {
+        try {
+            return new ResponseEntity<Object>(this.empresaService.createEmpresa(obj), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/update/{id}")
