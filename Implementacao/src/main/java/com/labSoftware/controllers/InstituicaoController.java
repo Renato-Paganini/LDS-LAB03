@@ -1,6 +1,7 @@
 package com.labSoftware.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,12 @@ public class InstituicaoController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Instituicao>> findAllInstituicao() {
+        List<Instituicao> obj = this.instituicaoService.getAll();
+        return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping("/create")

@@ -1,5 +1,6 @@
 package com.labSoftware.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class InstituicaoService {
         Optional<Instituicao> i = this.instituicaoRepository.findById(id);
         return i.orElseThrow(
                 () -> new RuntimeException("Empresa não encontrado" + id + "Tipo: " + Instituicao.class.getName()));
+    }
+
+    public List<Instituicao> getAll() {
+        List<Instituicao> lista = this.instituicaoRepository.findAll();
+        return lista;
     }
 
     @Transactional
