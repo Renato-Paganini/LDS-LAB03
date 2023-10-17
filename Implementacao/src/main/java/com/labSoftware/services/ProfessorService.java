@@ -40,8 +40,11 @@ public class ProfessorService {
         Professor newProfessor = findByIdProfessor(p.getId());
         newProfessor.setCpf(p.getCpf());
         newProfessor.setNome(p.getNome());
+        newProfessor.setEmail(p.getEmail());
+        newProfessor.setSenha(p.getSenha());
         newProfessor.setDepartamento(p.getDepartamento());
         newProfessor.setInstituicao(p.getInstituicao());
+        newProfessor.setSaldo(p.getSaldo());
         return this.professorRepository.save(newProfessor);
     }
 

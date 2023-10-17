@@ -42,13 +42,13 @@ public class Aluno {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "CPF")
+    @Column(name = "CPF", unique = true)
     private String cpf;
 
     @Column(name = "senha")
     private String senha;
 
-    @Column(name = "RG")
+    @Column(name = "RG", unique = true)
     private long rg;
 
     @Column

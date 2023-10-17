@@ -35,9 +35,6 @@ public class Professor {
     @Column(name = "id_professor", unique = true)
     private Long id;
 
-    @Column(name = "cpf")
-    private String cpf;
-
     @Column(name = "nome")
     private String nome;
 
@@ -47,11 +44,14 @@ public class Professor {
     @Column(name = "senha")
     private String senha;
 
+    @Column(name = "cpf", unique = true)
+    private String cpf;
+
     @Column(name = "departamento")
     private String departamento;
 
-    @Column(name = "creditos")
-    private Double creditos;
+    @Column(name = "saldo")
+    private Double saldo;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_instituicao")

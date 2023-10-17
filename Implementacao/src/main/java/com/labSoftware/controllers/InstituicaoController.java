@@ -16,38 +16,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.labSoftware.models.Empresa;
-import com.labSoftware.models.Empresa.CreateEmpresa;
-import com.labSoftware.models.Empresa.UpdateEmpresa;
-import com.labSoftware.services.EmpresaService;
+import com.labSoftware.models.Instituicao;
+import com.labSoftware.models.Instituicao.CreateInstituicao;
+import com.labSoftware.models.Instituicao.UpdateInstituicao;
+import com.labSoftware.services.InstituicaoService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/empresa")
-public class EmpresaController {
+@RequestMapping("/instituicao")
+public class InstituicaoController {
     @Autowired
-    EmpresaService empresaService;
+    InstituicaoService instituicaoService;
 
     @GetMapping("{id}")
-    public ResponseEntity<Empresa> findbyIdEmpresa(@PathVariable Long id) {
+    public ResponseEntity<Instituicao> findbyIdInstituicao(@PathVariable Long id) {
         try {
-            return new ResponseEntity<Empresa>(this.empresaService.findbyIdEmpresa(id), HttpStatus.OK);
+            return new ResponseEntity<Instituicao>(this.instituicaoService.findbyIdInstituicao(id), HttpStatus.OK);
         } catch (Exception e) {
             return null;
         }
     }
 
-    @GetMapping("/auth")
-    public ResponseEntity<Empresa> login(@RequestBody Empresa obj) throws Exception {
-        Empresa alunoAutenticado = this.empresaService.login(obj);
-        return ResponseEntity.ok().body(alunoAutenticado);
-    }
-
     @PostMapping("/create")
-    @Validated(CreateEmpresa.class)
-    public ResponseEntity<Empresa> createEmpresa(@Valid @RequestBody Empresa obj) {
-        this.empresaService.createEmpresa(obj);
+    @Validated(CreateInstituicao.class)
+    public ResponseEntity<Instituicao> createInstituicao(@Valid @RequestBody Instituicao obj) {
+        this.instituicaoService.createInstituicao(obj);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -57,17 +51,16 @@ public class EmpresaController {
     }
 
     @PutMapping("/update/{id}")
-    @Validated(UpdateEmpresa.class)
-    public ResponseEntity<Void> updateEmpresa(@Valid @RequestBody Empresa obj, @PathVariable Long id) {
+    @Validated(UpdateInstituicao.class)
+    public ResponseEntity<Void> updateInstituicao(@Valid @RequestBody Instituicao obj, @PathVariable Long id) {
         obj.setId(id);
-        this.empresaService.updateEmpresa(obj);
+        this.instituicaoService.updateInstituicao(obj);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmpresa(@PathVariable Long id) {
-        this.empresaService.deleteEmpresa(id);
+    public ResponseEntity<Void> deleteInstituicao(@PathVariable Long id) {
+        this.instituicaoService.deleteInstituicao(id);
         return ResponseEntity.noContent().build();
     }
-
 }

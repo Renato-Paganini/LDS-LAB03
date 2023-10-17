@@ -28,7 +28,7 @@ public class Instituicao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_empresa", unique = true)
+    @Column(name = "id_instituicao", unique = true)
     private Long id;
 
     @Column(name = "nome")

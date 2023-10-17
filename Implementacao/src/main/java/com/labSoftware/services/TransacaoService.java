@@ -40,7 +40,7 @@ public class TransacaoService {
             return new ResponseEntity<>("Professor ou Aluno não existem", HttpStatusCode.valueOf(400));
         }
 
-        double creditos = professor.getCreditos();
+        double creditos = professor.getSaldo();
         double creditos_transferidos = transacaoDTO.valor();
         double creditos_aluno = aluno.getSaldo();
 
@@ -48,7 +48,7 @@ public class TransacaoService {
             return new ResponseEntity<>("Professor não possui crédito suficiente", HttpStatusCode.valueOf(400));
         }
 
-        professor.setCreditos((creditos - creditos_transferidos));
+        professor.setSaldo((creditos - creditos_transferidos));
         aluno.setSaldo(creditos_aluno + creditos_transferidos);
 
         Transacao transacao = new Transacao(professor, aluno, creditos_transferidos, transacaoDTO.data());

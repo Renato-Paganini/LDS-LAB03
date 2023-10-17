@@ -54,7 +54,7 @@ public class EmpresaService {
         e.setEmail(obj.getEmail());
         e.setNome(obj.getNome());
         e.setSenha(obj.getSenha());
-        e.setListaProdutos(obj.getListaProdutos());
+        e.setListaVantagens(obj.getListaVantagens());
         return this.empresaRepository.save(e);
     }
 
