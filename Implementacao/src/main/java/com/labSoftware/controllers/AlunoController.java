@@ -1,6 +1,7 @@
 package com.labSoftware.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,12 @@ public class AlunoController {
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> findbyIdAluno(@PathVariable Long id) {
         Aluno obj = this.alunoService.findbyIdAluno(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Aluno>> findAllAluno() {
+        List<Aluno> obj = this.alunoService.getAll();
         return ResponseEntity.ok().body(obj);
     }
 

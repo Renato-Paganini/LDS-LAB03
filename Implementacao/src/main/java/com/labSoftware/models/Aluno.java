@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -60,8 +62,8 @@ public class Aluno {
     @Column
     private Double saldo;
 
-    // Precisa adicionar uma instituição proxima sprint
-    @Column
-    private String instituicao;
+    @ManyToOne
+    @JoinColumn(name = "id_instituicao")
+    private Instituicao instituicao;
 
 }
