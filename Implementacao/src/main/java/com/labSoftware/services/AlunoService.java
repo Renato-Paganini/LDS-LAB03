@@ -47,7 +47,6 @@ public class AlunoService {
     @Transactional
     public Aluno createAluno(Aluno obj) {
         obj.setId(null);
-        // Verifique se a instituição existe no banco de dados
         Instituicao instituicao = this.instituicaoRepository.findById(obj.getInstituicao().getId()).orElse(null);
         if (instituicao == null) {
             throw new RuntimeException("Instituição não encontrada");
@@ -60,7 +59,6 @@ public class AlunoService {
     public Aluno updateAluno(Aluno obj) {
         Aluno aluno = findbyIdAluno(obj.getId());
         if (obj.getInstituicao() != null) {
-            // Verifique se a instituição existe no banco de dados
             Instituicao instituicao = this.instituicaoRepository.findById(obj.getInstituicao().getId()).orElse(null);
             if (instituicao == null) {
                 throw new RuntimeException("Instituição não encontrada");
