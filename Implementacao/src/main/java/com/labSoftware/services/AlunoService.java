@@ -51,8 +51,8 @@ public class AlunoService {
         if (instituicao == null) {
             throw new RuntimeException("Instituição não encontrada");
         }
-        obj = this.alunoRepository.salvar(obj);
-        return obj;
+        obj.setInstituicao(instituicao);
+        return this.alunoRepository.salvar(obj);
     }
 
     @Transactional

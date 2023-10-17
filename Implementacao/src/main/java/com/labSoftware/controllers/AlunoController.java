@@ -1,9 +1,9 @@
 package com.labSoftware.controllers;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.labSoftware.models.Aluno;
 import com.labSoftware.models.Aluno.CreateAluno;
@@ -50,14 +49,21 @@ public class AlunoController {
 
     @PostMapping
     @Validated(CreateAluno.class)
-    public ResponseEntity<Void> createAluno(@Valid @RequestBody Aluno obj) {
-        this.alunoService.createAluno(obj);
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{cpf}")
-                .buildAndExpand(obj.getCpf())
-                .toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<Object> createAluno(@Valid @RequestBody Aluno obj) {
+        // this.alunoService.createAluno(obj);
+        // URI uri = ServletUriComponentsBuilder
+        // .fromCurrentRequest()
+        // .path("/{cpf}")
+        // .buildAndExpand(obj.getCpf())
+        // .toUri();
+        // return ResponseEntity.created(uri).build();
+
+        try {
+            return new ResponseEntity<Object>(this.alunoService.createAluno(obj), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PutMapping("/{id}")
