@@ -1,5 +1,6 @@
 package com.labSoftware.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class EmpresaService {
         Optional<Empresa> empresa = this.empresaRepository.findById(id);
         return empresa.orElseThrow(
                 () -> new RuntimeException("Empresa não encontrado" + id + "Tipo: " + Empresa.class.getName()));
+    }
+
+    public List<Empresa> getAll() {
+        List<Empresa> lista = this.empresaRepository.findAll();
+        return lista;
     }
 
     public Empresa findbyCnpjEmpresa(String cnpj) {
@@ -54,6 +60,7 @@ public class EmpresaService {
         e.setEmail(obj.getEmail());
         e.setNome(obj.getNome());
         e.setSenha(obj.getSenha());
+        e.setSaldo(obj.getSaldo());
         e.setListaVantagens(obj.getListaVantagens());
         return this.empresaRepository.save(e);
     }

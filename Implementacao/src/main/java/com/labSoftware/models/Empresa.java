@@ -48,6 +48,9 @@ public class Empresa {
     @Column(name = "senha")
     private String senha;
 
+    @Column(name = "saldo")
+    private String saldo;
+
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private List<Vantagem> listaVantagens;
 

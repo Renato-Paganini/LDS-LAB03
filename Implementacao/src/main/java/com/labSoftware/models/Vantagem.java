@@ -8,7 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,15 +22,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Table(name = "Vantagem")
+@EqualsAndHashCode(callSuper = false)
 public class Vantagem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cnpj_empresa")
+    @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 
     @Column
@@ -42,21 +45,4 @@ public class Vantagem {
 
     @Column
     private String nome;
-
-    public Vantagem(Long id, String descricao, String foto, Double valor) {
-        this.id = id;
-        this.descricao = descricao;
-        this.foto = foto;
-        this.valor = valor;
-    }
-
-    public Vantagem(String descricao, Double valor, String foto, String nome, Empresa empresa) {
-        this.descricao = descricao;
-        this.valor = valor;
-        this.empresa = empresa;
-        this.foto = foto;
-        this.nome = nome;
-    }
-
-
 }

@@ -1,6 +1,7 @@
 package com.labSoftware.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,12 @@ public class EmpresaController {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Empresa>> findAllEmpresa() {
+        List<Empresa> obj = this.empresaService.getAll();
+        return ResponseEntity.ok().body(obj);
     }
 
     @GetMapping("/auth")
