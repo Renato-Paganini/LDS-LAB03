@@ -41,6 +41,7 @@ public class ProfessorService {
         if (instituicao == null) {
             throw new RuntimeException("Instituição não encontrada");
         }
+        obj.setInstituicao(instituicao);
         obj = this.professorRepository.save(obj);
         return obj;
     }
