@@ -1,10 +1,14 @@
 package com.labSoftware.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -18,18 +22,30 @@ public class Transacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Professor professor;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Aluno aluno;
 
     private double valor;
 
-    private Date data;
+    private LocalDate data;
 
-    public Transacao(Professor professor, Aluno aluno, double valor, Date data) {
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Vantagem vantagem;
+
+    public Transacao(Professor professor, Aluno aluno, double valor, LocalDate data) {
         this.professor = professor;
+        this.aluno = aluno;
+        this.valor = valor;
+        this.data = data;
+    }
+    public Transacao(Aluno aluno, LocalDate data,Vantagem vantagem, double valor) {
+        this.vantagem = vantagem;
         this.aluno = aluno;
         this.valor = valor;
         this.data = data;

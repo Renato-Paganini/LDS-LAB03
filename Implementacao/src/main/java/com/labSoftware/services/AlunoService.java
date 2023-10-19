@@ -94,7 +94,7 @@ public class AlunoService {
         return alunoRepository.buscarPeloId(id).get().getSaldo();
     }
 
-    public Aluno trocarVantagem(Long id, Integer moedas) {
+    public Aluno trocarVantagem(Long id, Double moedas) {
         Aluno aluno = alunoRepository.buscarPeloId(id).get();
         aluno.setSaldo(aluno.getSaldo() - moedas);
         return alunoRepository.salvar(aluno);
