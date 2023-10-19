@@ -1,7 +1,6 @@
 package com.labSoftware.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import com.labSoftware.DTO.VantagemDTO;
 import com.labSoftware.models.Vantagem;
 import com.labSoftware.models.Vantagem.CreateVantagem;
 import com.labSoftware.models.Vantagem.UpdateVantagem;
+import com.labSoftware.services.EmpresaService;
 import com.labSoftware.services.VantagemService;
 
 import jakarta.validation.Valid;
@@ -31,31 +31,59 @@ public class VantagemController {
     @Autowired
     private VantagemService vantagemService;
 
-    @GetMapping("{id}")
-    public ResponseEntity<Object> findbyIdVantagem(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<Object>(this.vantagemService.findbyIdVantagem(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @Autowired
+    private EmpresaService empresaService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Vantagem> findbyIdVantagem(@PathVariable Long id) {
+        Vantagem vantagem = vantagemService.findbyIdVantagem(id);
+
+        if (vantagem == null) {
+            return ResponseEntity.notFound().build();
         }
+
+        // Converte a entidade Vantagem em um objeto VantagemDTO
+        VantagemDTO vantagemDTO = new VantagemDTO(
+                vantagem.getId(),
+                vantagem.getFoto(),
+                vantagem.getDescricao(),
+                vantagem.getValor(),
+                vantagem.getNome());
+
+        return ResponseEntity.ok(vantagem);
     }
 
     @PostMapping("/create")
     @Validated(CreateVantagem.class)
-    public ResponseEntity<Object> createVantagem(@Valid @RequestBody Vantagem obj) {
-        try {
-            return new ResponseEntity<Object>(this.vantagemService.createVantagem(obj), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<Vantagem> createVantagem(@Valid @RequestBody Vantagem obj) {
+        Vantagem vantagem = vantagemService.createVantagem(obj);
+
+        // Converte a entidade Vantagem em um objeto VantagemDTO
+        VantagemDTO vantagemDTO = new VantagemDTO(
+                vantagem.getId(),
+                vantagem.getFoto(),
+                vantagem.getDescricao(),
+                vantagem.getValor(),
+                vantagem.getNome());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(vantagem);
     }
 
     @PutMapping("/update/{id}")
     @Validated(UpdateVantagem.class)
-    public ResponseEntity<Void> updateVantagens(@Valid @RequestBody Vantagem obj, @PathVariable Long id) {
+    public ResponseEntity<Vantagem> updateVantagem(@Valid @RequestBody Vantagem obj, @PathVariable Long id) {
         obj.setId(id);
-        this.vantagemService.updateVantagem(obj);
-        return ResponseEntity.noContent().build();
+        Vantagem vantagem = vantagemService.updateVantagem(obj);
+
+        // Converte a entidade Vantagem atualizada em um objeto VantagemDTO
+        VantagemDTO vantagemDTO = new VantagemDTO(
+                vantagem.getId(),
+                vantagem.getFoto(),
+                vantagem.getDescricao(),
+                vantagem.getValor(),
+                vantagem.getNome());
+
+        return ResponseEntity.ok(vantagem);
     }
 
     @DeleteMapping("/{id}")
@@ -70,20 +98,20 @@ public class VantagemController {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping("/getByEmpresaId")
-    public ResponseEntity<List<VantagemDTO>> getVantagensByEmpresa(@PathVariable Long empresaId) {
-        List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(empresaId);
+    @GetMapping("/getByEmpresaId/{id}")
+    public ResponseEntity<List<Vantagem>> getVantagensByEmpresa(@PathVariable Long id) {
+        List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(id);
 
-        // Converte as entidades Vantagem em uma lista de objetos VantagemDTO
-        List<VantagemDTO> vantagemDTOs = vantagens.stream()
-                .map(vantagem -> new VantagemDTO(
-                        vantagem.getId(),
-                        vantagem.getFoto(),
-                        vantagem.getDescricao(),
-                        vantagem.getValor(),
-                        vantagem.getNome()))
-                .collect(Collectors.toList());
+        // // Converte as entidades Vantagem em uma lista de objetos VantagemDTO
+        // List<VantagemDTO> vantagemDTOs = vantagens.stream()
+        // .map(vantagem -> new VantagemDTO(
+        // vantagem.getId(),
+        // vantagem.getFoto(),
+        // vantagem.getDescricao(),
+        // vantagem.getValor(),
+        // vantagem.getNome()))
+        // .collect(Collectors.toList());
 
-        return ResponseEntity.ok(vantagemDTOs);
+        return ResponseEntity.ok(vantagens);
     }
 }

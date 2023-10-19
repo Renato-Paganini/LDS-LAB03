@@ -34,8 +34,6 @@ public class VantagemService {
     }
 
     public List<Vantagem> getAllByEmpresaId(Long empresaId) {
-        // Aqui, você pode usar o método personalizado do seu repositório
-        // para buscar todas as vantagens relacionadas à empresa com o ID fornecido.
         List<Vantagem> lista = vantagemRepository.findAllByEmpresaId(empresaId);
         return lista;
     }
