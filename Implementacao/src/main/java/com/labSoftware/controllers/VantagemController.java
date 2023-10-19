@@ -1,6 +1,7 @@
 package com.labSoftware.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labSoftware.DTO.VantagemDTO;
 import com.labSoftware.models.Vantagem;
 import com.labSoftware.models.Vantagem.CreateVantagem;
 import com.labSoftware.models.Vantagem.UpdateVantagem;
@@ -69,8 +71,19 @@ public class VantagemController {
     }
 
     @GetMapping("/getByEmpresaId")
-    public ResponseEntity<List<Vantagem>> findAllVantagensByIdEmpresa(@PathVariable Long id) {
-        List<Vantagem> obj = this.vantagemService.getAllByEmpresaId(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<List<VantagemDTO>> getVantagensByEmpresa(@PathVariable Long empresaId) {
+        List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(empresaId);
+
+        // Converte as entidades Vantagem em uma lista de objetos VantagemDTO
+        List<VantagemDTO> vantagemDTOs = vantagens.stream()
+                .map(vantagem -> new VantagemDTO(
+                        vantagem.getId(),
+                        vantagem.getFoto(),
+                        vantagem.getDescricao(),
+                        vantagem.getValor(),
+                        vantagem.getNome()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(vantagemDTOs);
     }
 }

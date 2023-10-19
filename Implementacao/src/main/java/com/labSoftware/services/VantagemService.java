@@ -43,8 +43,12 @@ public class VantagemService {
     @Transactional
     public Vantagem createVantagem(Vantagem obj) {
         obj.setId(null);
-        obj = this.vantagemRepository.save(obj);
-        return obj;
+        Empresa e = this.empresaRepository.findById(obj.getEmpresa().getId()).orElse(null);
+        if (e == null) {
+            throw new RuntimeException("Empresa não encontrada");
+        }
+        obj.setEmpresa(e);
+        return this.vantagemRepository.save(obj);
     }
 
     @Transactional
