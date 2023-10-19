@@ -15,25 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.labSoftware.services.TransacaoService;
 
 @RestController
-@RequestMapping("/transacao/")
+@RequestMapping("/transacao")
 public class TransacaoController {
 
     @Autowired
     private TransacaoService transacaoService;
 
-    @PostMapping("realizaTransacao/aluno")
-    public ResponseEntity<?> realizaTransacaoAluno(
-            @RequestBody Map<String, String> jsonMap) {
+    @PostMapping("/realizaTransacao/aluno")
+    public ResponseEntity<?> realizaTransacaoAluno(@RequestBody Map<String, String> jsonMap) {
         System.out.println(jsonMap);
         Long id_vantagem = Long.valueOf(jsonMap.get("id_vantagem").toString());
         Long id_aluno = Long.valueOf(jsonMap.get("id_aluno").toString());
         LocalDate data = LocalDate.parse(jsonMap.get("data").toString());
 
         return transacaoService.realizaTransacaoAluno(id_aluno, data, id_vantagem);
-
     }
 
-    @PostMapping("realizaTransacao/professorToAluno")
+    @PostMapping("/realizaTransacao/professorToAluno")
     public ResponseEntity<?> realizaTransacaoProfessorToAluno(
             @RequestBody Map<String, String> jsonMap) {
         System.out.println(jsonMap);
@@ -46,13 +44,13 @@ public class TransacaoController {
 
     }
 
-    @GetMapping("retornaTodasTransacoes")
+    @GetMapping("/retornaTodasTransacoes")
     public ResponseEntity<?> retornaTodasTransacoes() {
 
         return transacaoService.retornaTodasTransacoes();
     }
 
-    @GetMapping("retornaTodasTransacoes/aluno/{id}")
+    @GetMapping("/retornaTodasTransacoes/aluno/{id}")
     public ResponseEntity<?> retornaTodasTransacoesAluno(@PathVariable Long id) {
 
         return transacaoService.retornaTodasTransacoesAluno(id);
