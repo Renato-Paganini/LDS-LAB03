@@ -14,6 +14,4 @@ public class VantagemDTO {
         this.valor = valor;
         this.nome = nome;
     }
-
-    // Getters e setters
 }
