@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.labSoftware.services.TransacaoService;
 
 @RestController
-@RequestMapping("/transacao")
+@RequestMapping("/transacao/")
 public class TransacaoController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class TransacaoController {
 
     }
 
-    @GetMapping("/retornaTodasTransacoes")
+    @GetMapping("retornaTodasTransacoes")
     public ResponseEntity<?> retornaTodasTransacoes() {
 
         return transacaoService.retornaTodasTransacoes();

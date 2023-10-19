@@ -23,16 +23,16 @@ public class Resgate {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_professor")
     private Professor professor;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_vantagem")
     private Vantagem vantagem;
 
     @Temporal(TemporalType.TIMESTAMP) // Isso indica que o campo é uma data e hora
