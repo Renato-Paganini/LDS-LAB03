@@ -1,16 +1,15 @@
 package com.labSoftware.services;
 
-import com.labSoftware.dtos.VantagemDTO;
-import com.labSoftware.mapper.VantagemMapper;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
 import com.labSoftware.models.Empresa;
 import com.labSoftware.models.Vantagem;
 import com.labSoftware.repositories.EmpresaRepository;
 import com.labSoftware.repositories.IVantagemJpaRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 public class VantagemService {
@@ -24,34 +23,32 @@ public class VantagemService {
         this.empresaRepository = empresaRepository;
     }
 
-    public ResponseEntity<?> criarVantagem(VantagemDTO vantagemDTO){
+    public ResponseEntity<?> criarVantagem(Vantagem v) {
 
-        if(vantagemDTO == null){
+        if (v == null) {
 
             return ResponseEntity.badRequest().body("Vantagem está nula");
 
         }
 
-        Empresa empresa = empresaRepository.getReferenceById(vantagemDTO.idEmpresa());
+        Empresa empresa = empresaRepository.getReferenceById(v.getId());
 
-        if(empresa == null){
+        if (empresa == null) {
 
             return ResponseEntity.badRequest().body("Empresa não existe");
 
         }
 
-        Vantagem vantagem = VantagemMapper.vantagemMapper(vantagemDTO, empresa);
+        vantagemRepository.save(v);
 
-        vantagemRepository.save(vantagem);
-
-        return ResponseEntity.ok(vantagem);
+        return ResponseEntity.ok(v);
     }
 
-    public ResponseEntity<?> retornaVantagemPorEmpresa(Long id_empresa){
+    public ResponseEntity<?> retornaVantagemPorEmpresa(Long id_empresa) {
 
         Empresa empresa = empresaRepository.getReferenceById(id_empresa);
 
-        if(empresa == null){
+        if (empresa == null) {
             return ResponseEntity.badRequest().body("Empresa não existe");
         }
 
@@ -61,13 +58,12 @@ public class VantagemService {
 
     }
 
-    public ResponseEntity<?> retornaTodasVantagens(){
+    public ResponseEntity<?> retornaTodasVantagens() {
 
         List<Vantagem> vantagens = vantagemRepository.findAll();
 
         return ResponseEntity.ok().body(vantagens);
 
     }
-
 
 }

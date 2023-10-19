@@ -4,37 +4,36 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.labSoftware.models.Vantagem;
-import com.labSoftware.repositories.VantagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.labSoftware.dtos.TransacaoDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.labSoftware.models.Aluno;
 import com.labSoftware.models.Professor;
 import com.labSoftware.models.Transacao;
+import com.labSoftware.models.Vantagem;
 import com.labSoftware.repositories.IAlunoJpaRepository;
 import com.labSoftware.repositories.ProfessorRepository;
 import com.labSoftware.repositories.TransacaoRepository;
+import com.labSoftware.repositories.VantagemRepository;
 
 @Service
 @JsonIgnoreType
 public class TransacaoService {
 
     @Autowired
-    private  IAlunoJpaRepository alunoRepository;
+    private IAlunoJpaRepository alunoRepository;
     @Autowired
-    private  ProfessorRepository professorRepository;
+    private ProfessorRepository professorRepository;
     @Autowired
-    private  TransacaoRepository transacaoRepository;
+    private TransacaoRepository transacaoRepository;
     @Autowired
-    private  VantagemRepository vantagemRepository;
+    private VantagemRepository vantagemRepository;
 
-
-    public ResponseEntity<?> realizaTransacaoProftoAluno(Long id_professor, Long id_aluno, LocalDate data,Double valor) {
+    public ResponseEntity<?> realizaTransacaoProftoAluno(Long id_professor, Long id_aluno, LocalDate data,
+            Double valor) {
 
         Aluno aluno = alunoRepository.getReferenceById(id_aluno);
         Professor professor = professorRepository.getReferenceById(id_professor);
@@ -90,7 +89,7 @@ public class TransacaoService {
 
         aluno.setSaldo((creditos_aluno - creditosVantagem));
 
-        Transacao transacao = new Transacao(aluno,data,vantagem,-vantagem.getValor());
+        Transacao transacao = new Transacao(aluno, data, vantagem, -vantagem.getValor());
 
         transacaoRepository.save(transacao);
         alunoRepository.saveAndFlush(aluno);
@@ -117,7 +116,7 @@ public class TransacaoService {
 
     public ResponseEntity<?> retornaTodasTransacoesAluno(long id) {
         List<Transacao> transacaos = transacaoRepository.findAll();
-        List<Transacao> transacaosAluno = transacaos.stream().filter((a)->a.getAluno().getId() == id)
+        List<Transacao> transacaosAluno = transacaos.stream().filter((a) -> a.getAluno().getId() == id)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(transacaosAluno);

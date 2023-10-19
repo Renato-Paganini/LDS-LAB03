@@ -10,12 +10,9 @@ import com.labSoftware.models.Aluno;
 
 @Repository
 public class AlunoRepository {
-    private final IAlunoJpaRepository alunoJpaRepository;
 
     @Autowired
-    public AlunoRepository(IAlunoJpaRepository alunoJpaRepository) {
-        this.alunoJpaRepository = alunoJpaRepository;
-    }
+    private IAlunoJpaRepository alunoJpaRepository;
 
     public Aluno salvar(Aluno aluno) {
         return alunoJpaRepository.save(aluno);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.labSoftware.dtos.VantagemDTO;
+import com.labSoftware.models.Vantagem;
 import com.labSoftware.services.VantagemService;
 
 @RestController
@@ -22,7 +22,7 @@ public class VantagemController {
     }
 
     @PostMapping("criarVantagem")
-    public ResponseEntity<?> criarVantagem(@RequestBody VantagemDTO vantagem) {
+    public ResponseEntity<?> criarVantagem(@RequestBody Vantagem vantagem) {
         return VANTAGEM_SERVICE.criarVantagem(vantagem);
     }
 

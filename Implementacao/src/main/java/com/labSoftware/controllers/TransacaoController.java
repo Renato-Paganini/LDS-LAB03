@@ -1,61 +1,61 @@
 package com.labSoftware.controllers;
 
-import com.labSoftware.dtos.TransacaoDTO;
-import com.labSoftware.services.TransacaoService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.labSoftware.services.TransacaoService;
+
 @RestController
-@RequestMapping("api/v1/transacao/")
+@RequestMapping("/transacao")
 public class TransacaoController {
 
-    private final TransacaoService transacaoService;
-
-    public TransacaoController(TransacaoService transacaoService) {
-        this.transacaoService = transacaoService;
-    }
+    @Autowired
+    private TransacaoService transacaoService;
 
     @PostMapping("realizaTransacao/aluno")
-    public ResponseEntity<?> realizaTransacaoAlno(
-            @RequestBody Map<String,String> jsonMap
-    ){
+    public ResponseEntity<?> realizaTransacaoAluno(
+            @RequestBody Map<String, String> jsonMap) {
         System.out.println(jsonMap);
-        Long id_vantagem =Long.valueOf(jsonMap.get("id_vantagem").toString());
-        Long id_aluno =Long.valueOf(jsonMap.get("id_aluno").toString());
+        Long id_vantagem = Long.valueOf(jsonMap.get("id_vantagem").toString());
+        Long id_aluno = Long.valueOf(jsonMap.get("id_aluno").toString());
         LocalDate data = LocalDate.parse(jsonMap.get("data").toString());
 
-        return transacaoService.realizaTransacaoAluno(id_aluno,data,id_vantagem);
+        return transacaoService.realizaTransacaoAluno(id_aluno, data, id_vantagem);
 
     }
+
     @PostMapping("realizaTransacao/professorToAluno")
     public ResponseEntity<?> realizaTransacaoProfessorToAluno(
-            @RequestBody Map<String,String> jsonMap
-    ){
+            @RequestBody Map<String, String> jsonMap) {
         System.out.println(jsonMap);
-        Long id_professor =Long.valueOf(jsonMap.get("id_professor").toString());
-        Long id_aluno =Long.valueOf(jsonMap.get("id_aluno").toString());
+        Long id_professor = Long.valueOf(jsonMap.get("id_professor").toString());
+        Long id_aluno = Long.valueOf(jsonMap.get("id_aluno").toString());
         LocalDate data = LocalDate.parse(jsonMap.get("data").toString());
-        Double valor =Double.valueOf(jsonMap.get("valor").toString());
+        Double valor = Double.valueOf(jsonMap.get("valor").toString());
 
-        return transacaoService.realizaTransacaoProftoAluno(id_professor,id_aluno,data,valor);
+        return transacaoService.realizaTransacaoProftoAluno(id_professor, id_aluno, data, valor);
 
     }
 
-    @GetMapping("retornaTodasTransacoes")
-    public ResponseEntity<?> retornaTodasTransacoes(){
+    @GetMapping("/retornaTodasTransacoes")
+    public ResponseEntity<?> retornaTodasTransacoes() {
 
         return transacaoService.retornaTodasTransacoes();
     }
 
     @GetMapping("retornaTodasTransacoes/aluno/{id}")
-    public ResponseEntity<?> retornaTodasTransacoesAluno(@PathVariable Long id){
+    public ResponseEntity<?> retornaTodasTransacoesAluno(@PathVariable Long id) {
 
         return transacaoService.retornaTodasTransacoesAluno(id);
     }
-
 
 }
