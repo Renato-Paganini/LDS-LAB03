@@ -4,13 +4,8 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,34 +21,25 @@ public class Transacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "professor_id")
     private Professor professor;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "aluno_id")
     private Aluno aluno;
 
     private double valor;
 
     private LocalDate data;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vantagem_id")
     private Vantagem vantagem;
 
-    public Transacao(Professor professor, Aluno aluno, double valor, LocalDate data) {
-        this.professor = professor;
-        this.aluno = aluno;
-        this.valor = valor;
-        this.data = data;
-    }
-
-    public Transacao(Aluno aluno, LocalDate data, Vantagem vantagem, double valor) {
-        this.vantagem = vantagem;
-        this.aluno = aluno;
-        this.valor = valor;
-        this.data = data;
-    }
+    private String justificativa;
 
 }

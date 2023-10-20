@@ -32,18 +32,19 @@ public class TransacaoService {
     @Autowired
     private VantagemRepository vantagemRepository;
 
-    public ResponseEntity<?> realizaTransacaoProftoAluno(Long id_professor, Long id_aluno, LocalDate data,
-            Double valor) {
+    public ResponseEntity<?> realizaTransacaoProftoAluno(Transacao transacao) {
 
-        Aluno aluno = alunoRepository.getReferenceById(id_aluno);
-        Professor professor = professorRepository.getReferenceById(id_professor);
+        Aluno aluno = transacao.getAluno();
+        Professor professor = transacao.getProfessor();
 
-        if (aluno == null || professor == null) {
+        if (aluno == null || professor == null ) {
             return new ResponseEntity<>("Professor ou Aluno não existem", HttpStatusCode.valueOf(400));
+        } else if( transacao.getJustificativa() ==null){
+            return new ResponseEntity<>("Faltou uma justificativa", HttpStatusCode.valueOf(400));
         }
 
         double creditos = professor.getSaldo();
-        double creditos_transferidos = valor;
+        double creditos_transferidos = transacao.getValor();
         double creditos_aluno = aluno.getSaldo();
 
         if (creditos < creditos_transferidos) {
@@ -52,8 +53,6 @@ public class TransacaoService {
 
         professor.setSaldo((creditos - creditos_transferidos));
         aluno.setSaldo(creditos_aluno + creditos_transferidos);
-
-        Transacao transacao = new Transacao(professor, aluno, creditos_transferidos, data);
 
         transacaoRepository.save(transacao);
         professorRepository.saveAndFlush(professor);
@@ -71,12 +70,14 @@ public class TransacaoService {
 
     }
 
-    public ResponseEntity<?> realizaTransacaoAluno(Long id_aluno, LocalDate data, Long id_vantagem) {
+    public ResponseEntity<?> realizaTransacaoAluno(Transacao transacao) {
+//
+//        Aluno aluno = alunoRepository.getReferenceById(id_aluno);
+//        Vantagem vantagem = vantagemRepository.getReferenceById(id_vantagem);
+        Aluno aluno = transacao.getAluno();
+        Vantagem vantagem = transacao.getVantagem();
 
-        Aluno aluno = alunoRepository.getReferenceById(id_aluno);
-        Vantagem vantagem = vantagemRepository.getReferenceById(id_vantagem);
-
-        if (aluno == null || id_vantagem == null) {
+        if (aluno == null || vantagem == null) {
             return new ResponseEntity<>("Vantagem ou Aluno não existem", HttpStatusCode.valueOf(400));
         }
 
@@ -89,7 +90,7 @@ public class TransacaoService {
 
         aluno.setSaldo((creditos_aluno - creditosVantagem));
 
-        Transacao transacao = new Transacao(aluno, data, vantagem, -vantagem.getValor());
+
 
         transacaoRepository.save(transacao);
         alunoRepository.saveAndFlush(aluno);
