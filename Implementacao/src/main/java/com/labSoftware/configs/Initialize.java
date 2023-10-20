@@ -1,3 +1,4 @@
+package com.labSoftware.configs;
 // package com.labSoftware.config;
 
 // import org.springframework.boot.context.event.ApplicationStartedEvent;
