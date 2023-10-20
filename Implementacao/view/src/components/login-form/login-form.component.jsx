@@ -27,23 +27,33 @@ const LoginForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const isCPF = form.login.length == 11 ? true : false;
+    let url = "";
 
-    if (CPF) {
+    switch (form.type) {
+      case "Professor":
+        url = "http://localhost:7070/professor/auth"
+        break;
+      case "Aluno":
+        url = "http://localhost:7070/aluno/auth"
+        break;
+
+      case "Empresa":
+        url = "http://localhost:7070/empresa/auth"
+        break;
+      default:
+        break;
+    }
+
+
+    if (url != "") {
       try {
-        const res = axios.get("http://localhost:8099/customer");
-        console.log(res);
+        const res = axios.get(url, form)
+        console.log(res)
       } catch (error) {
-        console.log(error);
-      }
-    } else {
-      try {
-        const res = axios.get("http://localhost:8099/agent");
-        console.log(res);
-      } catch (error) {
-        console.log(error);
+        alert("House um erro ao fazer login, tente mais tarde:  " + error)
       }
     }
+
   };
 
   const handleChangeForm = (event) => {
@@ -51,9 +61,9 @@ const LoginForm = () => {
     setForm({ ...form, [name]: value });
   };
 
-  // useEffect(() => {
-  //   console.log(form);
-  // }, [form]);
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
 
   const linkStyle = {
     color: "#7d5113",
@@ -110,7 +120,7 @@ const LoginForm = () => {
                 label="CNPJ/CPF"
                 name="login"
                 autoComplete="login"
-                helperText="Only numbers"
+                helperText="Apenas números"
                 autoFocus
                 onChange={handleChangeForm}
               />
@@ -135,6 +145,7 @@ const LoginForm = () => {
                 select
                 defaultValue=""
                 helperText="Por favor, selecione seu tipo de login"
+                onChange={handleChangeForm}
               >
                 {loginTypes.map((option) => (
                   <MenuItem key={option} value={option}>
@@ -148,6 +159,7 @@ const LoginForm = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
               >
                 ENTRAR
               </Button>
