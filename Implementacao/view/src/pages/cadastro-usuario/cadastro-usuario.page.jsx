@@ -1,5 +1,6 @@
 import { Typography, Box, TextField, MenuItem } from "@mui/material";
 import CadastroAlunoComponent from "../../components/cadastro-usuario/cadastro-aluno.component";
+import CadastroEmpresaComponent from "../../components/cadastro-usuario/cadastro-empresa.component";
 import { useEffect, useState } from "react";
 
 const loginTypes = ["Aluno", "Empresa"];
@@ -61,7 +62,7 @@ const CadastroUsuarioPage = () => {
             </MenuItem>
           ))}
         </TextField>
-        {type === "Aluno" ? <CadastroAlunoComponent /> : "Empresa"}
+        {type === "Aluno" ? <CadastroAlunoComponent /> : <CadastroEmpresaComponent />}
       </Box>
     </Box>
   );
