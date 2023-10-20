@@ -46,6 +46,7 @@ public class AlunoService {
 
     @Transactional
     public Aluno createAluno(Aluno obj) {
+        System.out.println(obj);
         obj.setId(null);
         Instituicao instituicao = this.instituicaoRepository.findById(obj.getInstituicao().getId()).orElse(null);
         if (instituicao == null) {

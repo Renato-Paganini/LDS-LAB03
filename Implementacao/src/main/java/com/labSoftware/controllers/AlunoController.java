@@ -44,6 +44,7 @@ public class AlunoController {
     @PostMapping
     @Validated(CreateAluno.class)
     public ResponseEntity<Object> createAluno(@Valid @RequestBody Aluno obj) {
+        System.out.println(obj);
         // this.alunoService.createAluno(obj);
         // URI uri = ServletUriComponentsBuilder
         // .fromCurrentRequest()

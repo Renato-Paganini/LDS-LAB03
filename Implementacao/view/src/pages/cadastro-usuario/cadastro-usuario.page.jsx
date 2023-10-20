@@ -1,12 +1,20 @@
 import { Typography, Box, TextField, MenuItem } from "@mui/material";
 import CadastroAlunoComponent from "../../components/cadastro-usuario/cadastro-aluno.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const loginTypes = ["Aluno", "Empresa"];
 const CadastroUsuarioPage = () => {
-  const [type, setType] = useState("");
+  const [type, setType] = useState("Aluno");
 
-  const onChange = () => {};
+  const onChangeType = (event) => {
+    event.preventDefault();
+    const { value } = event.target;
+    setType(value);
+  };
+
+  useEffect(() => {
+    console.log(type);
+  }, [type]);
   return (
     <Box
       sx={{
@@ -25,12 +33,14 @@ const CadastroUsuarioPage = () => {
       <Box
         sx={{
           minHeight: "500px",
+          maxHeight: "800px",
           width: "600px",
           outline: "thin solid #5c0c06",
           padding: 2,
           borderRadius: 2,
           backgroundColor: "white",
           opacity: "0.9",
+          overflowY: "auto",
         }}
       >
         <Typography>Cadastro</Typography>
@@ -41,8 +51,9 @@ const CadastroUsuarioPage = () => {
           name="type"
           label="Tipo de cadastro"
           select
-          defaultValue=""
-          helperText="Por favor, selecione seu tipo de cadastro"
+          value={type}
+          helperText="Por favor, selecione o tipo de cadastro"
+          onChange={onChangeType}
         >
           {loginTypes.map((option) => (
             <MenuItem key={option} value={option}>
@@ -50,8 +61,7 @@ const CadastroUsuarioPage = () => {
             </MenuItem>
           ))}
         </TextField>
-
-        <CadastroAlunoComponent />
+        {type === "Aluno" ? <CadastroAlunoComponent /> : "Empresa"}
       </Box>
     </Box>
   );
