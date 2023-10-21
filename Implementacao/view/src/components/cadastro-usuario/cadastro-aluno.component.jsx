@@ -52,7 +52,10 @@ const CadastroAlunoComponent = () => {
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("userType", "Aluno");
         console.log(data);
+        nav("/portalAluno");
       })
       .catch((error) => {
         console.error("Erro:", error);
@@ -167,7 +170,6 @@ const CadastroAlunoComponent = () => {
         select
         value={formData.instituicao.id}
         onChange={handleInstituicaoChange}
-        
       >
         {universities.map((option) => (
           <MenuItem key={option.id} value={option.id}>

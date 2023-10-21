@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const initForm = {
   nome: "",
-  cnpj:"",
-  email:"",
-  senha:"",
-  confirmarSenha:"",
-  saldo:0,
+  cnpj: "",
+  email: "",
+  senha: "",
+  confirmarSenha: "",
+  saldo: 0,
 };
 
 const CadastroEmpresaComponent = () => {
@@ -25,7 +25,6 @@ const CadastroEmpresaComponent = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
@@ -38,11 +37,15 @@ const CadastroEmpresaComponent = () => {
       body: JSON.stringify(formData),
     };
 
-    const url = "";
+    const url = "http://localhost:7070/empresa/create";
 
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("userType", "Empresa");
+        console.log(data);
+        nav("/portalProfessor");
         console.log(data);
       })
       .catch((error) => {
@@ -54,7 +57,6 @@ const CadastroEmpresaComponent = () => {
     nav("/");
   };
 
-  
   return (
     <form onSubmit={handleSubmit}>
       <TextField
@@ -106,8 +108,7 @@ const CadastroEmpresaComponent = () => {
         onChange={handleChange}
         required
       />
-      
-      
+
       <Box mt={2} sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
           variant="contained"
