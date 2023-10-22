@@ -25,6 +25,15 @@ public class ProfessorService {
                 () -> new RuntimeException("Professor não encontrado" + id + "Tipo: " + Professor.class.getName()));
     }
 
+    public Professor darSaldoProfessor(Long id, Double moedas) {
+        Professor professor = findByIdProfessor(id);
+        if (moedas >= 0) {
+            professor.setSaldo(moedas);
+        }
+        professorRepository.save(professor);
+        return professor;
+    }
+
     public Professor login(Professor obj) throws Exception {
         Professor a = this.professorRepository.findByCpf(obj.getCpf());
         if (obj.getSenha().equals(a.getSenha())) {

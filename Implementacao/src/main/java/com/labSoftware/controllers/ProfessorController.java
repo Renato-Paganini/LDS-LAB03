@@ -61,6 +61,15 @@ public class ProfessorController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/update/{id}/saldo")
+    @Validated(UpdateProfessor.class)
+    public ResponseEntity<Void> updateSaldoProfessor(@Valid @RequestBody Professor obj, @PathVariable Long id) {
+        Professor p = professorService.findByIdProfessor(id);
+        Double sal = p.getSaldo();
+        professorService.darSaldoProfessor(id, sal);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfessor(@PathVariable Long id) {
         this.professorService.deleteProfessor(id);
