@@ -1,8 +1,9 @@
 import LoginForm from "../../components/login-form/login-form.component";
+import "./login.page.css"
 
 const LoginPage = () => {
   return (
-    <div>
+    <div className="fadeInAnimation">
       <LoginForm />
     </div>
   );

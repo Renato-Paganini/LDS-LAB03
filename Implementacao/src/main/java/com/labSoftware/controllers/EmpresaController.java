@@ -43,7 +43,7 @@ public class EmpresaController {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping("/auth")
+    @PostMapping("/auth")
     public ResponseEntity<Empresa> login(@RequestBody Empresa obj) throws Exception {
         Empresa alunoAutenticado = this.empresaService.login(obj);
         return ResponseEntity.ok().body(alunoAutenticado);

@@ -2,6 +2,7 @@ import { Typography, Box, TextField, MenuItem } from "@mui/material";
 import CadastroAlunoComponent from "../../components/cadastro-usuario/cadastro-aluno.component";
 import CadastroEmpresaComponent from "../../components/cadastro-usuario/cadastro-empresa.component";
 import { useEffect, useState } from "react";
+import "./cadastro-usuario.page.css";
 
 const loginTypes = ["Aluno", "Empresa"];
 const CadastroUsuarioPage = () => {
@@ -18,6 +19,7 @@ const CadastroUsuarioPage = () => {
   }, [type]);
   return (
     <Box
+      className="fadeInAnimation"
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -62,7 +64,11 @@ const CadastroUsuarioPage = () => {
             </MenuItem>
           ))}
         </TextField>
-        {type === "Aluno" ? <CadastroAlunoComponent /> : <CadastroEmpresaComponent />}
+        {type === "Aluno" ? (
+          <CadastroAlunoComponent />
+        ) : (
+          <CadastroEmpresaComponent />
+        )}
       </Box>
     </Box>
   );

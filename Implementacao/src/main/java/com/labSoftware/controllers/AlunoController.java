@@ -35,7 +35,7 @@ public class AlunoController {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping("/auth")
+    @PostMapping("/auth")
     public ResponseEntity<Aluno> login(@RequestBody Aluno obj) throws Exception {
         Aluno alunoAutenticado = this.alunoService.login(obj);
         return ResponseEntity.ok().body(alunoAutenticado);
@@ -73,10 +73,11 @@ public class AlunoController {
         this.alunoService.deleteAluno(id);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/trocarVantagem/{id}")
-    public ResponseEntity<Void> trocarVantagem(@PathVariable Long id,@RequestBody Map<String, Double> jsonMap) {
+    public ResponseEntity<Void> trocarVantagem(@PathVariable Long id, @RequestBody Map<String, Double> jsonMap) {
         Double moedas = jsonMap.get("moedas");
-        this.alunoService.trocarVantagem(id,moedas);
+        this.alunoService.trocarVantagem(id, moedas);
         return ResponseEntity.ok().build();
     }
 }

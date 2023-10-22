@@ -14,9 +14,16 @@ import PersonIcon from "@mui/icons-material/Person";
 import SchoolIcon from "@mui/icons-material/School";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import SavingsIcon from "@mui/icons-material/Savings";
+import { useNavigate } from "react-router-dom";
 
 const PortalAlunoPage = () => {
   const [alunoData, setAlunoData] = useState(null);
+  const nav = useNavigate();
+  
+  const handleLogOut = () => {
+    nav("/");
+    localStorage.clear();
+  };
 
   useEffect(() => {
     const aluno = JSON.parse(localStorage.getItem("user"));
@@ -42,6 +49,7 @@ const PortalAlunoPage = () => {
           startIcon={<LogoutIcon />}
           size="large"
           color="inherit"
+          onClick={handleLogOut}
         >
           Sair
         </Button>
@@ -89,7 +97,11 @@ const PortalAlunoPage = () => {
                     marginBottom: 1,
                   }}
                 >
-                  <Icon component={FingerprintIcon} sx={{ mr: 1 }} color="primary"/>
+                  <Icon
+                    component={FingerprintIcon}
+                    sx={{ mr: 1 }}
+                    color="primary"
+                  />
                   <Typography color="text.secondary">
                     System ID: {alunoData.id}
                   </Typography>
@@ -102,7 +114,11 @@ const PortalAlunoPage = () => {
                     marginBottom: 1,
                   }}
                 >
-                  <Icon component={SavingsIcon} sx={{ mr: 1 }} color="primary"/>
+                  <Icon
+                    component={SavingsIcon}
+                    sx={{ mr: 1 }}
+                    color="primary"
+                  />
                   <Typography variant="body2">
                     Saldo: {alunoData.saldo}
                   </Typography>

@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  MenuItem,
+  Typography,
+} from "@mui/material";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { useNavigate } from "react-router-dom";
 
 const initialForm = {
   login: "",
@@ -22,48 +24,62 @@ const initialForm = {
 const loginTypes = ["Professor", "Aluno", "Empresa"];
 
 const LoginForm = () => {
+  const nav = useNavigate();
   const [form, setForm] = useState(initialForm);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     let url = "";
+    let finalForm = {};
+    let redirectPage = "";
 
     switch (form.type) {
       case "Professor":
-        url = "http://localhost:7070/professor/auth"
+        url = "http://localhost:7070/professor/auth";
+        finalForm = {
+          cpf: form.login,
+          senha: form.password,
+        };
+        redirectPage = "/portalProfessor";
         break;
       case "Aluno":
-        url = "http://localhost:7070/aluno/auth"
+        url = "http://localhost:7070/aluno/auth";
+        finalForm = {
+          cpf: form.login,
+          senha: form.password,
+        };
+        redirectPage = "/portalAluno";
+        break;
+      case "Empresa":
+        url = "http://localhost:7070/empresa/auth";
+        finalForm = {
+          cnpj: form.login,
+          senha: form.password,
+        };
+        redirectPage = "/portalEmpresa";
         break;
 
-      case "Empresa":
-        url = "http://localhost:7070/empresa/auth"
-        break;
       default:
+        alert("Houve um erro com a definição da URL");
         break;
     }
 
-
-    if (url != "") {
+    if (url !== "") {
       try {
-        const res = axios.get(url, form)
-        console.log(res)
+        const { data } = await axios.post(url, finalForm);
+        localStorage.setItem("user", JSON.stringify(data));
+        nav(redirectPage);
       } catch (error) {
-        alert("House um erro ao fazer login, tente mais tarde:  " + error)
+        alert("Houve um erro ao fazer login, tente mais tarde: " + error);
       }
     }
-
   };
 
   const handleChangeForm = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   };
-
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
 
   const linkStyle = {
     color: "#7d5113",
@@ -135,7 +151,6 @@ const LoginForm = () => {
                 autoComplete="current-password"
                 onChange={handleChangeForm}
               />
-
               <TextField
                 margin="normal"
                 required
@@ -153,13 +168,11 @@ const LoginForm = () => {
                   </MenuItem>
                 ))}
               </TextField>
-
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={handleSubmit}
               >
                 ENTRAR
               </Button>
