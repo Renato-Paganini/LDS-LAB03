@@ -8,6 +8,7 @@ import PortalAlunoPage from "../pages/portal-usuario/portal-aluno.page";
 import PortalEmpresaPage from "../pages/portal-usuario/portal-empresa.page";
 import PortalProfessorPage from "../pages/portal-usuario/portal-professor.page";
 
+
 const AllRoutes = () => {
   return (
     <div>
@@ -15,6 +16,7 @@ const AllRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="auth" element={<LoginPage />} />
         <Route path="register" element={<CadastroUsuarioPage />} />
+        <Route path="extratoProfessor" element={<ExtratoProfessor/>}/>
         <Route path="portalAluno" element={<PortalAlunoPage />} />
         <Route path="portalEmpresa" element={<PortalEmpresaPage />} />
         <Route path="portalProfessor" element={<PortalProfessorPage />} />

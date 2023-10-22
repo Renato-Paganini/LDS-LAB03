@@ -13,12 +13,11 @@ const Container = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  minHeight: "100vh",
+
 });
 
 const StyledTableContainer = styled(TableContainer)({
-  maxWidth: "1000px",
-  width: "100%",
+  maxWidth: "100%",
 });
 
 const StyledTable = styled(Table)({
