@@ -37,7 +37,7 @@ public class ProfessorController {
         }
     }
 
-    @GetMapping("/auth")
+    @PostMapping("/auth")
     public ResponseEntity<Professor> login(@RequestBody Professor obj) throws Exception {
         Professor professorAutenticado = this.professorService.login(obj);
         return ResponseEntity.ok().body(professorAutenticado);
