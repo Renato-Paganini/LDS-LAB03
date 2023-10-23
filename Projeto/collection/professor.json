@@ -1,0 +1,113 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "moedas - professor",
+    "dateExported": "2023-10-23T22:28:41.588Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "8616f0a0-9132-4309-a2f9-8b8b030dc5a8",
+            "colId": "94bd1777-9f66-44bf-b026-5816aa704402",
+            "containerId": "",
+            "name": "post",
+            "url": "http://localhost:7070/professor/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-17T15:17:21.401Z",
+            "modified": "2023-10-19T20:05:00.228Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmljIiwiZXhwIjoxNjkwMjQwNDgxfQ.X-S3-RJKiJYT9wYP6kMzu52hPkkSYinG0v3-oLnfnxd20QHDl4WbXH52fUemZh2U"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"3\",\n   \"nome\": \"Aline Professor\",\n   \"email\": \"aline.email\",\n   \"senha\": \"1\",\n   \"saldo\": 10000,\n    \"departamento\": \"Projeto De Software\",\n     \"instituicao\": {\n       \"id\": 1\n     }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "912a5eb9-1bcb-482c-87ea-d796c16fc296",
+            "colId": "94bd1777-9f66-44bf-b026-5816aa704402",
+            "containerId": "",
+            "name": "get by id",
+            "url": "http://localhost:7070/professor/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-17T15:17:21.402Z",
+            "modified": "2023-10-17T19:49:11.933Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a643be45-5545-4c90-9af5-921bbcfe8970",
+            "colId": "94bd1777-9f66-44bf-b026-5816aa704402",
+            "containerId": "",
+            "name": "delete",
+            "url": "http://localhost:7070/professor/2",
+            "method": "DELETE",
+            "sortNum": 22500,
+            "created": "2023-10-17T19:48:46.213Z",
+            "modified": "2023-10-17T19:48:58.335Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5fce1371-4cac-4a2b-a83e-aef3c5c51855",
+            "colId": "94bd1777-9f66-44bf-b026-5816aa704402",
+            "containerId": "",
+            "name": "get all",
+            "url": "http://localhost:7070/professor/getAll",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-10-17T19:45:44.548Z",
+            "modified": "2023-10-17T19:45:57.383Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "814a9dc9-1a2a-4bf7-ada6-50e98e2da860",
+            "colId": "94bd1777-9f66-44bf-b026-5816aa704402",
+            "containerId": "",
+            "name": "auth",
+            "url": "http://localhost:7070/professor/auth",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-17T15:17:21.403Z",
+            "modified": "2023-10-23T20:27:13.423Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"1\",\n  \"senha\": \"1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fe4fb5b6-ecc5-49e5-8994-69338bae5c3f",
+            "colId": "94bd1777-9f66-44bf-b026-5816aa704402",
+            "containerId": "",
+            "name": "update",
+            "url": "http://localhost:7070/professor/update/2",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-10-17T15:17:21.404Z",
+            "modified": "2023-10-19T20:00:43.334Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"2\",\n   \"nome\": \"Aline Professor\",\n   \"email\": \"aline.email\",\n   \"senha\": \"1\",\n   \"saldo\": 10000,\n    \"departamento\": \"Projeto de Software\",\n     \"instituicao\": {\n       \"id\": 1\n     }\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

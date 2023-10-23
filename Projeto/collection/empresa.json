@@ -1,0 +1,113 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "moedas - empresa",
+    "dateExported": "2023-10-23T22:29:55.302Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "4a0d1877-c8a2-45a0-82c9-ae40787ca9a6",
+            "colId": "0f1c7cf8-2927-43ac-9f26-8b19bbc943e8",
+            "containerId": "",
+            "name": "post",
+            "url": "http://localhost:7070/empresa/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-17T15:34:35.564Z",
+            "modified": "2023-10-19T21:28:09.534Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmljIiwiZXhwIjoxNjkwMjQwNDgxfQ.X-S3-RJKiJYT9wYP6kMzu52hPkkSYinG0v3-oLnfnxd20QHDl4WbXH52fUemZh2U"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cnpj\": \"2\",\n  \"nome\": \"empresa 2\",\n  \"email\": \"empresa2.email\",\n  \"senha\": \"1\",\n  \"saldo\": 12345678\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "355fa2b4-4660-487b-a68e-00cd9bb15b8a",
+            "colId": "0f1c7cf8-2927-43ac-9f26-8b19bbc943e8",
+            "containerId": "",
+            "name": "get by id",
+            "url": "http://localhost:7070/empresa/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-17T15:34:35.565Z",
+            "modified": "2023-10-19T21:27:27.336Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0c788c0d-ca1e-4610-af39-100f4e6eaa8d",
+            "colId": "0f1c7cf8-2927-43ac-9f26-8b19bbc943e8",
+            "containerId": "",
+            "name": "get all",
+            "url": "http://localhost:7070/empresa/3",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-10-17T20:20:06.473Z",
+            "modified": "2023-10-17T20:20:06.473Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "578231aa-226b-4ecb-a064-b38db3fc0d0f",
+            "colId": "0f1c7cf8-2927-43ac-9f26-8b19bbc943e8",
+            "containerId": "",
+            "name": "auth",
+            "url": "http://localhost:7070/empresa/auth",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-10-17T15:34:35.566Z",
+            "modified": "2023-10-17T15:34:35.566Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cnpj\": \"4\",\n  \"senha\": \"1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5b3b5874-14a8-489f-b226-d35615ba5e43",
+            "colId": "0f1c7cf8-2927-43ac-9f26-8b19bbc943e8",
+            "containerId": "",
+            "name": "update",
+            "url": "http://localhost:7070/aluno/1",
+            "method": "PUT",
+            "sortNum": 32500,
+            "created": "2023-10-17T15:34:35.567Z",
+            "modified": "2023-10-17T15:34:35.567Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"5\",\n  \"rg\": \"2\",\n   \"endereco\": \"1\",\n    \"curso\": \"1\",\n   \"saldo\": 0,\n   \"instituicao\": \"puc\",\n   \"nome\": \"eric\",\n   \"email\": \"eric.email\",\n   \"senha\": \"2\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3e96e4db-9a15-4724-80ed-61d014b93861",
+            "colId": "0f1c7cf8-2927-43ac-9f26-8b19bbc943e8",
+            "containerId": "",
+            "name": "delete",
+            "url": "http://localhost:7070/empresa/2",
+            "method": "DELETE",
+            "sortNum": 35000,
+            "created": "2023-10-17T20:15:46.447Z",
+            "modified": "2023-10-17T20:15:57.837Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

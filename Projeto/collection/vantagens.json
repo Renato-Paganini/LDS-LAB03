@@ -1,0 +1,109 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "moedas - vantagens",
+    "dateExported": "2023-10-23T22:31:34.953Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c7d8e4d2-7b1a-4acd-bee9-eb81b47df45e",
+            "colId": "3064acbc-0396-47d0-9ed4-e5b14eee40f5",
+            "containerId": "",
+            "name": "post",
+            "url": "http://localhost:7070/vantagem/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-19T20:51:49.554Z",
+            "modified": "2023-10-19T22:55:30.707Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"empresa\": {\n    \"id\": 1\n    },\n  \"foto\": \"caminho/para/a/foto.jpg\",\n  \"descricao\": \"Descrição da vantagem\",\n  \"valor\": 800.00,\n  \"nome\": \"Livro grátis\"\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "16c37d65-b47f-414d-a82e-2cfe0f794a80",
+            "colId": "3064acbc-0396-47d0-9ed4-e5b14eee40f5",
+            "containerId": "",
+            "name": "get",
+            "url": "http://localhost:7070/vantagem/2",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-19T20:56:52.234Z",
+            "modified": "2023-10-19T21:22:05.709Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b3891c0a-2103-4d23-bef6-192d0dd72aac",
+            "colId": "3064acbc-0396-47d0-9ed4-e5b14eee40f5",
+            "containerId": "",
+            "name": "delete",
+            "url": "http://localhost:7070/vantagem/3",
+            "method": "DELETE",
+            "sortNum": 25000,
+            "created": "2023-10-19T21:26:30.504Z",
+            "modified": "2023-10-19T21:26:46.735Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "64a0eb43-959b-4dc4-b616-afc8009b2250",
+            "colId": "3064acbc-0396-47d0-9ed4-e5b14eee40f5",
+            "containerId": "",
+            "name": "get all",
+            "url": "http://localhost:7070/vantagem/getAll",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-10-19T21:20:10.603Z",
+            "modified": "2023-10-19T21:20:24.925Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2731877e-5c81-4cc2-a468-c37f5accc132",
+            "colId": "3064acbc-0396-47d0-9ed4-e5b14eee40f5",
+            "containerId": "",
+            "name": "get by id empresa",
+            "url": "http://localhost:7070/vantagem/getByEmpresaId/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-10-19T21:20:50.400Z",
+            "modified": "2023-10-19T21:28:49.105Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

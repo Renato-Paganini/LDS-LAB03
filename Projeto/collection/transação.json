@@ -1,0 +1,75 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "moedas - transação",
+    "dateExported": "2023-10-23T22:32:13.085Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "0cde74f1-0a5a-48a5-bcff-f8be62517dca",
+            "colId": "c4b3841e-e275-445a-b7f4-0398ba3e420b",
+            "containerId": "",
+            "name": "retornaTodasTransacoes",
+            "url": "http://localhost:7070/transacao/retornaTodasTransacoes",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-10-19T18:23:38.604Z",
+            "modified": "2023-10-19T20:14:54.799Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "61e0fb8a-5995-4cd4-addc-4df511c5d9d3",
+            "colId": "c4b3841e-e275-445a-b7f4-0398ba3e420b",
+            "containerId": "",
+            "name": "extrato aluno",
+            "url": "http://localhost:7070/transacao/retornaTodasTransacoes/aluno/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-19T20:14:32.115Z",
+            "modified": "2023-10-19T20:14:58.144Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "73021f31-a8e4-4095-a99d-dae48d666cd2",
+            "colId": "c4b3841e-e275-445a-b7f4-0398ba3e420b",
+            "containerId": "",
+            "name": "nova Transação - aluno",
+            "url": "http://localhost:7070/transacao/realizaTransacao/aluno",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-19T20:15:35.805Z",
+            "modified": "2023-10-19T22:55:43.706Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id_vantagem\": 7,\n    \"id_aluno\": 1,\n    \"data\": \"2023-10-20\"\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "aee9f4e6-c693-4bb0-8513-99ab0679f2aa",
+            "colId": "c4b3841e-e275-445a-b7f4-0398ba3e420b",
+            "containerId": "",
+            "name": "professor to aluno",
+            "url": "http://localhost:7070/transacao/realizaTransacao/professorToAluno",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-19T21:57:32.822Z",
+            "modified": "2023-10-19T22:53:18.833Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id_professor\": 1,\n    \"id_aluno\": 1,\n     \"data\": \"2023-10-18\",\n    \"valor\": 900.0\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

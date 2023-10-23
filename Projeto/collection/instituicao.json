@@ -1,0 +1,94 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "moedas - instituicao",
+    "dateExported": "2023-10-23T22:30:24.205Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "27104ab7-0775-48b1-afbb-cd206eead55a",
+            "colId": "0400febd-432e-4795-a46c-92f724d70b7c",
+            "containerId": "",
+            "name": "post",
+            "url": "http://localhost:7070/instituicao/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-17T15:34:37.696Z",
+            "modified": "2023-10-17T17:19:52.001Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmljIiwiZXhwIjoxNjkwMjQwNDgxfQ.X-S3-RJKiJYT9wYP6kMzu52hPkkSYinG0v3-oLnfnxd20QHDl4WbXH52fUemZh2U"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"nome\": \"Puc Minas - praça da liberdade\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5ff4f902-c6d4-41b2-af7a-cdbc3e6f9b21",
+            "colId": "0400febd-432e-4795-a46c-92f724d70b7c",
+            "containerId": "",
+            "name": "get by id",
+            "url": "http://localhost:7070/instituicao/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-17T15:34:37.697Z",
+            "modified": "2023-10-17T15:38:04.537Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "77572beb-c5a1-420d-bcd2-f94ec63ba548",
+            "colId": "0400febd-432e-4795-a46c-92f724d70b7c",
+            "containerId": "",
+            "name": "get all",
+            "url": "http://localhost:7070/instituicao/getAll",
+            "method": "GET",
+            "sortNum": 27500,
+            "created": "2023-10-17T15:34:37.698Z",
+            "modified": "2023-10-17T15:38:21.784Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d390e59f-4d41-468b-a0f5-fb9f81c7bf46",
+            "colId": "0400febd-432e-4795-a46c-92f724d70b7c",
+            "containerId": "",
+            "name": "update",
+            "url": "http://localhost:7070/instituicao/update/1",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-10-17T15:34:37.699Z",
+            "modified": "2023-10-17T15:39:32.834Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nome\": \"Puc Minas - praça da liberdade\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ae8041dd-02d8-4bc9-8746-ba27596d9245",
+            "colId": "0400febd-432e-4795-a46c-92f724d70b7c",
+            "containerId": "",
+            "name": "delete by id",
+            "url": "http://localhost:7070/instituicao/1",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-10-17T15:43:46.941Z",
+            "modified": "2023-10-17T15:44:00.608Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

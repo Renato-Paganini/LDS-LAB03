@@ -1,0 +1,113 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "moedas - aluno",
+    "dateExported": "2023-10-23T22:29:33.517Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "bef68c58-0a73-4d9b-8349-2439c0b0d537",
+            "colId": "42f4bbb0-bbc8-4b87-bed6-ba87852f2937",
+            "containerId": "",
+            "name": "post",
+            "url": "http://localhost:7070/aluno",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-16T20:28:19.814Z",
+            "modified": "2023-10-17T21:42:00.193Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmljIiwiZXhwIjoxNjkwMjQwNDgxfQ.X-S3-RJKiJYT9wYP6kMzu52hPkkSYinG0v3-oLnfnxd20QHDl4WbXH52fUemZh2U"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"1\",\n   \"rg\": \"1\",\n   \"nome\": \"eric\",\n   \"email\": \"eric.email\",\n   \"endereco\": \"rua do eric\",\n   \"senha\": \"1\",\n    \"curso\": \"engenharia de software\",\n    \"saldo\": 0,\n    \"instituicao\": {\n      \"id\": 1\n    }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7ce38bbf-e19e-46c7-843c-9dafaf5b77f9",
+            "colId": "42f4bbb0-bbc8-4b87-bed6-ba87852f2937",
+            "containerId": "",
+            "name": "get by id",
+            "url": "http://localhost:7070/aluno/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-16T20:28:29.375Z",
+            "modified": "2023-10-17T17:31:57.888Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "731f192a-9a55-45c4-a427-2e2c243fd2f3",
+            "colId": "42f4bbb0-bbc8-4b87-bed6-ba87852f2937",
+            "containerId": "",
+            "name": "get all",
+            "url": "http://localhost:7070/aluno/getAll",
+            "method": "GET",
+            "sortNum": 22500,
+            "created": "2023-10-17T17:28:53.252Z",
+            "modified": "2023-10-17T17:29:14.608Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9680c545-b910-4f60-b10e-6f446e361cc0",
+            "colId": "42f4bbb0-bbc8-4b87-bed6-ba87852f2937",
+            "containerId": "",
+            "name": "delete",
+            "url": "http://localhost:7070/aluno/3",
+            "method": "DELETE",
+            "sortNum": 25000,
+            "created": "2023-10-17T17:23:56.005Z",
+            "modified": "2023-10-17T17:24:13.267Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c824bd45-feae-48d5-a878-e887b42e8d66",
+            "colId": "42f4bbb0-bbc8-4b87-bed6-ba87852f2937",
+            "containerId": "",
+            "name": "auth alunos",
+            "url": "http://localhost:7070/aluno/auth",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-10-16T20:28:51.127Z",
+            "modified": "2023-10-17T17:24:59.016Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"2\",\n  \"senha\": \"1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "86cb90c1-9e8a-4f1f-a60f-02259323e780",
+            "colId": "42f4bbb0-bbc8-4b87-bed6-ba87852f2937",
+            "containerId": "",
+            "name": "update aluno",
+            "url": "http://localhost:7070/aluno/3",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-10-16T20:38:21.086Z",
+            "modified": "2023-10-17T17:31:33.186Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cpf\": \"2\",\n   \"rg\": \"2\",\n   \"nome\": \"felipe\",\n   \"email\": \"felipe.email\",\n   \"endereco\": \"rua do felipe\",\n   \"senha\": \"1\",\n    \"curso\": \"engenharia de software\",\n    \"saldo\": 0,\n    \"instituicao\": {\n      \"id\": 1\n    }\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
