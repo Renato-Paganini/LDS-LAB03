@@ -2,9 +2,6 @@ package com.labSoftware.models;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_transacao")
-public class Transacao {
+@Table(name = "deposito")
+public class Deposito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +32,7 @@ public class Transacao {
 
     private LocalDate data;
 
-//    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "vantagem_id")
-    private Vantagem vantagem;
 
-    private String justificativa;
+    private String description;
 
 }
