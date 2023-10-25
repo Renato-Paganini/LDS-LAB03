@@ -53,56 +53,9 @@ public class DepositoService {
         professorRepository.saveAndFlush(professor);
         alunoRepository.saveAndFlush(aluno);
 
-        // mailService.sendMessage(professor.getEmail(), "Você acabou de realizar uma
-        // transação no valor de:" +
-        // transacao.getValor() + " para o Aluno: " + aluno.getUsuario().getName());
-
-        // mailService.sendMessage(aluno.getUsuario().getEmail(),
-        // "Você acabou de receber " + transacao.getValor() + " moedas" +
-        // "do professor: " + professor.getNome());
-
         return ResponseEntity.ok(deposito);
 
     }
-
-    // public ResponseEntity<?> realizaTransacaoAluno(Deposito transacao) {
-    ////
-    //// Aluno aluno = alunoRepository.getReferenceById(id_aluno);
-    //// Vantagem vantagem = vantagemRepository.getReferenceById(id_vantagem);
-    // Aluno aluno = transacao.getAluno();
-    // Vantagem vantagem = transacao.getVantagem();
-    //
-    // if (aluno == null || vantagem == null) {
-    // return new ResponseEntity<>("Vantagem ou Aluno não existem",
-    // HttpStatusCode.valueOf(400));
-    // }
-    //
-    // double creditosVantagem = vantagem.getValor();
-    // double creditos_aluno = aluno.getSaldo();
-    //
-    // if (creditosVantagem > creditos_aluno) {
-    // return new ResponseEntity<>("Aluno não possui crédito suficiente",
-    // HttpStatusCode.valueOf(400));
-    // }
-    //
-    // aluno.setSaldo((creditos_aluno - creditosVantagem));
-    //
-    //
-    //
-    // depositoRepository.save(transacao);
-    // alunoRepository.saveAndFlush(aluno);
-    //
-    // // mailService.sendMessage(professor.getEmail(), "Você acabou de realizar uma
-    // // transação no valor de:" +
-    // // transacao.getValor() + " para o Aluno: " + aluno.getUsuario().getName());
-    //
-    // // mailService.sendMessage(aluno.getUsuario().getEmail(),
-    // // "Você acabou de receber " + transacao.getValor() + " moedas" +
-    // // "do professor: " + professor.getNome());
-    //
-    // return ResponseEntity.ok(transacao);
-    //
-    // }
 
     public ResponseEntity<?> retornaDepositos() {
 
@@ -110,6 +63,13 @@ public class DepositoService {
 
         return ResponseEntity.ok(depositos);
 
+    }
+
+    public ResponseEntity<?> retornaTodosDepositosDoProfessor(long id) {
+        List<Deposito> transacaos = depositoRepository.findAll();
+        List<Deposito> transacaosProfessor = transacaos.stream().filter((p) -> p.getProfessor().getId() == id)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(transacaosProfessor);
     }
 
     public ResponseEntity<?> retornaTodosDepositos(long id) {

@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "b23f3476-08d3-4331-9b24-1afd056ec1a4",
+		"name": "Moedas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24778533",
+		"_collection_link": "https://orange-astronaut-334420.postman.co/workspace/New-Team-Workspace~a2c24528-4e1c-4c8e-a9df-5770bc7333c9/collection/24778533-b23f3476-08d3-4331-9b24-1afd056ec1a4?action=share&source=collection_link&creator=24778533"
+	},
+	"item": [
+		{
+			"name": "post profToAluno",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_professor\": 1,\r\n    \"id_aluno\": 1,\r\n     \"data\": \"2023-10-18\",\r\n    \"valor\": 100,\r\n    \"description\": \"teste\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7070/transacao/realizaDeposito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"transacao",
+						"realizaDeposito"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "post profToAluno",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_professor\": 1,\r\n    \"id_aluno\": 1,\r\n     \"data\": \"2023-10-18\",\r\n    \"valor\": 100,\r\n    \"justificativa\":\"estava a fim\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7070/transacao/realizaTransacao/professorToAluno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"transacao",
+								"realizaTransacao",
+								"professorToAluno"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 20 Oct 2023 22:53:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"professor\": {\n        \"nome\": \"dsasa\",\n        \"email\": \"sadsa\",\n        \"senha\": \"1\",\n        \"cpf\": \"3232\",\n        \"departamento\": \"sad\",\n        \"saldo\": 400,\n        \"instituicao\": {\n            \"id\": 1,\n            \"nome\": \"puc\"\n        }\n    },\n    \"aluno\": {\n        \"nome\": \"jopao\",\n        \"email\": \"asda\",\n        \"cpf\": \"2\",\n        \"senha\": \"1\",\n        \"rg\": 1,\n        \"endereco\": \"dadsa\",\n        \"curso\": \"dsa\",\n        \"saldo\": 200,\n        \"instituicao\": {\n            \"id\": 1,\n            \"nome\": \"puc\"\n        }\n    },\n    \"valor\": 100,\n    \"data\": [\n        2023,\n        10,\n        18\n    ],\n    \"vantagem\": null,\n    \"justificativa\": \"estava a fim\"\n}"
+				}
+			]
+		},
+		{
+			"name": "AlunoTransacao",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id_vantagem\": 1,\r\n    \"id_aluno\": 1,\r\n     \"data\": \"2023-10-20\",\r\n     \"description\":\"teste\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7070/transacao/resgate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"transacao",
+						"resgate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extratoAluno",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7070/transacao/retornaTodosDepositos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"transacao",
+						"retornaTodosDepositos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "depositos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7070/transacao/retornaTodasTransacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"transacao",
+						"retornaTodasTransacoes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

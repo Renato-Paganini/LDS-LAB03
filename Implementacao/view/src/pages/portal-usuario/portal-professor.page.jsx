@@ -156,7 +156,20 @@ const PortalProfessorPage = () => {
                 overflowY: "auto",
               }}
             >
-              <Typography>Extrato de depósitos de moedas</Typography>
+              <Typography>Moedas recebidas</Typography>
+              <GenericTable headers={headersTransacao} data={dataTransacao} />
+            </Box>
+            <Box
+              sx={{
+                maxHeight: "100%",
+                minHeight: "300px",
+                marginTop: "10px",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                padding: 2,
+                overflowY: "auto",
+              }}
+            >
+              <Typography>Moedas distribuídas</Typography>
               <GenericTable headers={headersTransacao} data={dataTransacao} />
             </Box>
           </Grid>
@@ -173,7 +186,7 @@ const PortalProfessorPage = () => {
               overflowY: "auto",
             }}
           >
-            <Typography>Transações efetuadas</Typography>
+            <Typography>Lista de alunos disponíveis</Typography>
             <GenericTable headers={headersTransacao} data={dataTransacao} />
           </Box>
         </Grid>

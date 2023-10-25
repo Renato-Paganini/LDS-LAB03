@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,8 @@ public class DepositoController {
     @Autowired
     private ProfessorService professorService;
 
-    public ResponseEntity<?> realizarDeposito(
-            @RequestBody(required = false) DepositoDTO transacaoDTO) {
+    @PostMapping("/realizaDeposito")
+    public ResponseEntity<?> realizarDeposito(@RequestBody(required = false) DepositoDTO transacaoDTO) {
 
         Deposito transacao = new Deposito();
         transacao.setProfessor(professorService.findByIdProfessor(transacaoDTO.getId_professor()));
@@ -51,6 +52,12 @@ public class DepositoController {
     public ResponseEntity<?> retornaTodasTransacoesAluno(@PathVariable Long id) {
 
         return depositoService.retornaTodosDepositos(id);
+    }
+
+    @GetMapping("/retornaTodosDepositos/professor/{id}")
+    public ResponseEntity<?> retornaTodasTransacoesDoProfessor(@PathVariable Long id) {
+
+        return depositoService.retornaTodosDepositosDoProfessor(id);
     }
 
 }
