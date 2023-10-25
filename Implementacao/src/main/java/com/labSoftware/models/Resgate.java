@@ -1,8 +1,6 @@
 package com.labSoftware.models;
 
-import java.rmi.registry.Registry;
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,8 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,11 +37,10 @@ public class Resgate {
 
     private Double valor;
 
-
     @Column(name = "data")
     private LocalDate data;
 
-    public Resgate(String description,LocalDate data, Aluno aluno, Vantagem vantagem,Double valor){
+    public Resgate(String description, LocalDate data, Aluno aluno, Vantagem vantagem, Double valor) {
         setDescription(description);
         setData(data);
         setAluno(aluno);

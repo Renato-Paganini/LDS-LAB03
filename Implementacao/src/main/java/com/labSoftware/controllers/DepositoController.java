@@ -1,21 +1,18 @@
 package com.labSoftware.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.labSoftware.DTO.DepositoDTO;
-import com.labSoftware.models.Deposito;
-import com.labSoftware.services.AlunoService;
-import com.labSoftware.services.ProfessorService;
-import com.labSoftware.services.VantagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labSoftware.DTO.DepositoDTO;
+import com.labSoftware.models.Deposito;
+import com.labSoftware.services.AlunoService;
 import com.labSoftware.services.DepositoService;
+import com.labSoftware.services.ProfessorService;
 
 @RestController
 @RequestMapping("/transacao")
@@ -23,8 +20,6 @@ public class DepositoController {
 
     @Autowired
     private DepositoService depositoService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private AlunoService alunoService;
@@ -32,11 +27,8 @@ public class DepositoController {
     @Autowired
     private ProfessorService professorService;
 
-    @Autowired
-    private VantagemService vantagemService;
-
     public ResponseEntity<?> realizarDeposito(
-            @RequestBody (required = false) DepositoDTO transacaoDTO) {
+            @RequestBody(required = false) DepositoDTO transacaoDTO) {
 
         Deposito transacao = new Deposito();
         transacao.setProfessor(professorService.findByIdProfessor(transacaoDTO.getId_professor()));

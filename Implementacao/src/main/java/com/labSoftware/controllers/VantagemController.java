@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.labSoftware.DTO.VantagemDTO;
 import com.labSoftware.models.Vantagem;
 import com.labSoftware.models.Vantagem.CreateVantagem;
 import com.labSoftware.models.Vantagem.UpdateVantagem;
-import com.labSoftware.services.EmpresaService;
 import com.labSoftware.services.VantagemService;
 
 import jakarta.validation.Valid;
@@ -31,9 +29,6 @@ public class VantagemController {
     @Autowired
     private VantagemService vantagemService;
 
-    @Autowired
-    private EmpresaService empresaService;
-
     @GetMapping("/{id}")
     public ResponseEntity<Vantagem> findbyIdVantagem(@PathVariable Long id) {
         Vantagem vantagem = vantagemService.findbyIdVantagem(id);
@@ -41,15 +36,6 @@ public class VantagemController {
         if (vantagem == null) {
             return ResponseEntity.notFound().build();
         }
-
-        // Converte a entidade Vantagem em um objeto VantagemDTO
-        VantagemDTO vantagemDTO = new VantagemDTO(
-                vantagem.getId(),
-                vantagem.getFoto(),
-                vantagem.getDescricao(),
-                vantagem.getValor(),
-                vantagem.getNome());
-
         return ResponseEntity.ok(vantagem);
     }
 
@@ -57,14 +43,6 @@ public class VantagemController {
     @Validated(CreateVantagem.class)
     public ResponseEntity<Vantagem> createVantagem(@Valid @RequestBody Vantagem obj) {
         Vantagem vantagem = vantagemService.createVantagem(obj);
-
-        // Converte a entidade Vantagem em um objeto VantagemDTO
-        VantagemDTO vantagemDTO = new VantagemDTO(
-                vantagem.getId(),
-                vantagem.getFoto(),
-                vantagem.getDescricao(),
-                vantagem.getValor(),
-                vantagem.getNome());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(vantagem);
     }
@@ -74,14 +52,6 @@ public class VantagemController {
     public ResponseEntity<Vantagem> updateVantagem(@Valid @RequestBody Vantagem obj, @PathVariable Long id) {
         obj.setId(id);
         Vantagem vantagem = vantagemService.updateVantagem(obj);
-
-        // Converte a entidade Vantagem atualizada em um objeto VantagemDTO
-        VantagemDTO vantagemDTO = new VantagemDTO(
-                vantagem.getId(),
-                vantagem.getFoto(),
-                vantagem.getDescricao(),
-                vantagem.getValor(),
-                vantagem.getNome());
 
         return ResponseEntity.ok(vantagem);
     }

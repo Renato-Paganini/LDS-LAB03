@@ -1,21 +1,19 @@
 package com.labSoftware.services;
 
-import com.labSoftware.DTO.ResgateDTO;
-import com.labSoftware.models.Aluno;
-import com.labSoftware.models.Deposito;
-import com.labSoftware.models.Resgate;
-import com.labSoftware.models.Vantagem;
-import com.labSoftware.repositories.AlunoRepository;
-import com.labSoftware.repositories.ResgateRepository;
-import com.labSoftware.repositories.VantagemRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.labSoftware.DTO.ResgateDTO;
+import com.labSoftware.models.Aluno;
+import com.labSoftware.models.Resgate;
+import com.labSoftware.models.Vantagem;
+import com.labSoftware.repositories.AlunoRepository;
+import com.labSoftware.repositories.ResgateRepository;
 
 @Service
 public class ResgateService {
@@ -28,8 +26,7 @@ public class ResgateService {
     @Autowired
     private VantagemService vantagemService;
 
-
-        public ResponseEntity<?> realizaTransacaoAluno(ResgateDTO resgate) {
+    public ResponseEntity<?> realizaTransacaoAluno(ResgateDTO resgate) {
         Aluno aluno = alunoService.findbyIdAluno(resgate.getId_aluno());
         Vantagem vantagem = vantagemService.findbyIdVantagem(resgate.getId_vantagem());
 
@@ -45,7 +42,8 @@ public class ResgateService {
         }
 
         aluno.setSaldo((creditos_aluno - creditosVantagem));
-        Resgate resgate1 = new Resgate(resgate.getDescription(),resgate.getData(),aluno,vantagem,vantagem.getValor());
+        Resgate resgate1 = new Resgate(resgate.getDescription(), resgate.getData(), aluno, vantagem,
+                vantagem.getValor());
 
         resgateRepository.save(resgate1);
 
@@ -62,6 +60,7 @@ public class ResgateService {
         return ResponseEntity.ok(resgate1);
 
     }
+
     public ResponseEntity<?> retornaResgates() {
 
         List<Resgate> resgates = resgateRepository.findAll();
