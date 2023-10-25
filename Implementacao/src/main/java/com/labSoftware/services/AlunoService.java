@@ -2,14 +2,18 @@ package com.labSoftware.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.labSoftware.models.Aluno;
 import com.labSoftware.models.Instituicao;
+import com.labSoftware.models.Professor;
 import com.labSoftware.repositories.AlunoRepository;
 import com.labSoftware.repositories.InstituicaoRepository;
+import com.labSoftware.repositories.ProfessorRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -18,6 +22,9 @@ public class AlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private InstituicaoRepository instituicaoRepository;
@@ -99,5 +106,13 @@ public class AlunoService {
         Aluno aluno = alunoRepository.buscarPeloId(id).get();
         aluno.setSaldo(aluno.getSaldo() - moedas);
         return alunoRepository.salvar(aluno);
+    }
+
+    public ResponseEntity<List<Aluno>> retornaListaAlunosByIdProfessor(String cpf) {
+        Professor p = this.professorRepository.findByCpf(cpf);
+        List<Aluno> alunos = alunoRepository.buscarAlunos();
+        List<Aluno> alunosCompativeis = alunos.stream().filter((a) -> a.getInstituicao() == p.getInstituicao())
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(alunosCompativeis);
     }
 }
