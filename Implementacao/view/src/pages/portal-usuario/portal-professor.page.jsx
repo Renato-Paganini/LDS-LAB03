@@ -123,7 +123,7 @@ const PortalProfessorPage = () => {
                     color="primary"
                   />
                   <Typography color="text.secondary">
-                    System ID: {professor.id}
+                    CPF: {professor.cpf}
                   </Typography>
                 </Box>
 
