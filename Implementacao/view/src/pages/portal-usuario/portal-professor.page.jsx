@@ -13,14 +13,13 @@ import {
   Icon,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/generic-table/generic-table.component";
-import baseUrlGetAll from "../../services/professorService/getall";
 
 const PortalProfessorPage = () => {
-  const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState(null);
-
+  const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
   const [professor, setprofessor] = useState(null);
   const nav = useNavigate();
 
@@ -30,36 +29,52 @@ const PortalProfessorPage = () => {
   };
 
   useEffect(() => {
-    const professor = JSON.parse(localStorage.getItem("user"));
-    setprofessor(professor);
+    const fetchData = async () => {
+      const professor = JSON.parse(localStorage.getItem("user"));
+      setprofessor(professor);
+
+      try {
+        const response = await axios.get(
+          "http://localhost:7070/aluno/getAll/" + professor.cpf
+        );
+        setListaDeAlunos(
+          response.data.map((aluno) => ({
+            nome: aluno.nome,
+            email: aluno.email,
+            saldo: aluno.saldo,
+            curso: aluno.curso,
+            instituicao: aluno.instituicao.nome,
+          }))
+        );
+        console.log(getAllAlunosbyIdProfessor);
+      } catch (error) {
+        console.error("Erro na solicitação GET:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    const url = baseUrlGetAll + professor.cpf;
+  const headersTransacao = ["origem", "valor", "data"];
+  const dataTransacao = [
+    {
+      origem: "Professor A",
+      valor: 100,
+      data: "2023-10-22T10:30:00Z",
+    },
+    {
+      origem: "Professor B",
+      valor: 200,
+      data: "2023-10-21T14:45:00Z",
+    },
+    {
+      origem: "Professor C",
+      valor: 50,
+      data: "2023-10-20T16:15:00Z",
+    },
+  ];
 
-    axios
-      .get(url)
-      .then((response) => {
-        const data = response.data;
-        setListaDeAlunos(data); // Atualize o estado com os dados recebidos
-      })
-      .catch((error) => {
-        console.error("Erro na solicitação GET:", error);
-      });
-  }, [getAllAlunosbyIdProfessor]);
-
-  const headersListadealunos = ["cpf", "nome", "curso", "realizar depósito"];
-
-  const dataFormatted = getAllAlunosbyIdProfessor.map((aluno) => ({
-    cpf: aluno.cpf,
-    nome: aluno.nome,
-    curso: aluno.curso,
-    realizarDeposito: (
-      <Button variant="outlined" onClick={() => handleDeposito(aluno)}>
-        Realizar Depósito
-      </Button>
-    ),
-  }));
+  const headerListaAlunos = ["Nome", "E-mail", "Saldo", "Curso", "Instituição"];
 
   return (
     <Box sx={{ margin: 5 }}>
@@ -181,14 +196,10 @@ const PortalProfessorPage = () => {
               }}
             >
               <Typography>Moedas distribuídas</Typography>
-              <GenericTable
-                headers={headersTransacao}
-                data={getAllAlunosbyIdProfessor}
-              />
+              <GenericTable headers={headersTransacao} data={dataTransacao} />
             </Box>
           </Grid>
         )}
-        {/* Este código deve ser substituido por um componente */}
         <Grid item xs={8}>
           <Box
             sx={{
@@ -201,10 +212,12 @@ const PortalProfessorPage = () => {
             }}
           >
             <Typography>Lista de alunos disponíveis</Typography>
-            <GenericTable headers={headersListadealunos} data={dataFormatted} />
+            <GenericTable
+              headers={headerListaAlunos}
+              data={getAllAlunosbyIdProfessor}
+            />
           </Box>
         </Grid>
-        {/* Este código deve ser substituido por um componente */}
       </Grid>
     </Box>
   );

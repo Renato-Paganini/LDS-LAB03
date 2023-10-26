@@ -1,7 +1,9 @@
-import baseUrl from '../../configs/config'
+import baseUrl from '../../configs/config';
 
-const rotaGetAll = "/getAll/"
+const rotaGetAll = "/getAll/";
 
-export const urlGetAll = {
+const urlGetAll = {
     url: baseUrl + rotaGetAll
-}
+};
+
+export default urlGetAll;
