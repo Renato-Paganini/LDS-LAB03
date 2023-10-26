@@ -16,8 +16,11 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/generic-table/generic-table.component";
+import baseUrlGetAll from "../../services/professorService/getall";
 
 const PortalProfessorPage = () => {
+  const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState(null);
+
   const [professor, setprofessor] = useState(null);
   const nav = useNavigate();
 
@@ -31,24 +34,32 @@ const PortalProfessorPage = () => {
     setprofessor(professor);
   }, []);
 
-  const headersTransacao = ["origem", "valor", "data"];
-  const dataTransacao = [
-    {
-      origem: "Professor A",
-      valor: 100,
-      data: "2023-10-22T10:30:00Z",
-    },
-    {
-      origem: "Professor B",
-      valor: 200,
-      data: "2023-10-21T14:45:00Z",
-    },
-    {
-      origem: "Professor C",
-      valor: 50,
-      data: "2023-10-20T16:15:00Z",
-    },
-  ];
+  useEffect(() => {
+    const url = baseUrlGetAll + professor.cpf;
+
+    axios
+      .get(url)
+      .then((response) => {
+        const data = response.data;
+        setListaDeAlunos(data); // Atualize o estado com os dados recebidos
+      })
+      .catch((error) => {
+        console.error("Erro na solicitação GET:", error);
+      });
+  }, [getAllAlunosbyIdProfessor]);
+
+  const headersListadealunos = ["cpf", "nome", "curso", "realizar depósito"];
+
+  const dataFormatted = getAllAlunosbyIdProfessor.map((aluno) => ({
+    cpf: aluno.cpf,
+    nome: aluno.nome,
+    curso: aluno.curso,
+    realizarDeposito: (
+      <Button variant="outlined" onClick={() => handleDeposito(aluno)}>
+        Realizar Depósito
+      </Button>
+    ),
+  }));
 
   return (
     <Box sx={{ margin: 5 }}>
@@ -170,7 +181,10 @@ const PortalProfessorPage = () => {
               }}
             >
               <Typography>Moedas distribuídas</Typography>
-              <GenericTable headers={headersTransacao} data={dataTransacao} />
+              <GenericTable
+                headers={headersTransacao}
+                data={getAllAlunosbyIdProfessor}
+              />
             </Box>
           </Grid>
         )}
@@ -187,7 +201,7 @@ const PortalProfessorPage = () => {
             }}
           >
             <Typography>Lista de alunos disponíveis</Typography>
-            <GenericTable headers={headersTransacao} data={dataTransacao} />
+            <GenericTable headers={headersListadealunos} data={dataFormatted} />
           </Box>
         </Grid>
         {/* Este código deve ser substituido por um componente */}
