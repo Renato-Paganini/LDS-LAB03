@@ -27,6 +27,7 @@ const PortalProfessorPage = () => {
     nav("/");
     localStorage.clear();
   };
+  const headerListaAlunos = ["Nome", "E-mail", "Saldo", "Curso", "Instituição"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,14 +47,13 @@ const PortalProfessorPage = () => {
             instituicao: aluno.instituicao.nome,
           }))
         );
-        console.log(getAllAlunosbyIdProfessor);
       } catch (error) {
         console.error("Erro na solicitação GET:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [getAllAlunosbyIdProfessor]);
 
   const headersTransacao = ["origem", "valor", "data"];
   const dataTransacao = [
@@ -73,9 +73,6 @@ const PortalProfessorPage = () => {
       data: "2023-10-20T16:15:00Z",
     },
   ];
-
-  const headerListaAlunos = ["Nome", "E-mail", "Saldo", "Curso", "Instituição"];
-
   return (
     <Box sx={{ margin: 5 }}>
       <Container
@@ -201,22 +198,28 @@ const PortalProfessorPage = () => {
           </Grid>
         )}
         <Grid item xs={8}>
-          <Box
-            sx={{
-              maxHeight: "100%",
-              minHeight: "800px",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-              padding: 2,
-              overflowY: "auto",
-            }}
-          >
-            <Typography>Lista de alunos disponíveis</Typography>
-            <GenericTable
-              headers={headerListaAlunos}
-              data={getAllAlunosbyIdProfessor}
-            />
-          </Box>
+          {getAllAlunosbyIdProfessor.length > 0 ? (
+            <Box
+              sx={{
+                maxHeight: "100%",
+                minHeight: "800px",
+                borderRadius: "10px",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                padding: 2,
+                overflowY: "auto",
+              }}
+            >
+              <Typography>Alunos disponíveis</Typography>
+              <GenericTable
+                headers={headerListaAlunos}
+                data={getAllAlunosbyIdProfessor}
+              />
+            </Box>
+          ) : (
+            <Box>
+              <Typography>Lista de alunos não disponíveis</Typography>
+            </Box>
+          )}
         </Grid>
       </Grid>
     </Box>
