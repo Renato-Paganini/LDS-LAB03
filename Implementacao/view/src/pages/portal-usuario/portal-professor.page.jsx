@@ -27,7 +27,18 @@ const PortalProfessorPage = () => {
     nav("/");
     localStorage.clear();
   };
-  const headerListaAlunos = ["Nome", "E-mail", "Saldo", "Curso", "Instituição"];
+  const headerListaAlunos = [
+    "nome",
+    "email",
+    "saldo",
+    "curso",
+    "instituicao",
+    "depositar",
+  ];
+
+  const handleDeposit = (aluno) => {
+    console.log(`Depositar para ${aluno.nome}`);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,15 +56,25 @@ const PortalProfessorPage = () => {
             saldo: aluno.saldo,
             curso: aluno.curso,
             instituicao: aluno.instituicao.nome,
+            depositar: (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleDeposit(aluno)}
+              >
+                Depositar
+              </Button>
+            ),
           }))
         );
+        console.log(getAllAlunosbyIdProfessor);
       } catch (error) {
         console.error("Erro na solicitação GET:", error);
       }
     };
 
     fetchData();
-  }, [getAllAlunosbyIdProfessor]);
+  }, []);
 
   const headersTransacao = ["origem", "valor", "data"];
   const dataTransacao = [
