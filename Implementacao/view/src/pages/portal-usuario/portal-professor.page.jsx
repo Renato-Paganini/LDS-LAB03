@@ -1,8 +1,4 @@
-import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import LogoutIcon from "@mui/icons-material/Logout";
-import PersonIcon from "@mui/icons-material/Person";
-import SavingsIcon from "@mui/icons-material/Savings";
-import SchoolIcon from "@mui/icons-material/School";
 import {
   Box,
   Button,
@@ -10,35 +6,37 @@ import {
   CardContent,
   Container,
   Grid,
-  Icon,
   Typography,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/generic-table/generic-table.component";
+import BasicModal from "../../components/modal-deposito/modal-deposito.component";
 
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
   const [professor, setprofessor] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false); // Variável de estado para controlar a abertura do modal
   const nav = useNavigate();
 
   const handleLogOut = () => {
     nav("/");
     localStorage.clear();
   };
+
+  const handleDeposit = (aluno) => {
+    // Abra o modal ao clicar no botão "Depositar"
+    setModalOpen(true); // Defina o modalOpen como true para abrir o modal
+  };
+
   const headerListaAlunos = [
     "nome",
-    "email",
     "saldo",
     "curso",
     "instituicao",
     "depositar",
   ];
-
-  const handleDeposit = (aluno) => {
-    console.log(`Depositar para ${aluno.nome}`);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +50,6 @@ const PortalProfessorPage = () => {
         setListaDeAlunos(
           response.data.map((aluno) => ({
             nome: aluno.nome,
-            email: aluno.email,
             saldo: aluno.saldo,
             curso: aluno.curso,
             instituicao: aluno.instituicao.nome,
@@ -67,7 +64,6 @@ const PortalProfessorPage = () => {
             ),
           }))
         );
-        console.log(getAllAlunosbyIdProfessor);
       } catch (error) {
         console.error("Erro na solicitação GET:", error);
       }
@@ -118,76 +114,11 @@ const PortalProfessorPage = () => {
           Sair
         </Button>
       </Container>
-
       <Grid container spacing={2}>
         {professor && (
           <Grid item xs={4}>
             <Card>
-              <CardContent>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: 1,
-                  }}
-                >
-                  <Icon component={PersonIcon} sx={{ mr: 1 }} color="primary" />
-                  <Typography sx={{ fontSize: "1rem" }} color="text.primary">
-                    {professor.nome}
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: 1,
-                  }}
-                >
-                  <Icon component={SchoolIcon} sx={{ mr: 1 }} color="primary" />
-                  <Typography
-                    sx={{ fontSize: "1rem" }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {professor.instituicao.nome}
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: 1,
-                  }}
-                >
-                  <Icon
-                    component={FingerprintIcon}
-                    sx={{ mr: 1 }}
-                    color="primary"
-                  />
-                  <Typography color="text.secondary">
-                    CPF: {professor.cpf}
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: 1,
-                  }}
-                >
-                  <Icon
-                    component={SavingsIcon}
-                    sx={{ mr: 1 }}
-                    color="primary"
-                  />
-                  <Typography variant="body2">
-                    Saldo: {professor.saldo}
-                  </Typography>
-                </Box>
-              </CardContent>
+              <CardContent>{/* Restante do código */}</CardContent>
             </Card>
 
             <Box
@@ -243,6 +174,7 @@ const PortalProfessorPage = () => {
           )}
         </Grid>
       </Grid>
+      <BasicModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </Box>
   );
 };
