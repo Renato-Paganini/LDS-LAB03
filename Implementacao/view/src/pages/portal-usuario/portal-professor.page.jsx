@@ -21,6 +21,7 @@ import BasicModal from "../../components/modal-deposito/modal-deposito.component
 
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
+  const [moedasDistribuidas, setMoedasDistribuidas] = useState([]);
   const [professor, setprofessor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState(null);
