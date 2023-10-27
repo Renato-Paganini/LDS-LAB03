@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labSoftware.DTO.ProfessorResponse;
 import com.labSoftware.models.Professor;
 import com.labSoftware.models.Professor.CreateProfessor;
 import com.labSoftware.models.Professor.UpdateProfessor;
@@ -38,9 +39,20 @@ public class ProfessorController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<Professor> login(@RequestBody Professor obj) throws Exception {
-        Professor professorAutenticado = this.professorService.login(obj);
-        return ResponseEntity.ok().body(professorAutenticado);
+    public ResponseEntity<ProfessorResponse> login(@RequestBody Professor request) throws Exception {
+        Professor professor = professorService.login(request);
+
+        // Mapeie o objeto Professor para ProfessorResponse
+        ProfessorResponse response = new ProfessorResponse(
+                professor.getId(),
+                professor.getNome(),
+                professor.getEmail(),
+                professor.getCpf(),
+                professor.getDepartamento(),
+                professor.getSaldo(),
+                professor.getInstituicao());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")

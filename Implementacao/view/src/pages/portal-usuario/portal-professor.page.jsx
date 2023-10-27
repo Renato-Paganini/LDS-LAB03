@@ -25,12 +25,8 @@ const PortalProfessorPage = () => {
     localStorage.clear();
   };
 
-  const handleDeposit = (aluno) => {
-    // Abra o modal ao clicar no botão "Depositar"
-    setModalOpen(true); // Defina o modalOpen como true para abrir o modal
-  };
-
   const headerListaAlunos = [
+    "id",
     "nome",
     "saldo",
     "curso",
@@ -39,16 +35,18 @@ const PortalProfessorPage = () => {
   ];
 
   useEffect(() => {
+    const professor = JSON.parse(localStorage.getItem("user"));
+    setAlunoData(professor);
+  }, []);
+  useEffect(() => {
     const fetchData = async () => {
-      const professor = JSON.parse(localStorage.getItem("user"));
-      setprofessor(professor);
-
       try {
         const response = await axios.get(
           "http://localhost:7070/aluno/getAll/" + professor.cpf
         );
         setListaDeAlunos(
           response.data.map((aluno) => ({
+            id: aluno.id,
             nome: aluno.nome,
             saldo: aluno.saldo,
             curso: aluno.curso,
@@ -68,9 +66,15 @@ const PortalProfessorPage = () => {
         console.error("Erro na solicitação GET:", error);
       }
     };
-
+    // console.log(response.data);
     fetchData();
   }, []);
+  const handleDeposit = (aluno) => {
+    // Defina o aluno selecionado no estado
+    setSelectedAluno(aluno);
+    // Abra o modal ao clicar no botão "Depositar"
+    setModalOpen(true);
+  };
 
   const headersTransacao = ["origem", "valor", "data"];
   const dataTransacao = [
