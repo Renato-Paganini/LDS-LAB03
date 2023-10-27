@@ -22,7 +22,14 @@ import BasicModal from "../../components/modal-deposito/modal-deposito.component
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
   const [professor, setprofessor] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false); // Variável de estado para controlar a abertura do modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedAluno, setSelectedAluno] = useState(null);
+  const [objDeposito, setObjDeposito] = useState({
+    idProfessor: "",
+    idAluno: "",
+    nomeAluno: "",
+  });
+
   const nav = useNavigate();
 
   const handleLogOut = () => {
@@ -43,7 +50,6 @@ const PortalProfessorPage = () => {
     const professor = JSON.parse(localStorage.getItem("user"));
     if (professor) {
       setprofessor(professor);
-      console.log(professor);
     }
     const fetchData = async () => {
       try {
@@ -72,14 +78,25 @@ const PortalProfessorPage = () => {
         console.error("Erro na solicitação GET:", error);
       }
     };
-    // console.log(response.data);
     fetchData();
   }, []);
   const handleDeposit = (aluno) => {
-    // Defina o aluno selecionado no estado
-    setSelectedAluno(aluno);
-    // Abra o modal ao clicar no botão "Depositar"
-    setModalOpen(true);
+    const professor = JSON.parse(localStorage.getItem("user"));
+    if (professor) {
+      setprofessor(professor);
+    }
+    if (professor) {
+      console.log(aluno);
+      setObjDeposito({
+        idAluno: aluno.id,
+        nomeAluno: aluno.nome,
+        idProfessor: professor.id,
+      });
+      setSelectedAluno(aluno);
+      setModalOpen(true);
+    } else {
+      console.error("Professor não está definido");
+    }
   };
 
   const headersTransacao = ["origem", "valor", "data"];
@@ -248,7 +265,11 @@ const PortalProfessorPage = () => {
           )}
         </Grid>
       </Grid>
-      <BasicModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <BasicModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        objDeposito={objDeposito}
+      />
     </Box>
   );
 };

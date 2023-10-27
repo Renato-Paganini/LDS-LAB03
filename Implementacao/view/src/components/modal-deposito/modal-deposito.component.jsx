@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const theme = createTheme({
   components: {
@@ -45,14 +45,13 @@ const buttonStyle = {
   alignItems: "center", // Centraliza verticalmente
 };
 
-export default function BasicModal({ open, onClose }) {
-  const [selectedAluno, setSelectedAluno] = useState(null);
-
+export default function BasicModal({ open, onClose, objDeposito }) {
   const [formData, setFormData] = useState({
-    id_professor: undefined,
-    id_aluno: undefined,
+    id_professor: objDeposito ? objDeposito.idProfessor : "",
+    id_aluno: objDeposito ? objDeposito.idAluno : "",
+    nome_aluno: objDeposito ? objDeposito.nomeAluno : "",
     data: "",
-    valor: undefined,
+    valor: "",
     description: "",
   });
 
@@ -68,11 +67,21 @@ export default function BasicModal({ open, onClose }) {
     });
   };
 
+  useEffect(() => {
+    setFormData({
+      id_professor: objDeposito.idProfessor,
+      id_aluno: objDeposito.idAluno,
+      nome_aluno: objDeposito.nomeAluno,
+      data: "",
+      valor: undefined,
+      description: "",
+    });
+  }, [objDeposito]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Faça algo com os dados do formulário, por exemplo, envie para o servidor
     console.log("Dados do formulário submetidos: ", formData);
-    onClose(); // Fecha o modal após o envio
+    onClose();
   };
 
   return (
@@ -100,7 +109,6 @@ export default function BasicModal({ open, onClose }) {
                 variant="outlined"
                 fullWidth
                 value={formData.id_professor}
-                onChange={handleFormChange}
                 disabled
               />
               <TextField
@@ -109,7 +117,14 @@ export default function BasicModal({ open, onClose }) {
                 variant="outlined"
                 fullWidth
                 value={formData.id_aluno}
-                onChange={handleFormChange}
+                disabled
+              />
+              <TextField
+                name="nome_aluno"
+                label="Nome do Aluno"
+                variant="outlined"
+                fullWidth
+                value={formData.nome_aluno}
                 disabled
               />
               <TextField
