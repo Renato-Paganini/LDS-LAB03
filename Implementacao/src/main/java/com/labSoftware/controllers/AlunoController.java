@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labSoftware.DTO.AlunoResponse;
 import com.labSoftware.models.Aluno;
 import com.labSoftware.models.Aluno.CreateAluno;
 import com.labSoftware.models.Aluno.UpdateAluno;
@@ -43,7 +44,7 @@ public class AlunoController {
     }
 
     @GetMapping("/getAll/{cpf}")
-    public ResponseEntity<List<Aluno>> findAllAlunoByIdProfessor(@PathVariable String cpf) {
+    public ResponseEntity<List<AlunoResponse>> findAllAlunoByIdProfessor(@PathVariable String cpf) {
         return alunoService.retornaListaAlunosByIdProfessor(cpf);
     }
 

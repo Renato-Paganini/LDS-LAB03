@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.labSoftware.DTO.AlunoResponse;
 import com.labSoftware.models.Aluno;
 import com.labSoftware.models.Instituicao;
 import com.labSoftware.models.Professor;
@@ -108,11 +109,27 @@ public class AlunoService {
         return alunoRepository.salvar(aluno);
     }
 
-    public ResponseEntity<List<Aluno>> retornaListaAlunosByIdProfessor(String cpf) {
+    public ResponseEntity<List<AlunoResponse>> retornaListaAlunosByIdProfessor(String cpf) {
         Professor p = this.professorRepository.findByCpf(cpf);
         List<Aluno> alunos = alunoRepository.buscarAlunos();
         List<Aluno> alunosCompativeis = alunos.stream().filter((a) -> a.getInstituicao() == p.getInstituicao())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(alunosCompativeis);
+
+        // Mapeie os objetos Aluno para AlunoResponse
+        List<AlunoResponse> responseList = alunosCompativeis.stream()
+                .map(aluno -> new AlunoResponse(
+                        aluno.getId(),
+                        aluno.getNome(),
+                        aluno.getEmail(),
+                        aluno.getCpf(),
+                        aluno.getRg(),
+                        aluno.getEndereco(),
+                        aluno.getCurso(),
+                        aluno.getSaldo(),
+                        aluno.getInstituicao()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responseList);
     }
+
 }
