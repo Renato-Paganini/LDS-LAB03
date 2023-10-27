@@ -4,6 +4,7 @@ import Modal from "@mui/material/Modal";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import * as React from "react";
 import { useEffect, useState } from "react";
 
@@ -12,16 +13,16 @@ const theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          margin: "10px", // Adiciona uma margem de 10px a todos os TextField
+          margin: "10px",
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          width: "100%", // Define a largura para 100% para que seja igual aos textFields
-          backgroundColor: "green", // Define a cor de fundo como verde
-          color: "white", // Define a cor do texto como branco
+          width: "100%",
+          backgroundColor: "green",
+          color: "white",
         },
       },
     },
@@ -35,23 +36,25 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 600,
   bgcolor: "background.paper",
-  borderRadius: "8px", // Adiciona cantos arredondados
+  borderRadius: "8px",
   p: 5,
 };
 
 const buttonStyle = {
   display: "flex",
   justifyContent: "center",
-  alignItems: "center", // Centraliza verticalmente
+  alignItems: "center",
 };
 
 export default function BasicModal({ open, onClose, objDeposito }) {
+  const currentDate = new Date().toISOString().split("T")[0]; // Obtém a data atual no formato YYYY-MM-DD
+
   const [formData, setFormData] = useState({
     id_professor: objDeposito ? objDeposito.idProfessor : "",
     id_aluno: objDeposito ? objDeposito.idAluno : "",
     nome_aluno: objDeposito ? objDeposito.nomeAluno : "",
-    data: "",
-    valor: "",
+    data: currentDate, // Define a data atual
+    valor: "", // Defina um valor inicial apropriado
     description: "",
   });
 
@@ -72,14 +75,37 @@ export default function BasicModal({ open, onClose, objDeposito }) {
       id_professor: objDeposito.idProfessor,
       id_aluno: objDeposito.idAluno,
       nome_aluno: objDeposito.nomeAluno,
-      data: "",
-      valor: undefined,
+      data: currentDate, // Define a data atual
+      valor: "", // Defina um valor inicial apropriado
       description: "",
     });
   }, [objDeposito]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Construa um objeto com os dados do formulário
+    const data = {
+      id_professor: formData.id_professor,
+      id_aluno: formData.id_aluno,
+      nome_aluno: formData.nome_aluno,
+      data: formData.data,
+      valor: formData.valor,
+      description: formData.description,
+    };
+
+    // Realize a solicitação POST para a URL desejada
+    axios
+      .post("http://localhost:7070/transacao/realizaDeposito", data)
+      .then((response) => {
+        console.log("Resposta da solicitação POST:", response.data);
+        // Lide com a resposta, se necessário
+      })
+      .catch((error) => {
+        console.error("Erro na solicitação POST:", error);
+        // Lide com o erro de acordo com os requisitos do seu aplicativo
+      });
+
     onClose();
   };
 
@@ -133,7 +159,9 @@ export default function BasicModal({ open, onClose, objDeposito }) {
                 variant="outlined"
                 fullWidth
                 value={formData.data}
-                onChange={handleFormChange}
+                InputProps={{
+                  readOnly: true,
+                }}
                 sx={{ width: "100%" }}
               />
               <TextField
@@ -148,6 +176,7 @@ export default function BasicModal({ open, onClose, objDeposito }) {
               <TextField
                 name="description"
                 label="Descrição"
+                type="text"
                 variant="outlined"
                 fullWidth
                 value={formData.description}
