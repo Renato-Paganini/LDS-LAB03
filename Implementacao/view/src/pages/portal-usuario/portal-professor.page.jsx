@@ -1,4 +1,8 @@
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import SavingsIcon from "@mui/icons-material/Savings";
+import SchoolIcon from "@mui/icons-material/School";
 import {
   Box,
   Button,
@@ -6,6 +10,7 @@ import {
   CardContent,
   Container,
   Grid,
+  Icon,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -36,13 +41,14 @@ const PortalProfessorPage = () => {
 
   useEffect(() => {
     const professor = JSON.parse(localStorage.getItem("user"));
-    setAlunoData(professor);
-  }, []);
-  useEffect(() => {
+    if (professor) {
+      setprofessor(professor);
+      console.log(professor);
+    }
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:7070/aluno/getAll/" + professor.cpf
+          `http://localhost:7070/aluno/getAll/${professor.cpf}`
         );
         setListaDeAlunos(
           response.data.map((aluno) => ({
@@ -122,7 +128,71 @@ const PortalProfessorPage = () => {
         {professor && (
           <Grid item xs={4}>
             <Card>
-              <CardContent>{/* Restante do código */}</CardContent>
+              <CardContent>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <Icon component={PersonIcon} sx={{ mr: 1 }} color="primary" />
+                  <Typography sx={{ fontSize: "1rem" }} color="text.primary">
+                    {professor.nome}
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <Icon component={SchoolIcon} sx={{ mr: 1 }} color="primary" />
+                  <Typography
+                    sx={{ fontSize: "1rem" }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    {professor.instituicao.nome}
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <Icon
+                    component={FingerprintIcon}
+                    sx={{ mr: 1 }}
+                    color="primary"
+                  />
+                  <Typography color="text.secondary">
+                    System ID: {professor.id}
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: 1,
+                  }}
+                >
+                  <Icon
+                    component={SavingsIcon}
+                    sx={{ mr: 1 }}
+                    color="primary"
+                  />
+                  <Typography variant="body2">
+                    Saldo: {professor.saldo}
+                  </Typography>
+                </Box>
+              </CardContent>
             </Card>
 
             <Box

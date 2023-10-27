@@ -45,9 +45,9 @@ const buttonStyle = {
   alignItems: "center", // Centraliza verticalmente
 };
 
-const [selectedAluno, setSelectedAluno] = useState(null);
-
 export default function BasicModal({ open, onClose }) {
+  const [selectedAluno, setSelectedAluno] = useState(null);
+
   const [formData, setFormData] = useState({
     id_professor: undefined,
     id_aluno: undefined,
