@@ -16,8 +16,18 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          width: "100%", // Define a largura para 100% para que seja igual aos textFields
+          backgroundColor: "green", // Define a cor de fundo como verde
+          color: "white", // Define a cor do texto como branco
+        },
+      },
+    },
   },
 });
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -27,6 +37,12 @@ const style = {
   bgcolor: "background.paper",
   borderRadius: "8px", // Adiciona cantos arredondados
   p: 5,
+};
+
+const buttonStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center", // Centraliza verticalmente
 };
 
 export default function BasicModal({ open, onClose }) {
@@ -74,7 +90,7 @@ export default function BasicModal({ open, onClose }) {
               sx={{ textAlign: "center" }}
             >
               Preencha os campos para realizar um depósito
-            </Typography>{" "}
+            </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
                 name="id_professor"
@@ -83,6 +99,7 @@ export default function BasicModal({ open, onClose }) {
                 fullWidth
                 value={formData.id_professor}
                 onChange={handleFormChange}
+                disabled
               />
               <TextField
                 name="id_aluno"
@@ -91,6 +108,7 @@ export default function BasicModal({ open, onClose }) {
                 fullWidth
                 value={formData.id_aluno}
                 onChange={handleFormChange}
+                disabled
               />
               <TextField
                 name="data"
@@ -100,6 +118,7 @@ export default function BasicModal({ open, onClose }) {
                 fullWidth
                 value={formData.data}
                 onChange={handleFormChange}
+                sx={{ width: "100%" }}
               />
               <TextField
                 name="valor"
@@ -118,13 +137,15 @@ export default function BasicModal({ open, onClose }) {
                 value={formData.description}
                 onChange={handleFormChange}
               />
-              <Button type="submit" variant="contained" color="primary">
-                Enviar
-              </Button>
+              <Box sx={buttonStyle}>
+                <Button type="submit" variant="contained">
+                  Enviar
+                </Button>
+              </Box>
             </form>
           </Box>
         </Modal>
-      </div>{" "}
+      </div>
     </ThemeProvider>
   );
 }
