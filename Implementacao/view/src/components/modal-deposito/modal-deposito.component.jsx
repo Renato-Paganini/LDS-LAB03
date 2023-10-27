@@ -80,7 +80,6 @@ export default function BasicModal({ open, onClose, objDeposito }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dados do formulário submetidos: ", formData);
     onClose();
   };
 

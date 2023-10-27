@@ -86,7 +86,6 @@ const PortalProfessorPage = () => {
       setprofessor(professor);
     }
     if (professor) {
-      console.log(aluno);
       setObjDeposito({
         idAluno: aluno.id,
         nomeAluno: aluno.nome,
