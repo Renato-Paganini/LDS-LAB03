@@ -30,6 +30,13 @@ const PortalProfessorPage = () => {
     nomeAluno: "",
   });
 
+  function formatarData(date) {
+    const year = date.substring(0, 4);
+    const month = date.substring(5, 7);
+    const day = date.substring(8, 11);
+    return `${day}/${month}/${year}`;
+  }
+
   const nav = useNavigate();
 
   const handleLogOut = () => {
@@ -46,11 +53,20 @@ const PortalProfessorPage = () => {
     "depositar",
   ];
 
+  const moedasDistribuidasHeader = [
+    "nome",
+    "valor",
+    "description",
+    "data",
+    "curso",
+  ];
+
   useEffect(() => {
     const professor = JSON.parse(localStorage.getItem("user"));
     if (professor) {
       setprofessor(professor);
     }
+
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -74,12 +90,28 @@ const PortalProfessorPage = () => {
             ),
           }))
         );
+
+        const responseMoedasDistribuidas = await axios.get(
+          `http://localhost:7070/transacao/retornaTodosDepositos/professor/${professor.id}`
+        );
+        const moedasDistribuidasData = responseMoedasDistribuidas.data.map(
+          (item) => ({
+            nome: item.aluno.nome,
+            curso: item.aluno.curso,
+            valor: item.valor,
+            data: formatarData(item.data.toString()),
+            description: item.description,
+          })
+        );
+
+        setMoedasDistribuidas(moedasDistribuidasData);
       } catch (error) {
         console.error("Erro na solicitação GET:", error);
       }
     };
     fetchData();
   }, []);
+
   const handleDeposit = (aluno) => {
     const professor = JSON.parse(localStorage.getItem("user"));
     if (professor) {
@@ -233,11 +265,11 @@ const PortalProfessorPage = () => {
                 overflowY: "auto",
               }}
             >
-              {moedasDistribuidas > 0 ? (
+              {moedasDistribuidas.length > 0 ? (
                 <Box>
                   <Typography>Moedas distribuídas</Typography>
                   <GenericTable
-                    headers={headersTransacao}
+                    headers={moedasDistribuidasHeader}
                     data={moedasDistribuidas}
                   />
                 </Box>
