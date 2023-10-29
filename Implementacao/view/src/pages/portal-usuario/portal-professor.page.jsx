@@ -24,7 +24,6 @@ const PortalProfessorPage = () => {
   const [moedasDistribuidas, setMoedasDistribuidas] = useState([]);
   const [professor, setprofessor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedAluno, setSelectedAluno] = useState(null);
   const [objDeposito, setObjDeposito] = useState({
     idProfessor: "",
     idAluno: "",
@@ -92,7 +91,6 @@ const PortalProfessorPage = () => {
         nomeAluno: aluno.nome,
         idProfessor: professor.id,
       });
-      setSelectedAluno(aluno);
       setModalOpen(true);
     } else {
       console.error("Professor não está definido");
@@ -235,8 +233,19 @@ const PortalProfessorPage = () => {
                 overflowY: "auto",
               }}
             >
-              <Typography>Moedas distribuídas</Typography>
-              <GenericTable headers={headersTransacao} data={dataTransacao} />
+              {moedasDistribuidas > 0 ? (
+                <Box>
+                  <Typography>Moedas distribuídas</Typography>
+                  <GenericTable
+                    headers={headersTransacao}
+                    data={moedasDistribuidas}
+                  />
+                </Box>
+              ) : (
+                <Box>
+                  <Typography>Sem moedas distribuídas</Typography>
+                </Box>
+              )}
             </Box>
           </Grid>
         )}
