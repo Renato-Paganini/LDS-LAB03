@@ -72,15 +72,15 @@ public class VantagemController {
     public ResponseEntity<List<Vantagem>> getVantagensByEmpresa(@PathVariable Long id) {
         List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(id);
 
-        // // Converte as entidades Vantagem em uma lista de objetos VantagemDTO
-        // List<VantagemDTO> vantagemDTOs = vantagens.stream()
-        // .map(vantagem -> new VantagemDTO(
-        // vantagem.getId(),
-        // vantagem.getFoto(),
-        // vantagem.getDescricao(),
-        // vantagem.getValor(),
-        // vantagem.getNome()))
-        // .collect(Collectors.toList());
+         // Converte as entidades Vantagem em uma lista de objetos VantagemDTO.java
+         List<VantagemDTO.java> vantagemDTOs = vantagens.stream()
+         .map(vantagem -> new VantagemDTO.java(
+         vantagem.getId(),
+         vantagem.getFoto(),
+         vantagem.getDescricao(),
+         vantagem.getValor(),
+         vantagem.getNome()))
+         .collect(Collectors.toList());
 
         return ResponseEntity.ok(vantagens);
     }
