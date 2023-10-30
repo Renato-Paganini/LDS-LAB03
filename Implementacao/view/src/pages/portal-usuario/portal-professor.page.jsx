@@ -22,6 +22,8 @@ import BasicModal from "../../components/modal-deposito/modal-deposito.component
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
   const [moedasDistribuidas, setMoedasDistribuidas] = useState([]);
+  const [moedasRecebidas, setMoedasRecebidas] = useState([]);
+
   const [professor, setprofessor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [objDeposito, setObjDeposito] = useState({
@@ -252,8 +254,18 @@ const PortalProfessorPage = () => {
                 overflowY: "auto",
               }}
             >
-              <Typography>Moedas recebidas</Typography>
-              <GenericTable headers={headersTransacao} data={dataTransacao} />
+              {moedasRecebidas.length > 0 ? (
+                <Box>
+                  {" "}
+                  <Typography>Moedas recebidas</Typography>
+                  <GenericTable
+                    headers={headersTransacao}
+                    data={dataTransacao}
+                  />
+                </Box>
+              ) : (
+                <Typography>Sem extrato</Typography>
+              )}
             </Box>
             <Box
               sx={{
