@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import {
   Avatar,
+  Box,
   Button,
   CssBaseline,
-  TextField,
-  Paper,
-  Box,
   Grid,
   MenuItem,
+  Paper,
+  TextField,
   Typography,
 } from "@mui/material";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import baseUrl from "../../configs/config";
 
 const initialForm = {
   login: "",
@@ -36,7 +36,7 @@ const LoginForm = () => {
 
     switch (form.type) {
       case "Professor":
-        url = "http://localhost:7070/professor/auth";
+        url = `${baseUrl}/professor/auth`;
         finalForm = {
           cpf: form.login,
           senha: form.password,
@@ -44,7 +44,7 @@ const LoginForm = () => {
         redirectPage = "/portalProfessor";
         break;
       case "Aluno":
-        url = "http://localhost:7070/aluno/auth";
+        url = `${baseUrl}/aluno/auth`;
         finalForm = {
           cpf: form.login,
           senha: form.password,
@@ -52,7 +52,7 @@ const LoginForm = () => {
         redirectPage = "/portalAluno";
         break;
       case "Empresa":
-        url = "http://localhost:7070/empresa/auth";
+        url = `${baseUrl}/empresa/auth`;
         finalForm = {
           cnpj: form.login,
           senha: form.password,
