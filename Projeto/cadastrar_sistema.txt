@@ -1,0 +1,30 @@
+title Cadastrar e Autenticar no Sistema
+
+participant Instituição
+participant Professor
+participant Empresa
+participant Sistema
+participant Aluno
+
+activate Aluno
+Instituição->Sistema:cadastraProfessores()\n
+Sistema<-Aluno:cadastrarNoSistema()\n
+activate Aluno
+
+activate Empresa
+Empresa ->Sistema:cadastrarNoSistema()\n
+
+Sistema<-Aluno:autenticarNoSistema()\n
+Sistema->Aluno:resposta()
+deactivate Aluno
+
+
+activate Empresa
+Sistema<-Empresa:autenticarNoSistema()\n
+Sistema->Empresa:resposta()
+deactivate Empresa
+
+activate Professor
+Sistema<-Professor:autenticarNoSistema()\n
+Sistema->Professor:resposta()
+deactivate Professor

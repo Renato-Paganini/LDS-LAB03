@@ -1,0 +1,26 @@
+title Resgatar vantagens
+
+
+participant Empresa
+
+participant Sistema
+
+participant Aluno
+activate Empresa
+Empresa->Sistema:cadastrarVantagens()
+space 
+deactivate Empresa
+Sistema<-Aluno:regastarVantagens(Vantagem vantagem)
+
+activate Aluno
+
+activate Aluno
+Aluno->Aluno:atualizarSaldoMoedas(int debito)
+deactivate Aluno
+space
+
+activate Aluno
+
+Sistema<-Aluno:pedirEmailVantagens()
+Aluno<-Sistema:receberEmailVantagem()
+deactivate Aluno

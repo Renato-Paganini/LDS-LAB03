@@ -1,0 +1,20 @@
+title Transferir moedas
+
+participant Sistema
+participant Professor
+participant Aluno
+
+
+activate Professor
+space 
+activate Professor
+Professor->Sistema:autenticar()
+Sistema ->Professor:resposta()
+deactivate Professor
+space 
+activate Aluno
+
+activate Professor
+Professor->Aluno:tranferirMoedas(int quantidade)
+Professor ->Aluno:notificarAlunoPorEmail()
+deactivate Professor
