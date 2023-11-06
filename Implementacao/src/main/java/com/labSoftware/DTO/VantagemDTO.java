@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @JsonInclude(JsonInclude.Include.ALWAYS)
-public class DepositoDTO {
+public class VantagemDTO {
     private Long id_empresa;
     private String foto;
     private String descricao;

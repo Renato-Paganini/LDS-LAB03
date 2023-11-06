@@ -1,7 +1,9 @@
 package com.labSoftware.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.labSoftware.DTO.VantagemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,8 +75,8 @@ public class VantagemController {
         List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(id);
 
          // Converte as entidades Vantagem em uma lista de objetos VantagemDTO.java
-         List<VantagemDTO.java> vantagemDTOs = vantagens.stream()
-         .map(vantagem -> new VantagemDTO.java(
+         List<VantagemDTO> vantagemDTOs = vantagens.stream()
+         .map(vantagem -> new VantagemDTO(
          vantagem.getId(),
          vantagem.getFoto(),
          vantagem.getDescricao(),
