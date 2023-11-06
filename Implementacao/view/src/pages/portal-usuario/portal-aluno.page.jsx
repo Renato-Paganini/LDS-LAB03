@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   Icon,
+  CardActionArea,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
@@ -16,9 +17,31 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import SavingsIcon from "@mui/icons-material/Savings";
 import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/generic-table/generic-table.component";
+import LoadingComponent from "../../components/loading/loading.component";
+import axios from "axios";
+import baseUrl from "../../configs/config";
 
 const PortalAlunoPage = () => {
+  const [loading, setLoading] = useState(true);
   const [alunoData, setAlunoData] = useState(null);
+  const [headersTransacao, setHeadersTransacao] = useState([]);
+  const [dataTransacao, setDataTransacao] = useState([
+    {
+      origem: "Professor A",
+      valor: 100,
+      data: "2023-10-22T10:30:00Z",
+    },
+    {
+      origem: "Professor B",
+      valor: 200,
+      data: "2023-10-21T14:45:00Z",
+    },
+    {
+      origem: "Professor C",
+      valor: 50,
+      data: "2023-10-20T16:15:00Z",
+    },
+  ]);
   const nav = useNavigate();
 
   const handleLogOut = () => {
@@ -29,27 +52,40 @@ const PortalAlunoPage = () => {
   useEffect(() => {
     const aluno = JSON.parse(localStorage.getItem("user"));
     setAlunoData(aluno);
+    getExtratoDepositos(aluno.id);
+    setLoading(false);
   }, []);
 
-  const headersTransacao = ["origem", "valor", "data"]
-  const dataTransacao = [
-  {
-    origem: "Professor A",
-    valor: 100,
-    data: "2023-10-22T10:30:00Z"
-  },
-  {
-    origem: "Professor B",
-    valor: 200,
-    data: "2023-10-21T14:45:00Z"
-  },
-  {
-    origem: "Professor C",
-    valor: 50,
-    data: "2023-10-20T16:15:00Z"
-  }
-]
+  const getExtratoDepositos = async (id) => {
+    const { data } = await axios.get(
+      `${baseUrl}/transacao/retornaTodosDepositos/${id}`
+    );
+    const headersKeys = Object.keys(data[0]);
+    setHeadersTransacao(headersKeys);
 
+    const finalData = data.map((obj) => {
+      return {
+        id: obj.id,
+        aluno: obj.aluno.nome,
+        professor: obj.professor.nome,
+        description: obj.description,
+        valor: obj.valor,
+        data: `${obj.data[2]}/${obj.data[1]}/${obj.data[0]}`,
+      };
+    });
+
+    setDataTransacao(finalData);
+  };
+
+  const updateAluno = async () => {
+    const { data } = await axios.get(`${baseUrl}/aluno/${alunoData.id}`);
+    setAlunoData(data);
+    localStorage.setItem("user", JSON.stringify(data));
+  };
+
+  if (loading) {
+    return <LoadingComponent />;
+  }
 
   return (
     <Box sx={{ margin: 5 }}>
@@ -145,6 +181,10 @@ const PortalAlunoPage = () => {
                   </Typography>
                 </Box>
               </CardContent>
+
+              <Button fullWidth onClick={updateAluno}>
+                Atualizar dados do aluno
+              </Button>
             </Card>
 
             <Box
@@ -154,13 +194,11 @@ const PortalAlunoPage = () => {
                 borderRadius: "10px",
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                 padding: 2,
-                overflowY:"auto"
+                overflowY: "auto",
               }}
             >
               <Typography>Extrato de depósitos de moedas</Typography>
-              <GenericTable headers={headersTransacao} data={dataTransacao}/>
-
-
+              <GenericTable headers={headersTransacao} data={dataTransacao} />
             </Box>
 
             <Box
@@ -170,7 +208,7 @@ const PortalAlunoPage = () => {
                 borderRadius: "10px",
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                 padding: 2,
-                overflowY:"auto"
+                overflowY: "auto",
               }}
             >
               <Typography>Extrato de consumo de vantagens</Typography>
@@ -186,7 +224,7 @@ const PortalAlunoPage = () => {
               borderRadius: "10px",
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
               padding: 2,
-              overflowY:"auto"
+              overflowY: "auto",
             }}
           >
             <Typography>

@@ -37,7 +37,7 @@ public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aluno", unique = true)
-    @JsonBackReference
+    // @JsonBackReference
     private Long id;
 
     @Column(name = "nome")
