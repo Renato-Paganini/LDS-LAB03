@@ -94,9 +94,9 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 ![Diagrama de caso de uso](./Projeto/Diagrama%20de%20caso%20de%20uso.jpg)
 
 ## Diagrama de Classes
-![Diagrama de classe](./Projeto/Diagrama%20de%20classes%20v3.png)
+![Diagrama de classe](./Projeto//Diagrama%20de%20classes%20final.png)
 
-## Diagrama de Componentes e Implantação
+## Diagrama de Implantação
 ![Diagrama de Componente e Implantação](./Projeto/Diagrama%20de%20implantação.png)
 
 ## Diagramas de Sequencia
@@ -104,9 +104,16 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 ### Cadastar e autenticar
 ![Diagrama de sequencia: Cadastrar e autenticar](./Projeto/cadastrar_autenticar.jpeg)
 
+
+## Cadastrar Vantagem
+![Diagrama de sequencia: Vantagem](./Projeto/cadastrarVantagens.jpg)
+
+## Visualizar Vantagens
+![Diagrama de sequencia:  Cadastrar e autenticar](./Projeto/visualizarVantagens.jpg)
+
+
 ### Transferir moedas
 ![Diagrama de sequencia: Tranferir moedas](./Projeto/tranferir.jpeg)
-
 
 ### Regatar vantagens
 ![Diagrama de sequencia: Regatar vantagens](./Projeto/resgatar.jpeg)
