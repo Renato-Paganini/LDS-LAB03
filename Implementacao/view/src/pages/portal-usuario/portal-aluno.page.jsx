@@ -20,11 +20,13 @@ import GenericTable from "../../components/generic-table/generic-table.component
 import LoadingComponent from "../../components/loading/loading.component";
 import axios from "axios";
 import baseUrl from "../../configs/config";
+import MediaCard from "../../components/card-aluno/MediaCard";
 
 const PortalAlunoPage = () => {
   const [loading, setLoading] = useState(true);
   const [alunoData, setAlunoData] = useState(null);
   const [headersTransacao, setHeadersTransacao] = useState([]);
+  const [vantagemData, setVantagemData] = useState(null);
   const [dataTransacao, setDataTransacao] = useState([
     {
       origem: "Professor A",
@@ -54,6 +56,25 @@ const PortalAlunoPage = () => {
     setAlunoData(aluno);
     getExtratoDepositos(aluno.id);
     setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    async function fetchVantagem() {
+      try {
+        const res = await fetch(`http://localhost:7070/vantagem/getAll`);
+
+        if (!res.ok) {
+          throw new Error(`Erro ao obter dados da vantagem: ${res.statusText}`);
+        }
+
+        const json = await res.json();
+        setVantagemData(json);
+        console.log(json);
+      } catch (error) {
+        console.error("Erro na solicitação:", error);
+      }
+    }
+    fetchVantagem();
   }, []);
 
   const getExtratoDepositos = async (id) => {
@@ -230,6 +251,20 @@ const PortalAlunoPage = () => {
             <Typography>
               Lista de vantagens para os alunos escolherem
             </Typography>
+            <div
+              style={{
+                display: "flex",
+                gap: "16px",
+                flexWrap: "wrap",
+                maxHeight: "800px",
+                overflowY: "auto",
+              }}
+            >
+              {vantagemData &&
+                vantagemData.map((v, index) => (
+                  <MediaCard key={index} vantagem={v} />
+                ))}
+            </div>
           </Box>
         </Grid>
         {/* Este código deve ser substituido por um componente */}

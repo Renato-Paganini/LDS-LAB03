@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.labSoftware.services.VantagemService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/vantagem")
 public class VantagemController {
 
@@ -78,20 +80,20 @@ public class VantagemController {
     }
 
     @GetMapping("/getByEmpresaId/{id}")
-    public ResponseEntity<List<VantagemDTO>> getVantagensByEmpresa(@PathVariable Long id) {
+    public ResponseEntity<List<Vantagem>> getVantagensByEmpresa(@PathVariable Long id) {
         List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(id);
 
         if (vantagens.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        List<VantagemDTO> vantagemDTOs = vantagens.stream()
-                .map(vantagem -> new VantagemDTO(
-                        vantagem.getId(),
-                        vantagem.getDescricao(),
-                        vantagem.getValor(),
-                        vantagem.getNome()))
-                .collect(Collectors.toList());
+        // List<VantagemDTO> vantagemDTOs = vantagens.stream()
+        //         .map(vantagem -> new VantagemDTO(
+        //                 vantagem.getId(),
+        //                 vantagem.getDescricao(),
+        //                 vantagem.getValor(),
+        //                 vantagem.getNome()))
+        //         .collect(Collectors.toList());
 
-        return ResponseEntity.ok(vantagemDTOs);
+        return ResponseEntity.ok(vantagens);
     }
 }

@@ -5,7 +5,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import SavingsIcon from "@mui/icons-material/Savings";
 import BusinessIcon from "@mui/icons-material/Business";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -66,8 +66,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const PortalEmpresaPage = () => {
   const [loading, setLoading] = useState(true);
   const [empresaData, setEmpresaData] = useState(null);
+  const [vantagemData, setVantagemData] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
+  const [forceUpdate, setForceUpdate] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -76,31 +78,49 @@ const PortalEmpresaPage = () => {
   const [formValuesEdit, setFormValuesEdit] = useState({
     id: "",
     nome: "",
-    foto: "",
     descricao: "",
     valor: 0,
   });
   function handleOpenEdit(id) {
-    const vantagem = empresaData.listaVantagens.find(
-      (lista) => lista.id === id
-    );
+    const vantagem = vantagemData.find((lista) => lista.id === id);
     setFormValuesEdit({
-      id: id,
+      id: vantagem.id,
       nome: vantagem.nome,
-      foto: vantagem.foto,
       descricao: vantagem.descricao,
       valor: vantagem.valor,
     });
     console.log(formValuesEdit);
     setOpenEdit(true);
   }
+  const userString = localStorage.getItem("user");
+  const userObject = JSON.parse(userString);
+  const userId = userObject.id;
   const [formValues, setFormValues] = useState({
+    id_empresa: userId,
     nome: "",
-    foto: "",
     descricao: "",
     valor: 0,
   });
+  useEffect(() => {
+    async function fetchVantagem() {
+      try {
+        const res = await fetch(
+          `http://localhost:7070/vantagem/getByEmpresaId/${userId}`
+        );
 
+        if (!res.ok) {
+          throw new Error(`Erro ao obter dados da vantagem: ${res.statusText}`);
+        }
+
+        const json = await res.json();
+        setVantagemData(json);
+        console.log(json);
+      } catch (error) {
+        console.error("Erro na solicitação:", error);
+      }
+    }
+    fetchVantagem();
+  }, [userId, forceUpdate]);
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormValues({ ...formValues, [id]: value });
@@ -111,7 +131,7 @@ const PortalEmpresaPage = () => {
   };
 
   function handleCreate() {
-    fetch("http://localhost:7070/vantagem", {
+    fetch("http://localhost:7070/vantagem/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -121,6 +141,7 @@ const PortalEmpresaPage = () => {
       .then((response) => {
         if (response.ok) {
           alert("Vantagem adicionada com sucesso.");
+          setForceUpdate(!forceUpdate);
         } else {
           alert("Ocorreu um problema ao adicionar a vantagem.");
         }
@@ -129,8 +150,8 @@ const PortalEmpresaPage = () => {
         alert("Houve um erro na solicitação:", error);
       });
   }
-  function handleEdit() {
-    fetch("http://localhost:7070/vantagem", {
+  function handleEdit(id) {
+    fetch(`http://localhost:7070/vantagem/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -140,6 +161,7 @@ const PortalEmpresaPage = () => {
       .then((response) => {
         if (response.ok) {
           alert("Vantagem atualizada com sucesso.");
+          setForceUpdate(!forceUpdate);
         } else {
           alert("Ocorreu um problema ao adicionar a vantagem.");
         }
@@ -150,12 +172,13 @@ const PortalEmpresaPage = () => {
   }
 
   function handleDelete(id) {
-    fetch(`http://localhost:7070/vantagem/${id}`, {
+    fetch(`http://localhost:7070/vantagem/delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.ok) {
           alert(`Vantagem com ID ${id} foi deletada.`);
+          setForceUpdate(!forceUpdate);
         } else {
           alert("Ocorreu um problema ao deletar a vantagem.");
         }
@@ -171,7 +194,6 @@ const PortalEmpresaPage = () => {
   useEffect(() => {
     const empresa = JSON.parse(localStorage.getItem("user"));
     setEmpresaData(empresa);
-    console.log(empresa);
   }, []);
 
   return (
@@ -252,7 +274,12 @@ const PortalEmpresaPage = () => {
                     color="primary"
                   />
                   <Typography color="text.secondary">
-                    System ID: {empresaData.id}
+                    System ID:{" "}
+                    <input
+                      id="empresa_id"
+                      type="hidden"
+                      value={empresaData.id}
+                    />
                   </Typography>
                 </Box>
 
@@ -300,22 +327,20 @@ const PortalEmpresaPage = () => {
                     <StyledTableCell>Nome</StyledTableCell>
                     <StyledTableCell>Descrição</StyledTableCell>
                     <StyledTableCell>Valor</StyledTableCell>
-                    <StyledTableCell>Foto</StyledTableCell>
                     <StyledTableCell align="right">
                       Editar || Deletar
                     </StyledTableCell>
                   </TableRow>
                 </TableHead>
-                {empresaData && empresaData.listaVantagens && (
+                {vantagemData && (
                   <TableBody>
-                    {empresaData.listaVantagens.map((row) => (
+                    {vantagemData.map((row) => (
                       <StyledTableRow key={row.id}>
                         <StyledTableCell component="th">
                           {row.nome}
                         </StyledTableCell>
                         <StyledTableCell>{row.descricao}</StyledTableCell>
                         <StyledTableCell>{row.valor}</StyledTableCell>
-                        <StyledTableCell>{row.foto}</StyledTableCell>
                         <StyledTableCell align="right">
                           <IconButton
                             color="primary"
@@ -358,13 +383,6 @@ const PortalEmpresaPage = () => {
             <TextField
               id="nome"
               label="Nome"
-              variant="outlined"
-              sx={{ mb: 2 }}
-              onChange={handleInputChange}
-            />
-            <TextField
-              id="foto"
-              label="Foto"
               variant="outlined"
               sx={{ mb: 2 }}
               onChange={handleInputChange}
@@ -426,14 +444,6 @@ const PortalEmpresaPage = () => {
               onChange={handleInputChangeEdit}
             />
             <TextField
-              id="foto"
-              label="Foto"
-              variant="outlined"
-              value={formValuesEdit.foto}
-              sx={{ mb: 2 }}
-              onChange={handleInputChangeEdit}
-            />
-            <TextField
               id="descricao"
               label="descricao"
               variant="outlined"
@@ -454,7 +464,10 @@ const PortalEmpresaPage = () => {
               onChange={handleInputChangeEdit}
             />
           </Typography>
-          <Button onClick={handleEdit} variant="contained">
+          <Button
+            onClick={() => handleEdit(formValuesEdit.id)}
+            variant="contained"
+          >
             Editar
           </Button>
         </Box>
