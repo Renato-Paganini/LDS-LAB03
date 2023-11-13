@@ -60,21 +60,17 @@ public class VantagemService {
             throw new RuntimeException("O ID da empresa associada à vantagem não pode ser nulo");
         }
 
-        // Encontre a empresa no banco de dados
         Empresa e = this.empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
 
-        // Adiciona a nova vantagem à lista de vantagens da empresa
         e.getListaVantagens().add(obj);
         obj.setEmpresa(e);
 
-        // Salva a vantagem
         Vantagem novaVantagem = this.vantagemRepository.save(obj);
 
         return novaVantagem;
     }
 
-    @Transactional
     public Vantagem updateVantagem(Vantagem obj) {
         Vantagem v = findbyIdVantagem(obj.getId());
 
@@ -88,7 +84,20 @@ public class VantagemService {
             v.setEmpresa(e);
         }
         v.setValor(obj.getValor());
-        return this.vantagemRepository.save(v);
+
+        if (v.getResgates() == null || v.getResgates().isEmpty()) {
+            return this.vantagemRepository.save(v);
+        } else {
+            Vantagem novaVantagem = new Vantagem();
+            novaVantagem.setNome(v.getNome());
+            novaVantagem.setDescricao(v.getDescricao());
+            novaVantagem.setEmpresa(v.getEmpresa());
+            novaVantagem.setValor(v.getValor());
+
+            Vantagem vantagemSalva = this.vantagemRepository.save(novaVantagem);
+
+            return vantagemSalva;
+        }
     }
 
     public void deleteVantagem(Long id) {
@@ -98,7 +107,12 @@ public class VantagemService {
             if (v == null) {
                 throw new EntityNotFoundException("Vantagem com ID " + id + " não encontrada");
             }
-            this.vantagemRepository.deleteById(v.getId());
+
+            if (v.getResgates() == null || v.getResgates().isEmpty()) {
+                this.vantagemRepository.deleteById(v.getId());
+            } else {
+                throw new RuntimeException("Não é possível excluir a vantagem porque ela está sendo usada como histórico de resgates");
+            }
         } catch (Exception exception) {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!");
         }

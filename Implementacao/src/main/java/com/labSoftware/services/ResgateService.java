@@ -1,6 +1,7 @@
 package com.labSoftware.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,39 +27,36 @@ public class ResgateService {
     @Autowired
     private VantagemService vantagemService;
 
-    public ResponseEntity<?> realizaTransacaoAluno(ResgateDTO resgate) {
-        Aluno aluno = alunoService.findbyIdAluno(resgate.getId_aluno());
-        Vantagem vantagem = vantagemService.findbyIdVantagem(resgate.getId_vantagem());
+    public ResponseEntity<?> realizaTransacaoAluno(ResgateDTO resgateDTO) {
+        Aluno aluno = alunoService.findbyIdAluno(resgateDTO.getId_aluno());
+        Vantagem vantagem = vantagemService.findbyIdVantagem(resgateDTO.getId_vantagem());
 
         if (aluno == null || vantagem == null) {
             return new ResponseEntity<>("Vantagem ou Aluno não existem", HttpStatusCode.valueOf(400));
         }
 
         double creditosVantagem = vantagem.getValor();
-        double creditos_aluno = aluno.getSaldo();
+        double creditosAluno = aluno.getSaldo();
 
-        if (creditosVantagem > creditos_aluno) {
+        if (creditosVantagem > creditosAluno) {
             return new ResponseEntity<>("Aluno não possui crédito suficiente", HttpStatusCode.valueOf(400));
         }
 
-        aluno.setSaldo((creditos_aluno - creditosVantagem));
-        Resgate resgate1 = new Resgate(resgate.getDescription(), resgate.getData(), aluno, vantagem,
-                vantagem.getValor());
+        aluno.setSaldo((creditosAluno - creditosVantagem));
 
-        resgateRepository.save(resgate1);
+        Resgate resgate = new Resgate();
+        resgate.setDescription(resgateDTO.getDescription());
+        resgate.setData(resgateDTO.getData());
+        resgate.setAluno(aluno);
+        resgate.setVantagem(vantagem);
+        resgate.setValor(creditosVantagem);
 
+        vantagem.getResgates().add(resgate);
+
+        resgateRepository.save(resgate);
         alunoRepository.salvar(aluno);
 
-        // mailService.sendMessage(professor.getEmail(), "Você acabou de realizar uma
-        // transação no valor de:" +
-        // transacao.getValor() + " para o Aluno: " + aluno.getUsuario().getName());
-
-        // mailService.sendMessage(aluno.getUsuario().getEmail(),
-        // "Você acabou de receber " + transacao.getValor() + " moedas" +
-        // "do professor: " + professor.getNome());
-
-        return ResponseEntity.ok(resgate1);
-
+        return ResponseEntity.ok(resgate);
     }
 
     public ResponseEntity<?> retornaResgates() {
