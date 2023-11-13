@@ -3,6 +3,7 @@ package com.labSoftware.services;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,6 @@ import com.labSoftware.repositories.VantagemRepository;
 
 import jakarta.transaction.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class VantagemService {
