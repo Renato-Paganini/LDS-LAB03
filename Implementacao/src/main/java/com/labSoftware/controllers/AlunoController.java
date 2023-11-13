@@ -34,6 +34,7 @@ public class AlunoController {
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> findbyIdAluno(@PathVariable Long id) {
         Aluno obj = this.alunoService.findbyIdAluno(id);
+        System.out.println(obj);
         return ResponseEntity.ok().body(obj);
     }
 
@@ -49,8 +50,8 @@ public class AlunoController {
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<Aluno> login(@RequestBody Aluno obj) throws Exception {
-        Aluno alunoAutenticado = this.alunoService.login(obj);
+    public ResponseEntity<AlunoResponse> login(@RequestBody Aluno obj) throws Exception {
+        AlunoResponse alunoAutenticado = this.alunoService.login(obj);
         return ResponseEntity.ok().body(alunoAutenticado);
     }
 

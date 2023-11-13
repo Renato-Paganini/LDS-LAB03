@@ -91,10 +91,29 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 
 
 ## Diagrama de Casos de Uso
-![Diagrama de caso de uso](./Projeto/lab3-Caso%20de%20uso.jpg)
+![Diagrama de caso de uso](./Projeto/Diagrama%20de%20caso%20de%20uso.jpg)
 
 ## Diagrama de Classes
-![Diagrama de classe](./Projeto/dg-classe/Diagrama%20classe.drawio.png)
+![Diagrama de classe](./Projeto//Diagrama%20de%20classes%20final.png)
 
-## Diagrama de Componentes e Implantação
-![Diagrama de Componente e Implantação](./Projeto/lab03.drawio.png)
+## Diagrama de Implantação
+![Diagrama de Componente e Implantação](./Projeto/Diagrama%20de%20implantação.png)
+
+## Diagramas de Sequencia
+
+### Cadastar e autenticar
+![Diagrama de sequencia: Cadastrar e autenticar](./Projeto/cadastrar_autenticar.jpeg)
+
+
+## Cadastrar Vantagem
+![Diagrama de sequencia: Vantagem](./Projeto/cadastrarVantagens.jpg)
+
+## Visualizar Vantagens
+![Diagrama de sequencia:  Cadastrar e autenticar](./Projeto/visualizarVantagens.jpg)
+
+
+### Transferir moedas
+![Diagrama de sequencia: Tranferir moedas](./Projeto/tranferir.jpeg)
+
+### Regatar vantagens
+![Diagrama de sequencia: Regatar vantagens](./Projeto/resgatar.jpeg)

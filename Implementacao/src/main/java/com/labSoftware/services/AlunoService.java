@@ -32,9 +32,10 @@ public class AlunoService {
 
     public Aluno findbyIdAluno(Long id) {
         Optional<Aluno> aluno = this.alunoRepository.buscarPeloId(id);
-
         return aluno.orElseThrow(
                 () -> new RuntimeException("Aluno não encontrado" + id + "Tipo: " + Aluno.class.getName()));
+
+        
     }
 
     public List<Aluno> getAll() {
@@ -42,11 +43,21 @@ public class AlunoService {
         return lista;
     }
 
-    public Aluno login(Aluno obj) throws Exception {
+    public AlunoResponse login(Aluno obj) throws Exception {
         Aluno a = this.alunoRepository.buscarAlunoPeloCpf(obj.getCpf());
         if (obj.getSenha().equals(a.getSenha())) {
             Aluno aluno = this.alunoRepository.buscarAlunoPeloCpf(obj.getCpf());
-            return aluno;
+            AlunoResponse alunoResponse = new AlunoResponse();
+            alunoResponse.setId(aluno.getId());
+            alunoResponse.setNome(aluno.getNome());
+            alunoResponse.setEmail(aluno.getEmail());
+            alunoResponse.setCpf(aluno.getCpf());
+            alunoResponse.setRg(aluno.getRg());
+            alunoResponse.setEndereco(aluno.getEndereco());
+            alunoResponse.setCurso(aluno.getCurso());
+            alunoResponse.setSaldo(aluno.getSaldo());
+            alunoResponse.setInstituicao(aluno.getInstituicao());
+            return alunoResponse;
         } else {
             throw new Exception("Senha invalida");
         }

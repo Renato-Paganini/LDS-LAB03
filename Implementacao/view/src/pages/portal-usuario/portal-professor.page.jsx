@@ -18,14 +18,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/generic-table/generic-table.component";
 import BasicModal from "../../components/modal-deposito/modal-deposito.component";
+import BasicModalAtualizarProfessor from "../../components/modal-editar-professor/modal-editar.component";
+
+import baseUrl from "../../configs/config";
 
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
   const [moedasDistribuidas, setMoedasDistribuidas] = useState([]);
   const [moedasRecebidas, setMoedasRecebidas] = useState([]);
+  const [professorData, setProfessorData] = useState(null);
 
   const [professor, setprofessor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenAtualizarProfessor, setModalOpenAtualizarProfessor] =
+    useState(false);
+
   const [objDeposito, setObjDeposito] = useState({
     idProfessor: "",
     idAluno: "",
@@ -114,6 +121,14 @@ const PortalProfessorPage = () => {
     fetchData();
   }, []);
 
+  const updateProfessor = async () => {
+    const { data } = await axios.get(
+      `${baseUrl}/professor/${professorData.id}`
+    );
+    setProfessorData(data);
+    localStorage.setItem("user", JSON.stringify(data));
+  };
+
   const handleDeposit = (aluno) => {
     const professor = JSON.parse(localStorage.getItem("user"));
     if (professor) {
@@ -131,24 +146,14 @@ const PortalProfessorPage = () => {
     }
   };
 
-  const headersTransacao = ["origem", "valor", "data"];
-  const dataTransacao = [
-    {
-      origem: "Professor A",
-      valor: 100,
-      data: "2023-10-22T10:30:00Z",
-    },
-    {
-      origem: "Professor B",
-      valor: 200,
-      data: "2023-10-21T14:45:00Z",
-    },
-    {
-      origem: "Professor C",
-      valor: 50,
-      data: "2023-10-20T16:15:00Z",
-    },
-  ];
+  const handleAtualizarProfessor = (professorAtualizar) => {
+    if (professorAtualizar) {
+      setModalOpenAtualizarProfessor(true);
+    } else {
+      console.error("Professor não está definido");
+    }
+  };
+
   return (
     <Box sx={{ margin: 5 }}>
       <Container
@@ -242,6 +247,12 @@ const PortalProfessorPage = () => {
                   </Typography>
                 </Box>
               </CardContent>
+              <Button
+                fullWidth
+                onClick={() => handleAtualizarProfessor(professor)}
+              >
+                Atualizar os dados
+              </Button>
             </Card>
 
             <Box
@@ -321,6 +332,11 @@ const PortalProfessorPage = () => {
       <BasicModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
+        objDeposito={objDeposito}
+      />
+      <BasicModalAtualizarProfessor
+        open={modalOpenAtualizarProfessor}
+        onClose={() => setModalOpenAtualizarProfessor(false)}
         objDeposito={objDeposito}
       />
     </Box>
