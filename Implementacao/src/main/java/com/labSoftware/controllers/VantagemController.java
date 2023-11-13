@@ -78,7 +78,6 @@ public class VantagemController {
          List<VantagemDTO> vantagemDTOs = vantagens.stream()
          .map(vantagem -> new VantagemDTO(
          vantagem.getId(),
-         vantagem.getFoto(),
          vantagem.getDescricao(),
          vantagem.getValor(),
          vantagem.getNome()))

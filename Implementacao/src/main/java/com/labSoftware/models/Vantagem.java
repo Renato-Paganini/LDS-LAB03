@@ -43,9 +43,6 @@ public class Vantagem {
     private Empresa empresa;
 
     @Column
-    private String foto;
-
-    @Column
     private String descricao;
 
     @Column

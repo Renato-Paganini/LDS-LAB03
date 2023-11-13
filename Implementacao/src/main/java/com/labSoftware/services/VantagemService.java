@@ -54,7 +54,6 @@ public class VantagemService {
         Vantagem v = findbyIdVantagem(obj.getId());
 
         v.setNome(obj.getNome());
-        v.setFoto(obj.getFoto());
         v.setDescricao(obj.getDescricao());
         if (obj.getEmpresa() != null) {
             Empresa e = this.empresaRepository.findById(obj.getEmpresa().getId()).orElse(null);

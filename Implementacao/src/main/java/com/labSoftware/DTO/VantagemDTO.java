@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class VantagemDTO {
     private Long id_empresa;
-    private String foto;
     private String descricao;
     private Double valor;
     private String nome;
