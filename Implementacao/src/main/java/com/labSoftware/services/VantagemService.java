@@ -3,6 +3,7 @@ package com.labSoftware.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.labSoftware.DTO.VantagemDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,14 +47,31 @@ public class VantagemService {
     }
 
     @Transactional
-    public Vantagem createVantagem(Vantagem obj) {
+    public Vantagem createVantagem(VantagemDTO vantagemDTO) {
+        Vantagem obj = new Vantagem();
         obj.setId(null);
-        Empresa e = this.empresaRepository.findById(obj.getEmpresa().getId()).orElse(null);
-        if (e == null) {
-            throw new RuntimeException("Empresa não encontrada");
+        obj.setDescricao(vantagemDTO.getDescricao());
+        obj.setValor(vantagemDTO.getValor());
+        obj.setNome(vantagemDTO.getNome());
+
+        Long empresaId = vantagemDTO.getId_empresa();
+
+        if (empresaId == null) {
+            throw new RuntimeException("O ID da empresa associada à vantagem não pode ser nulo");
         }
+
+        // Encontre a empresa no banco de dados
+        Empresa e = this.empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+
+        // Adiciona a nova vantagem à lista de vantagens da empresa
+        e.getListaVantagens().add(obj);
         obj.setEmpresa(e);
-        return this.vantagemRepository.save(obj);
+
+        // Salva a vantagem
+        Vantagem novaVantagem = this.vantagemRepository.save(obj);
+
+        return novaVantagem;
     }
 
     @Transactional

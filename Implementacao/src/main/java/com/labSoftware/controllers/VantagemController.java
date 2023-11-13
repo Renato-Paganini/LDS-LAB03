@@ -43,7 +43,7 @@ public class VantagemController {
 
     @PostMapping("/create")
     @Validated(CreateVantagem.class)
-    public ResponseEntity<Vantagem> createVantagem(@Valid @RequestBody Vantagem obj) {
+    public ResponseEntity<Vantagem> createVantagem(@Valid @RequestBody VantagemDTO obj) {
         Vantagem vantagem = vantagemService.createVantagem(obj);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(vantagem);
