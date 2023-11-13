@@ -58,31 +58,40 @@ public class VantagemController {
         return ResponseEntity.ok(vantagem);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVantagens(@PathVariable Long id) {
-        this.vantagemService.deleteVantagem(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteVantagens(@PathVariable Long id) {
+        try {
+            this.vantagemService.deleteVantagem(id);
+            return ResponseEntity.ok("Vantagem excluída com sucesso");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Vantagem>> findAllVantagens() {
-        List<Vantagem> obj = this.vantagemService.getAll();
-        return ResponseEntity.ok().body(obj);
+            List<Vantagem> obj = this.vantagemService.getAll();
+            if (obj.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(obj);
     }
 
     @GetMapping("/getByEmpresaId/{id}")
-    public ResponseEntity<List<Vantagem>> getVantagensByEmpresa(@PathVariable Long id) {
+    public ResponseEntity<List<VantagemDTO>> getVantagensByEmpresa(@PathVariable Long id) {
         List<Vantagem> vantagens = vantagemService.getAllByEmpresaId(id);
 
-         // Converte as entidades Vantagem em uma lista de objetos VantagemDTO.java
-         List<VantagemDTO> vantagemDTOs = vantagens.stream()
-         .map(vantagem -> new VantagemDTO(
-         vantagem.getId(),
-         vantagem.getDescricao(),
-         vantagem.getValor(),
-         vantagem.getNome()))
-         .collect(Collectors.toList());
+        if (vantagens.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        List<VantagemDTO> vantagemDTOs = vantagens.stream()
+                .map(vantagem -> new VantagemDTO(
+                        vantagem.getId(),
+                        vantagem.getDescricao(),
+                        vantagem.getValor(),
+                        vantagem.getNome()))
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(vantagens);
+        return ResponseEntity.ok(vantagemDTOs);
     }
 }

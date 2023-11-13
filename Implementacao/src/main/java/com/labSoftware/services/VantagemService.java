@@ -13,6 +13,8 @@ import com.labSoftware.repositories.VantagemRepository;
 
 import jakarta.transaction.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class VantagemService {
 
@@ -34,8 +36,13 @@ public class VantagemService {
     }
 
     public List<Vantagem> getAllByEmpresaId(Long empresaId) {
-        List<Vantagem> lista = vantagemRepository.findAllByEmpresaId(empresaId);
-        return lista;
+        Empresa empresa = empresaRepository.findById(empresaId).orElse(null);
+
+        if (empresa == null) {
+            throw new EntityNotFoundException("Empresa com ID " + empresaId + " não encontrada");
+        }
+
+        return vantagemRepository.findAllByEmpresaId(empresaId);
     }
 
     @Transactional
@@ -67,9 +74,12 @@ public class VantagemService {
     }
 
     public void deleteVantagem(Long id) {
-        Vantagem v = findbyIdVantagem(id);
-
         try {
+            Vantagem v = findbyIdVantagem(id);
+
+            if (v == null) {
+                throw new EntityNotFoundException("Vantagem com ID " + id + " não encontrada");
+            }
             this.vantagemRepository.deleteById(v.getId());
         } catch (Exception exception) {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!");
