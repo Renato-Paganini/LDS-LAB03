@@ -20,13 +20,10 @@ import GenericTable from "../../components/generic-table/generic-table.component
 import BasicModal from "../../components/modal-deposito/modal-deposito.component";
 import BasicModalAtualizarProfessor from "../../components/modal-editar-professor/modal-editar.component";
 
-import baseUrl from "../../configs/config";
-
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
   const [moedasDistribuidas, setMoedasDistribuidas] = useState([]);
   const [moedasRecebidas, setMoedasRecebidas] = useState([]);
-  const [professorData, setProfessorData] = useState(null);
 
   const [professor, setprofessor] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -37,6 +34,14 @@ const PortalProfessorPage = () => {
     idProfessor: "",
     idAluno: "",
     nomeAluno: "",
+  });
+
+  const [objetoAtualizarProfessor, setAtualizarProfessor] = useState({
+    idProfessor: "",
+    nome: "",
+    senha: "",
+    email: "",
+    departamento: "",
   });
 
   function formatarData(date) {
@@ -121,14 +126,6 @@ const PortalProfessorPage = () => {
     fetchData();
   }, []);
 
-  const updateProfessor = async () => {
-    const { data } = await axios.get(
-      `${baseUrl}/professor/${professorData.id}`
-    );
-    setProfessorData(data);
-    localStorage.setItem("user", JSON.stringify(data));
-  };
-
   const handleDeposit = (aluno) => {
     const professor = JSON.parse(localStorage.getItem("user"));
     if (professor) {
@@ -148,6 +145,13 @@ const PortalProfessorPage = () => {
 
   const handleAtualizarProfessor = (professorAtualizar) => {
     if (professorAtualizar) {
+      setAtualizarProfessor({
+        idProfessor: professorAtualizar.id,
+        nome: professorAtualizar.nome,
+        senha: professorAtualizar.senha,
+        email: professorAtualizar.email,
+        departamento: professorAtualizar.departamento,
+      });
       setModalOpenAtualizarProfessor(true);
     } else {
       console.error("Professor não está definido");
@@ -337,7 +341,7 @@ const PortalProfessorPage = () => {
       <BasicModalAtualizarProfessor
         open={modalOpenAtualizarProfessor}
         onClose={() => setModalOpenAtualizarProfessor(false)}
-        objDeposito={objDeposito}
+        objAtualizarProfessor={objetoAtualizarProfessor}
       />
     </Box>
   );
