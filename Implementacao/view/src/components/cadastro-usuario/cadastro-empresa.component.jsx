@@ -1,6 +1,7 @@
+import { Box, Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import baseUrl from "../../configs/config";
 
 const initForm = {
   nome: "",
@@ -37,7 +38,7 @@ const CadastroEmpresaComponent = () => {
       body: JSON.stringify(formData),
     };
 
-    const url = "http://localhost:7070/empresa/create";
+    const url = `${baseUrl}/empresa/create`;
 
     fetch(url, requestOptions)
       .then((response) => response.json())

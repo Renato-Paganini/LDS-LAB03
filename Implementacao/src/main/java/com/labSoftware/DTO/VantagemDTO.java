@@ -1,9 +1,13 @@
 package com.labSoftware.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
 
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,5 +20,3 @@ public class VantagemDTO {
     private Double valor;
     private String nome;
 }
-
-

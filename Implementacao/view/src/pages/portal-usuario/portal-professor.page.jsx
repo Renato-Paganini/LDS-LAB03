@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/generic-table/generic-table.component";
 import BasicModal from "../../components/modal-deposito/modal-deposito.component";
 import BasicModalAtualizarProfessor from "../../components/modal-editar-professor/modal-editar.component";
+import baseUrl from "../../configs/config";
 
 const PortalProfessorPage = () => {
   const [getAllAlunosbyIdProfessor, setListaDeAlunos] = useState([]);
@@ -84,7 +85,7 @@ const PortalProfessorPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7070/aluno/getAll/${professor.cpf}`
+          `${baseUrl}/aluno/getAll/${professor.cpf}`
         );
         setListaDeAlunos(
           response.data.map((aluno) => ({
@@ -106,7 +107,7 @@ const PortalProfessorPage = () => {
         );
 
         const responseMoedasDistribuidas = await axios.get(
-          `http://localhost:7070/transacao/retornaTodosDepositos/professor/${professor.id}`
+          `${baseUrl}/transacao/retornaTodosDepositos/professor/${professor.id}`
         );
         const moedasDistribuidasData = responseMoedasDistribuidas.data.map(
           (item) => ({

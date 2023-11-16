@@ -1,9 +1,7 @@
 package com.labSoftware.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.labSoftware.DTO.VantagemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.labSoftware.DTO.VantagemDTO;
 import com.labSoftware.models.Vantagem;
 import com.labSoftware.models.Vantagem.CreateVantagem;
 import com.labSoftware.models.Vantagem.UpdateVantagem;
@@ -72,11 +71,11 @@ public class VantagemController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Vantagem>> findAllVantagens() {
-            List<Vantagem> obj = this.vantagemService.getAll();
-            if (obj.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(obj);
+        List<Vantagem> obj = this.vantagemService.getAll();
+        if (obj.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(obj);
     }
 
     @GetMapping("/getByEmpresaId/{id}")
@@ -87,12 +86,12 @@ public class VantagemController {
             return ResponseEntity.noContent().build();
         }
         // List<VantagemDTO> vantagemDTOs = vantagens.stream()
-        //         .map(vantagem -> new VantagemDTO(
-        //                 vantagem.getId(),
-        //                 vantagem.getDescricao(),
-        //                 vantagem.getValor(),
-        //                 vantagem.getNome()))
-        //         .collect(Collectors.toList());
+        // .map(vantagem -> new VantagemDTO(
+        // vantagem.getId(),
+        // vantagem.getDescricao(),
+        // vantagem.getValor(),
+        // vantagem.getNome()))
+        // .collect(Collectors.toList());
 
         return ResponseEntity.ok(vantagens);
     }

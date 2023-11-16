@@ -1,6 +1,7 @@
+import { Box, Button, MenuItem, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Box, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import baseUrl from "../../configs/config";
 
 const initForm = {
   nome: "",
@@ -47,7 +48,7 @@ const CadastroAlunoComponent = () => {
       body: JSON.stringify(formData),
     };
 
-    const url = "http://localhost:7070/aluno";
+    const url = `${baseUrl}/aluno`;
 
     fetch(url, requestOptions)
       .then((response) => response.json())
@@ -67,7 +68,7 @@ const CadastroAlunoComponent = () => {
   };
 
   const getAllUniversities = async () => {
-    const urlApi = "http://localhost:7070/instituicao/getAll";
+    const urlApi = `${baseUrl}/instituicao/getAll`;
 
     try {
       const response = await fetch(urlApi);

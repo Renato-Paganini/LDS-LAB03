@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import SavingsIcon from "@mui/icons-material/Savings";
+import SchoolIcon from "@mui/icons-material/School";
 import {
   Box,
-  Typography,
-  Grid,
-  Container,
   Button,
   Card,
   CardContent,
+  Container,
+  Grid,
   Icon,
-  CardActionArea,
+  Typography,
 } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PersonIcon from "@mui/icons-material/Person";
-import SchoolIcon from "@mui/icons-material/School";
-import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import SavingsIcon from "@mui/icons-material/Savings";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MediaCard from "../../components/card-aluno/MediaCard";
 import GenericTable from "../../components/generic-table/generic-table.component";
 import LoadingComponent from "../../components/loading/loading.component";
-import axios from "axios";
 import baseUrl from "../../configs/config";
-import MediaCard from "../../components/card-aluno/MediaCard";
 
 const PortalAlunoPage = () => {
   const [loading, setLoading] = useState(true);
@@ -61,7 +60,7 @@ const PortalAlunoPage = () => {
   useEffect(() => {
     async function fetchVantagem() {
       try {
-        const res = await fetch(`http://localhost:7070/vantagem/getAll`);
+        const res = await fetch(`${baseUrl}/vantagem/getAll`);
 
         if (!res.ok) {
           throw new Error(`Erro ao obter dados da vantagem: ${res.statusText}`);

@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from "react";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PersonIcon from "@mui/icons-material/Person";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import SavingsIcon from "@mui/icons-material/Savings";
 import BusinessIcon from "@mui/icons-material/Business";
-import { json, useNavigate } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import PersonIcon from "@mui/icons-material/Person";
+import SavingsIcon from "@mui/icons-material/Savings";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Box,
   Button,
-  Typography,
-  Modal,
-  TextField,
-  Container,
-  Grid,
   Card,
   CardContent,
+  Container,
+  Grid,
   Icon,
   IconButton,
+  Modal,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { brown, red } from "@mui/material/colors";
+import { brown } from "@mui/material/colors";
+import baseUrl from "../../configs/config";
 
 const style = {
   position: "absolute",
@@ -104,9 +105,7 @@ const PortalEmpresaPage = () => {
   useEffect(() => {
     async function fetchVantagem() {
       try {
-        const res = await fetch(
-          `http://localhost:7070/vantagem/getByEmpresaId/${userId}`
-        );
+        const res = await fetch(`${baseUrl}/vantagem/getByEmpresaId/${userId}`);
 
         if (!res.ok) {
           throw new Error(`Erro ao obter dados da vantagem: ${res.statusText}`);
@@ -131,7 +130,7 @@ const PortalEmpresaPage = () => {
   };
 
   function handleCreate() {
-    fetch("http://localhost:7070/vantagem/create", {
+    fetch(`${baseUrl}/vantagem/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -151,7 +150,7 @@ const PortalEmpresaPage = () => {
       });
   }
   function handleEdit(id) {
-    fetch(`http://localhost:7070/vantagem/update/${id}`, {
+    fetch(`${baseUrl}/vantagem/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -172,7 +171,7 @@ const PortalEmpresaPage = () => {
   }
 
   function handleDelete(id) {
-    fetch(`http://localhost:7070/vantagem/delete/${id}`, {
+    fetch(`${baseUrl}/vantagem/delete/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

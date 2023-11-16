@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  Button,
-  Modal,
-  Box,
-  TextField,
-  IconButton,
-} from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  IconButton,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import baseUrl from "../../configs/config";
 
 const style = {
   position: "absolute",
@@ -62,7 +63,7 @@ const MediaCard = ({ vantagem }) => {
   };
 
   const handleCreate = () => {
-    fetch("http://localhost:7070/transacao/resgate", {
+    fetch(`${baseUrl}/transacao/resgate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

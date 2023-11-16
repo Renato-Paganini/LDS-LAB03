@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import * as React from "react";
 import { useEffect, useState } from "react";
+import baseUrl from "../../configs/config";
 
 const theme = createTheme({
   components: {
@@ -96,7 +97,7 @@ export default function BasicModal({ open, onClose, objDeposito }) {
 
     // Realize a solicitação POST para a URL desejada
     axios
-      .post("http://localhost:7070/transacao/realizaDeposito", data)
+      .post(`${baseUrl}/transacao/realizaDeposito`, data)
       .then((response) => {
         console.log("Resposta da solicitação POST:", response.data);
         // Lide com a resposta, se necessário

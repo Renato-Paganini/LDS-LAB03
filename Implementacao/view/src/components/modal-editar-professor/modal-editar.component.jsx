@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import baseUrl from "../../configs/config";
 
 const theme = createTheme({
   components: {
@@ -90,7 +91,7 @@ export default function BasicModal({ open, onClose, objAtualizarProfessor }) {
     };
     axios
       .put(
-        `http://localhost:7070/professor/update/${dataToUpdate.id_professor}`,
+        `${baseUrl}/professor/update/${dataToUpdate.id_professor}`,
         dataToUpdate
       )
       .then((response) => {
