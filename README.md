@@ -117,3 +117,8 @@ Por fim, alunos, professores e empresas parceiras precisam ter um login e uma se
 
 ### Regatar vantagens
 ![Diagrama de sequencia: Regatar vantagens](./Projeto/resgatar.jpeg)
+
+
+## Diagrama de comunicação
+![Diagrama de comunicação](./Projeto/comunicacao.drawio.png)
+
