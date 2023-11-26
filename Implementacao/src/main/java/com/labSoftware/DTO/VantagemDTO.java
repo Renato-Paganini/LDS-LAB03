@@ -19,4 +19,5 @@ public class VantagemDTO {
     private String descricao;
     private Double valor;
     private String nome;
+    private String imagem;
 }

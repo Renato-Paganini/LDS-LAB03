@@ -48,4 +48,6 @@ public class Vantagem {
 
     @Column
     private String nome;
+
+    @Column String imagem;
 }

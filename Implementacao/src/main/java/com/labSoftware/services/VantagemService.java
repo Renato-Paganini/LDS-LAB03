@@ -53,6 +53,7 @@ public class VantagemService {
         obj.setDescricao(vantagemDTO.getDescricao());
         obj.setValor(vantagemDTO.getValor());
         obj.setNome(vantagemDTO.getNome());
+        obj.setImagem(vantagemDTO.getImagem());
 
         Long empresaId = vantagemDTO.getId_empresa();
 
@@ -84,6 +85,7 @@ public class VantagemService {
             v.setEmpresa(e);
         }
         v.setValor(obj.getValor());
+        v.setImagem((obj.getImagem()));
 
         if (v.getResgates() == null || v.getResgates().isEmpty()) {
             return this.vantagemRepository.save(v);
@@ -92,6 +94,7 @@ public class VantagemService {
             novaVantagem.setNome(v.getNome());
             novaVantagem.setDescricao(v.getDescricao());
             novaVantagem.setEmpresa(v.getEmpresa());
+            novaVantagem.setImagem(v.getImagem());
             novaVantagem.setValor(v.getValor());
 
             Vantagem vantagemSalva = this.vantagemRepository.save(novaVantagem);
