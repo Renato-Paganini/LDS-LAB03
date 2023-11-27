@@ -80,6 +80,7 @@ const PortalEmpresaPage = () => {
     id: "",
     nome: "",
     descricao: "",
+    imagem: "",
     valor: 0,
   });
   function handleOpenEdit(id) {
@@ -88,6 +89,7 @@ const PortalEmpresaPage = () => {
       id: vantagem.id,
       nome: vantagem.nome,
       descricao: vantagem.descricao,
+      imagem: vantagem.imagem,
       valor: vantagem.valor,
     });
     console.log(formValuesEdit);
@@ -100,6 +102,7 @@ const PortalEmpresaPage = () => {
     id_empresa: userId,
     nome: "",
     descricao: "",
+    imagem: "",
     valor: 0,
   });
   useEffect(() => {
@@ -141,6 +144,7 @@ const PortalEmpresaPage = () => {
         if (response.ok) {
           alert("Vantagem adicionada com sucesso.");
           setForceUpdate(!forceUpdate);
+          handleClose();
         } else {
           alert("Ocorreu um problema ao adicionar a vantagem.");
         }
@@ -161,6 +165,7 @@ const PortalEmpresaPage = () => {
         if (response.ok) {
           alert("Vantagem atualizada com sucesso.");
           setForceUpdate(!forceUpdate);
+          handleCloseEdit();
         } else {
           alert("Ocorreu um problema ao adicionar a vantagem.");
         }
@@ -404,6 +409,17 @@ const PortalEmpresaPage = () => {
               }}
               onChange={handleInputChange}
             />
+
+            <TextField
+              id="imagem"
+              label="imagem"
+              variant="outlined"
+              sx={{ mb: 2 }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={handleInputChange}
+            />
           </Typography>
           <Button onClick={handleCreate} variant="contained">
             Criar
@@ -457,6 +473,17 @@ const PortalEmpresaPage = () => {
               value={formValuesEdit.valor}
               sx={{ mb: 2 }}
               type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={handleInputChangeEdit}
+            />
+            <TextField
+              id="imagem"
+              label="imagem"
+              variant="outlined"
+              value={formValuesEdit.imagem}
+              sx={{ mb: 2 }}
               InputLabelProps={{
                 shrink: true,
               }}

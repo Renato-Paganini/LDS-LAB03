@@ -9,6 +9,7 @@ import {
   Modal,
   TextField,
   Typography,
+  CardMedia,
 } from "@mui/material";
 import React, { useState } from "react";
 import baseUrl from "../../configs/config";
@@ -40,7 +41,6 @@ const MediaCard = ({ vantagem }) => {
 
   const [formValues, setFormValues] = useState({
     id_vantagem: vantagem.id,
-    description: "",
     data: getCurrentDate(),
     id_aluno: userId,
   });
@@ -82,7 +82,6 @@ const MediaCard = ({ vantagem }) => {
       });
     setFormValues({
       id: vantagem.id,
-      description: "",
     });
     handleClose();
   };
@@ -105,7 +104,7 @@ const MediaCard = ({ vantagem }) => {
             <HighlightOffIcon sx={{ marginLeft: "auto" }} />
           </IconButton>
           <Typography variant="h4" component="h2">
-            Qual o motivo do resgate?
+            Deseja realmente resgatar essa vantagem?
           </Typography>
           <TextField
             id="userId"
@@ -123,20 +122,17 @@ const MediaCard = ({ vantagem }) => {
             sx={{ mb: 2 }}
             value={selectedVantagemId}
           />
-          <TextField
-            id="description"
-            label="Descrição"
-            variant="outlined"
-            sx={{ mb: 2 }}
-            value={formValues.description}
-            onChange={handleInputChange}
-          />
           <Button onClick={handleCreate} variant="contained">
             Resgatar
           </Button>
         </Box>
       </Modal>
       <Card sx={{ maxWidth: 250 }}>
+        <CardMedia
+          component="img"
+          image={vantagem.imagem}
+          alt={vantagem.nome}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {vantagem.nome}
