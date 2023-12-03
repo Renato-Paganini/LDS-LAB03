@@ -26,6 +26,8 @@ public class DepositoService {
     private ProfessorRepository professorRepository;
     @Autowired
     private DepositoRepository depositoRepository;
+    @Autowired
+    private EmailSenderStructureService emailSenderStructureService;
 
     public ResponseEntity<?> realizaDeposito(Deposito deposito) {
 
@@ -53,6 +55,8 @@ public class DepositoService {
         professorRepository.saveAndFlush(professor);
         alunoRepository.saveAndFlush(aluno);
 
+        emailSenderStructureService.backGroudSenderDeposito(aluno, professor, deposito);
+        
         return ResponseEntity.ok(deposito);
 
     }

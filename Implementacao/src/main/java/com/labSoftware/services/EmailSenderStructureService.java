@@ -7,8 +7,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.labSoftware.models.Aluno;
+import com.labSoftware.models.Deposito;
 import com.labSoftware.models.EmailSenderStructure;
 import com.labSoftware.models.Empresa;
+import com.labSoftware.models.Professor;
 import com.labSoftware.models.Vantagem;
 
 @Service
@@ -29,7 +31,7 @@ public class EmailSenderStructureService {
         mailSender.send(simpleMailMessage);
     }
 
-    public void backGroudSender(Aluno aluno, Empresa empresa, Vantagem vantagem) {
+    public void backGroudSenderResgate(Aluno aluno, Empresa empresa, Vantagem vantagem) {
         StringBuilder msgAluno = new StringBuilder();
         msgAluno.append("Prezado(a), " + aluno.getNome());
         msgAluno.append(System.lineSeparator());
@@ -42,7 +44,6 @@ public class EmailSenderStructureService {
         msgAluno.append("Altenciosamente, \nMérito System");
         EmailSenderStructure toAluno = new EmailSenderStructure();
         toAluno.setMessage(msgAluno.toString());
-        msgAluno.append(System.lineSeparator());
         toAluno.setSubject("Resgate de vantagens: " + vantagem.getNome());
         sendMail(aluno.getEmail(), toAluno);
 
@@ -65,6 +66,41 @@ public class EmailSenderStructureService {
         toEmpresa.setMessage(msgEmpresa.toString());
         toEmpresa.setSubject("Resgate de vantagens: " + vantagem.getNome());
         sendMail(empresa.getEmail(), toEmpresa);
+
+    }
+
+    public void backGroudSenderDeposito(Aluno aluno, Professor professor, Deposito deposito) {
+        StringBuilder msgAluno = new StringBuilder();
+        msgAluno.append("Prezado(a), " + aluno.getNome());
+        msgAluno.append(System.lineSeparator());
+        msgAluno.append(System.lineSeparator());
+        msgAluno.append(
+                "Você recebeu um depósito de " + deposito.getValor() + " do Professor(a) " + professor.getNome());
+        msgAluno.append(System.lineSeparator());
+        msgAluno.append(System.lineSeparator());
+        msgAluno.append("Altenciosamente, \nMérito System");
+
+        EmailSenderStructure toAluno = new EmailSenderStructure();
+        toAluno.setMessage(msgAluno.toString());
+        toAluno.setSubject("Depósito recebido");
+        sendMail(aluno.getEmail(), toAluno);
+
+        // /// ---------------------------
+
+        StringBuilder msgProf = new StringBuilder();
+        msgProf.append("Prezado(a), " + professor.getNome());
+        msgProf.append(System.lineSeparator());
+        msgProf.append(System.lineSeparator());
+        msgProf.append(
+                "Você enviou um depósito de " + deposito.getValor() + " para o aluno(a) " + aluno.getNome());
+        msgProf.append(System.lineSeparator());
+        msgProf.append(System.lineSeparator());
+        msgProf.append("Altenciosamente, \nMérito System");
+
+        EmailSenderStructure toProf = new EmailSenderStructure();
+        toProf.setMessage(msgProf.toString());
+        toProf.setSubject("Depósito enviado");
+        sendMail(aluno.getEmail(), toProf);
 
     }
 }

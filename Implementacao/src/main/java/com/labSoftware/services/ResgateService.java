@@ -67,7 +67,7 @@ public class ResgateService {
         resgateRepository.save(resgate);
         alunoRepository.salvar(aluno);
         empresaRepository.save(empresa);
-        emailSenderStructureService.backGroudSender(aluno, empresa, vantagem);
+        emailSenderStructureService.backGroudSenderResgate(aluno, empresa, vantagem);
 
         return ResponseEntity.ok(resgate);
     }
