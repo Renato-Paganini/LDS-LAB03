@@ -101,6 +101,8 @@ export default function BasicModal({ open, onClose, objDeposito }) {
       .then((response) => {
         console.log("Resposta da solicitação POST:", response.data);
         // Lide com a resposta, se necessário
+        atualizarSaldoProfessor();
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Erro na solicitação POST:", error);
@@ -108,6 +110,13 @@ export default function BasicModal({ open, onClose, objDeposito }) {
       });
 
     onClose();
+  };
+
+  const atualizarSaldoProfessor = async () => {
+    const profId = JSON.parse(localStorage.getItem("user")).id;
+    const { data } = await axios.get(`${baseUrl}/professor/${profId}`);
+    localStorage.setItem("user", JSON.stringify(data));
+
   };
 
   return (

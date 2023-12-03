@@ -260,29 +260,7 @@ const PortalProfessorPage = () => {
               </Button>
             </Card>
 
-            <Box
-              sx={{
-                maxHeight: "100%",
-                minHeight: "300px",
-                marginTop: "10px",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                padding: 2,
-                overflowY: "auto",
-              }}
-            >
-              {moedasRecebidas.length > 0 ? (
-                <Box>
-                  {" "}
-                  <Typography>Moedas recebidas</Typography>
-                  <GenericTable
-                    headers={headersTransacao}
-                    data={dataTransacao}
-                  />
-                </Box>
-              ) : (
-                <Typography>Sem extrato</Typography>
-              )}
-            </Box>
+
             <Box
               sx={{
                 maxHeight: "100%",

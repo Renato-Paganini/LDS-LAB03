@@ -31,7 +31,7 @@ public class ResgateController {
         return resgateService.retornaResgates();
     }
 
-    @GetMapping("/retornaTodosResgate/{id}")
+    @GetMapping("/retornaTodosResgates/{id}")
     public ResponseEntity<?> retornaTodasTransacoesAluno(@PathVariable Long id) {
 
         return resgateService.retornaTodosResgates(id);

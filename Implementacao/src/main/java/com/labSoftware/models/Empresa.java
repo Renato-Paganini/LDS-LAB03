@@ -18,8 +18,8 @@ import lombok.ToString;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 @ToString
 public class Empresa {
 
@@ -49,7 +49,7 @@ public class Empresa {
     private String senha;
 
     @Column(name = "saldo")
-    private String saldo;
+    private Double saldo;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private List<Vantagem> listaVantagens;

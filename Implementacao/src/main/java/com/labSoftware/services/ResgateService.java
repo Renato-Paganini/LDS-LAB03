@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.labSoftware.DTO.ResgateDTO;
 import com.labSoftware.models.Aluno;
+import com.labSoftware.models.Empresa;
 import com.labSoftware.models.Resgate;
 import com.labSoftware.models.Vantagem;
 import com.labSoftware.repositories.AlunoRepository;
+import com.labSoftware.repositories.EmpresaRepository;
 import com.labSoftware.repositories.ResgateRepository;
 
 @Service
@@ -25,10 +27,17 @@ public class ResgateService {
     private AlunoRepository alunoRepository;
     @Autowired
     private VantagemService vantagemService;
+    @Autowired
+    private EmpresaService empresaService;
+    @Autowired
+    private EmailSenderStructureService emailSenderStructureService;
+    @Autowired
+    private EmpresaRepository empresaRepository;
 
     public ResponseEntity<?> realizaTransacaoAluno(ResgateDTO resgateDTO) {
-        Aluno aluno = alunoService.findbyIdAluno(resgateDTO.getId_aluno());
         Vantagem vantagem = vantagemService.findbyIdVantagem(resgateDTO.getId_vantagem());
+        Aluno aluno = alunoService.findbyIdAluno(resgateDTO.getId_aluno());
+        Empresa empresa = empresaService.findbyIdEmpresa(vantagem.getEmpresa().getId());
 
         if (aluno == null || vantagem == null) {
             return new ResponseEntity<>("Vantagem ou Aluno não existem", HttpStatusCode.valueOf(400));
@@ -41,7 +50,10 @@ public class ResgateService {
             return new ResponseEntity<>("Aluno não possui crédito suficiente", HttpStatusCode.valueOf(400));
         }
 
+        double cresitosEmpresa = empresa.getSaldo();
+
         aluno.setSaldo((creditosAluno - creditosVantagem));
+        empresa.setSaldo(cresitosEmpresa + creditosVantagem);
 
         Resgate resgate = new Resgate();
         resgate.setDescription(resgateDTO.getDescription());
@@ -54,6 +66,8 @@ public class ResgateService {
 
         resgateRepository.save(resgate);
         alunoRepository.salvar(aluno);
+        empresaRepository.save(empresa);
+        emailSenderStructureService.backGroudSender(aluno, empresa, vantagem);
 
         return ResponseEntity.ok(resgate);
     }

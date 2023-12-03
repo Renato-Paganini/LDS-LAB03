@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import baseUrl from "../../configs/config";
+import LoadingComponent from "../loading/loading.component";
 
 const style = {
   position: "absolute",
@@ -25,6 +26,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+import axios from "axios";
 
 const MediaCard = ({ vantagem }) => {
   const userString = localStorage.getItem("user");
@@ -38,11 +40,13 @@ const MediaCard = ({ vantagem }) => {
     const day = `${now.getDate()}`.padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
+  const [loading, setLoading] = useState(false);
 
   const [formValues, setFormValues] = useState({
     id_vantagem: vantagem.id,
     data: getCurrentDate(),
     id_aluno: userId,
+    description: vantagem.descricao,
   });
   const [selectedVantagemId, setSelectedVantagemId] = useState(null);
 
@@ -52,6 +56,7 @@ const MediaCard = ({ vantagem }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -63,6 +68,7 @@ const MediaCard = ({ vantagem }) => {
   };
 
   const handleCreate = () => {
+    setLoading(true);
     fetch(`${baseUrl}/transacao/resgate`, {
       method: "POST",
       headers: {
@@ -73,8 +79,11 @@ const MediaCard = ({ vantagem }) => {
       .then((response) => {
         if (response.ok) {
           alert("Vantagem resgatada com sucesso.");
+          atualizarAuno();
         } else {
           alert("Ocorreu um problema ao resgatar a vantagem.");
+
+          window.location.reload();
         }
       })
       .catch((error) => {
@@ -84,6 +93,13 @@ const MediaCard = ({ vantagem }) => {
       id: vantagem.id,
     });
     handleClose();
+  };
+
+  const atualizarAuno = async () => {
+    const alunoId = JSON.parse(localStorage.getItem("user")).id;
+    const { data } = await axios.get(`${baseUrl}/aluno/${alunoId}`);
+    localStorage.setItem("user", JSON.stringify(data));
+    window.location.reload();
   };
 
   const handleClick = () => {
@@ -99,33 +115,37 @@ const MediaCard = ({ vantagem }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <IconButton color="primary" onClick={handleClose}>
-            <HighlightOffIcon sx={{ marginLeft: "auto" }} />
-          </IconButton>
-          <Typography variant="h4" component="h2">
-            Deseja realmente resgatar essa vantagem?
-          </Typography>
-          <TextField
-            id="userId"
-            label="UserID"
-            variant="outlined"
-            disabled
-            sx={{ mb: 2 }}
-            value={userId}
-          />
-          <TextField
-            id="vantagemId"
-            label="VantagemID"
-            variant="outlined"
-            disabled
-            sx={{ mb: 2 }}
-            value={selectedVantagemId}
-          />
-          <Button onClick={handleCreate} variant="contained">
-            Resgatar
-          </Button>
-        </Box>
+        {loading ? (
+          <LoadingComponent />
+        ) : (
+          <Box sx={style}>
+            <IconButton color="primary" onClick={handleClose}>
+              <HighlightOffIcon sx={{ marginLeft: "auto" }} />
+            </IconButton>
+            <Typography variant="h4" component="h2">
+              Deseja realmente resgatar essa vantagem?
+            </Typography>
+            <TextField
+              id="userId"
+              label="UserID"
+              variant="outlined"
+              disabled
+              sx={{ mb: 2 }}
+              value={userId}
+            />
+            <TextField
+              id="vantagemId"
+              label="VantagemID"
+              variant="outlined"
+              disabled
+              sx={{ mb: 2 }}
+              value={selectedVantagemId}
+            />
+            <Button onClick={handleCreate} variant="contained">
+              Resgatar
+            </Button>
+          </Box>
+        )}
       </Modal>
       <Card sx={{ maxWidth: 250 }}>
         <CardMedia
@@ -145,7 +165,7 @@ const MediaCard = ({ vantagem }) => {
             Descrição: {vantagem.descricao}
           </Typography>
           <Typography variant="body3" color="text.secondary">
-            R$: {vantagem.valor}
+            Moedas: {vantagem.valor}
           </Typography>
         </CardContent>
         <CardActions>

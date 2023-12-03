@@ -18,11 +18,11 @@ public class EmailSenderStructureController {
     private EmailSenderStructureService emailService;
 
     @PostMapping("/send/{mail}")
-    public String sendMail(@PathVariable String mail, @RequestBody EmailSenderStructure emailStructure) {
+    public String sendMail(@PathVariable String mail, @ RequestBody EmailSenderStructure emailStructure) {
 
         emailService.sendMail(mail, emailStructure);
 
-        return "E-nail enviado com sucesso!";
+        return "E-mail enviado com sucesso!";
 
     }
 }

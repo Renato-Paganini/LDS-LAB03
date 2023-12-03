@@ -25,24 +25,10 @@ const PortalAlunoPage = () => {
   const [loading, setLoading] = useState(true);
   const [alunoData, setAlunoData] = useState(null);
   const [headersTransacao, setHeadersTransacao] = useState([]);
+  const [headersResgate, setHeadersResgate] = useState([]);
   const [vantagemData, setVantagemData] = useState(null);
-  const [dataTransacao, setDataTransacao] = useState([
-    {
-      origem: "Professor A",
-      valor: 100,
-      data: "2023-10-22T10:30:00Z",
-    },
-    {
-      origem: "Professor B",
-      valor: 200,
-      data: "2023-10-21T14:45:00Z",
-    },
-    {
-      origem: "Professor C",
-      valor: 50,
-      data: "2023-10-20T16:15:00Z",
-    },
-  ]);
+  const [dataTransacao, setDataTransacao] = useState([]);
+  const [dataResgate, setDataResgate] = useState([]);
   const nav = useNavigate();
 
   const handleLogOut = () => {
@@ -54,6 +40,7 @@ const PortalAlunoPage = () => {
     const aluno = JSON.parse(localStorage.getItem("user"));
     setAlunoData(aluno);
     getExtratoDepositos(aluno.id);
+    getExtratoResgates(aluno.id);
     setLoading(false);
   }, []);
 
@@ -95,6 +82,27 @@ const PortalAlunoPage = () => {
     });
 
     setDataTransacao(finalData);
+  };
+
+  const getExtratoResgates = async (id) => {
+    const { data } = await axios.get(
+      `${baseUrl}/transacao/retornaTodosResgates/${id}`
+    );
+    const headersKeys = Object.keys(data[0]);
+    setHeadersResgate(headersKeys);
+    console.log(data)
+
+    const finalData = data.map((obj) => {
+      return {
+        id: obj.id,
+        description: obj.description,
+        valor: obj.valor,
+        aluno: obj.aluno.nome,
+        data: `${obj.data[2]}/${obj.data[1]}/${obj.data[0]}`,
+      };
+    });
+
+    setDataResgate(finalData);
   };
 
   const updateAluno = async () => {
@@ -229,13 +237,14 @@ const PortalAlunoPage = () => {
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                 padding: 2,
                 overflowY: "auto",
+                overflow: "auto",
               }}
             >
               <Typography>Extrato de consumo de vantagens</Typography>
+              <GenericTable headers={headersResgate} data={dataResgate} />
             </Box>
           </Grid>
         )}
-        {/* Este código deve ser substituido por um componente */}
         <Grid item xs={8}>
           <Box
             sx={{
