@@ -13,16 +13,15 @@ import com.labSoftware.services.EmailSenderStructureService;
 @RestController
 @RequestMapping("/mail")
 public class EmailSenderStructureController {
-
     @Autowired
     private EmailSenderStructureService emailService;
-
     @PostMapping("/send/{mail}")
-    public String sendMail(@PathVariable String mail, @ RequestBody EmailSenderStructure emailStructure) {
-
-        emailService.sendMail(mail, emailStructure);
-
-        return "E-mail enviado com sucesso!";
-
+    public String sendMail(@PathVariable String mail, @RequestBody EmailSenderStructure emailStructure) {
+        try {
+            emailService.sendMail(mail, emailStructure);
+            return "E-mail enviado com sucesso!";
+        } catch (Exception e) {
+            return "Erro ao enviar e-mail: " + e.getMessage();
+        }
     }
 }
