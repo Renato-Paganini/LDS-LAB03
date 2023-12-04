@@ -30,11 +30,13 @@ public class ProfessorController {
     ProfessorService professorService;
 
     @GetMapping("{id}")
-    public ResponseEntity<Professor> findbyIdProfessor(@PathVariable Long id) {
+    public ResponseEntity<Professor> findByIdProfessor(@PathVariable Long id) {
         try {
-            return new ResponseEntity<Professor>(this.professorService.findByIdProfessor(id), HttpStatus.OK);
+            return new ResponseEntity<>(professorService.findByIdProfessor(id), HttpStatus.OK);
         } catch (Exception e) {
-            return null;
+            // Adição de uma mensagem de log para registrar a exceção
+            log.error("Erro ao buscar professor por ID: {}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
